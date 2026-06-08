@@ -442,12 +442,10 @@ async function getProducts() {
 async function upsertProduct(data) {
   return await sbFetch('products', {
     method: 'POST',
-    prefer: 'resolution=merge-duplicates',
-    headers: { 'Prefer': 'resolution=merge-duplicates,return=representation' },
+    prefer: 'resolution=merge-duplicates,return=representation',
     body: JSON.stringify(data)
   });
 }
-
 async function deleteProductById(id) {
   return await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {
     method: 'DELETE'
