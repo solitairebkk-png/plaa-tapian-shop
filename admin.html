@@ -197,6 +197,9 @@ tr:hover td{background:#fdfaf4}
     <div class="nav-item" onclick="showPage('products',this)">
       <span class="nav-icon">📦</span> 商品管理
     </div>
+    <div class="nav-item" onclick="showPage('news',this);loadNewsTable()">
+      <span class="nav-icon">📢</span> お知らせ管理
+    </div>
     <div class="sidebar-section">設定</div>
     <div class="nav-item" onclick="showPage('settings',this)">
       <span class="nav-icon">⚙️</span> 設定
@@ -266,6 +269,20 @@ tr:hover td{background:#fdfaf4}
         <div id="productTableWrap">
           <div class="loading"><span class="spinner"></span>読み込み中...</div>
         </div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="page" id="page-news">
+      <div class="page-header">
+        <div>
+          <div class="page-title">お知らせ管理</div>
+          <div class="page-sub">ECサイトに表示するお知らせを管理</div>
+        </div>
+        <button class="btn btn-primary" onclick="openNewsModal(null)">＋ お知らせを追加</button>
+      </div>
+      <div class="table-wrap">
+        <div id="newsTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
       </div>
     </div>
 
@@ -400,6 +417,49 @@ tr:hover td{background:#fdfaf4}
   </div>
 </div>
 
+<!-- お知らせモーダル -->
+<div class="modal-overlay" id="newsModal" onclick="handleNewsModalClick(event)">
+  <div class="modal" id="newsModalBox">
+    <div class="modal-header">
+      <h2 id="newsModalTitle">お知らせを追加</h2>
+      <button class="modal-close" onclick="closeNewsModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">タイトル *</label>
+        <input class="form-input" type="text" id="nTitle" placeholder="例: 新商品入荷しました！">
+      </div>
+      <div class="form-group">
+        <label class="form-label">本文（任意）</label>
+        <textarea class="form-textarea" id="nContent" placeholder="詳細内容（省略可）"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">リンクURL（任意）</label>
+        <input class="form-input" type="url" id="nLinkUrl" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">リンクテキスト</label>
+        <input class="form-input" type="text" id="nLinkText" placeholder="詳しくはこちら">
+      </div>
+      <div class="form-group">
+        <label class="form-label">表示順（小さい数字が上）</label>
+        <input class="form-input" type="number" id="nSortOrder" value="0" min="0">
+      </div>
+      <div class="form-group" style="display:flex;align-items:center;gap:12px">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px">
+          <input type="checkbox" id="nIsActive" checked style="width:18px;height:18px;accent-color:var(--gold)">
+          ECサイトに公開する
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger btn-sm" id="newsDeleteBtn" onclick="deleteNews()" style="margin-right:auto;display:none">🗑️ 削除</button>
+      <button class="btn btn-secondary" onclick="closeNewsModal()">キャンセル</button>
+      <button class="btn btn-primary" onclick="saveNews()">💾 保存する</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -417,16 +477,15 @@ const STORAGE_BUCKET = 'product-images';
 // SUPABASE HELPERS
 // ==========================================
 async function sbFetch(path, options = {}) {
-  const { prefer, headers: extraHeaders, ...fetchOptions } = options;
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     headers: {
       'apikey': SUPABASE_KEY,
       'Authorization': `Bearer ${SUPABASE_KEY}`,
       'Content-Type': 'application/json',
-      ...(prefer ? {'Prefer': prefer} : {}),
-      ...(extraHeaders || {})
+      'Prefer': options.prefer || '',
+      ...options.headers
     },
-    ...fetchOptions
+    ...options
   });
   if (!res.ok) {
     const err = await res.text();
@@ -435,6 +494,7 @@ async function sbFetch(path, options = {}) {
   const text = await res.text();
   return text ? JSON.parse(text) : null;
 }
+
 async function getProducts() {
   return await sbFetch('products?order=id.asc&select=*');
 }
@@ -442,10 +502,12 @@ async function getProducts() {
 async function upsertProduct(data) {
   return await sbFetch('products', {
     method: 'POST',
-    prefer: 'resolution=merge-duplicates,return=representation',
+    prefer: 'resolution=merge-duplicates',
+    headers: { 'Prefer': 'resolution=merge-duplicates,return=representation' },
     body: JSON.stringify(data)
   });
 }
+
 async function deleteProductById(id) {
   return await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {
     method: 'DELETE'
@@ -819,6 +881,130 @@ function showToast(msg, type = '') {
   t.className = `toast ${type} show`;
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ==========================================
+// NEWS
+// ==========================================
+let editingNews = null;
+let allNews = [];
+
+async function loadNewsTable() {
+  document.getElementById('newsTableWrap').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
+  try {
+    const data = await sbFetch('news?order=sort_order.asc,created_at.desc&select=*');
+    allNews = data || [];
+    if (allNews.length === 0) {
+      document.getElementById('newsTableWrap').innerHTML = '<div class="loading">お知らせはありません</div>';
+      return;
+    }
+    document.getElementById('newsTableWrap').innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>本文</th>
+            <th>リンク</th>
+            <th>表示順</th>
+            <th>状態</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${allNews.map(n => `
+          <tr>
+            <td><strong>${n.title}</strong></td>
+            <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--muted)">${n.content || '—'}</td>
+            <td>${n.link_url ? `<a href="${n.link_url}" target="_blank" style="color:var(--gold);font-size:12px">${n.link_text || 'リンクあり'}</a>` : '—'}</td>
+            <td>${n.sort_order}</td>
+            <td><span class="status-badge ${n.is_active ? 'status-active' : 'status-inactive'}">${n.is_active ? '公開中' : '非公開'}</span></td>
+            <td><button class="btn btn-secondary btn-sm" onclick="openNewsModal('${n.id}')">✏️ 編集</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+  } catch(e) {
+    document.getElementById('newsTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>';
+  }
+}
+
+function openNewsModal(id) {
+  editingNews = id ? allNews.find(n => n.id === id) : null;
+  document.getElementById('newsModalTitle').textContent = editingNews ? 'お知らせを編集' : 'お知らせを追加';
+  document.getElementById('newsDeleteBtn').style.display = editingNews ? 'inline-flex' : 'none';
+  if (editingNews) {
+    document.getElementById('nTitle').value = editingNews.title || '';
+    document.getElementById('nContent').value = editingNews.content || '';
+    document.getElementById('nLinkUrl').value = editingNews.link_url || '';
+    document.getElementById('nLinkText').value = editingNews.link_text || '';
+    document.getElementById('nSortOrder').value = editingNews.sort_order || 0;
+    document.getElementById('nIsActive').checked = editingNews.is_active !== false;
+  } else {
+    document.getElementById('nTitle').value = '';
+    document.getElementById('nContent').value = '';
+    document.getElementById('nLinkUrl').value = '';
+    document.getElementById('nLinkText').value = '';
+    document.getElementById('nSortOrder').value = '0';
+    document.getElementById('nIsActive').checked = true;
+  }
+  document.getElementById('newsModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeNewsModal() {
+  document.getElementById('newsModal').classList.remove('active');
+  document.body.style.overflow = '';
+  editingNews = null;
+}
+
+function handleNewsModalClick(e) {
+  if (e.target === document.getElementById('newsModal')) closeNewsModal();
+}
+
+async function saveNews() {
+  const title = document.getElementById('nTitle').value.trim();
+  if (!title) { showToast('タイトルは必須です', 'error'); return; }
+  const data = {
+    title,
+    content: document.getElementById('nContent').value.trim() || null,
+    link_url: document.getElementById('nLinkUrl').value.trim() || null,
+    link_text: document.getElementById('nLinkText').value.trim() || null,
+    sort_order: parseInt(document.getElementById('nSortOrder').value) || 0,
+    is_active: document.getElementById('nIsActive').checked,
+    updated_at: new Date().toISOString()
+  };
+  try {
+    if (editingNews) {
+      await sbFetch(`news?id=eq.${editingNews.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(data)
+      });
+    } else {
+      await sbFetch('news', {
+        method: 'POST',
+        prefer: 'return=representation',
+        body: JSON.stringify(data)
+      });
+    }
+    showToast('保存しました ✓', 'success');
+    closeNewsModal();
+    await loadNewsTable();
+  } catch(e) {
+    showToast('保存に失敗しました', 'error');
+    console.error(e);
+  }
+}
+
+async function deleteNews() {
+  if (!editingNews) return;
+  if (!confirm(`「${editingNews.title}」を削除しますか？`)) return;
+  try {
+    await sbFetch(`news?id=eq.${editingNews.id}`, { method: 'DELETE' });
+    showToast('削除しました', 'success');
+    closeNewsModal();
+    await loadNewsTable();
+  } catch(e) {
+    showToast('削除に失敗しました', 'error');
+  }
 }
 
 // ==========================================

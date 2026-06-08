@@ -22,7 +22,9 @@
   --thai-saffron:#E07820;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;font-size:15px;line-height:1.6;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8922a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+body::before{content:'';position:fixed;inset:0;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/1779703855725.jpg');background-size:200px 200px;background-repeat:repeat;opacity:0.06;pointer-events:none;z-index:0}
+main,header,footer,.news-section{position:relative;z-index:1}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;font-size:15px;line-height:1.6;position:relative}
 
 /* ===== HEADER ===== */
 header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:100}
@@ -56,18 +58,50 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 .sec-sub{color:var(--muted);font-size:13px;margin-bottom:10px}
 .sec-line{width:44px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:24px}
 
-/* ===== CATEGORY BANNERS ===== */
-.cat-banners{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px}
-.cat-banner{height:120px;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;border:2px solid transparent;transition:border-color 0.2s;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png');background-size:200% 200%}
+/* ===== NEWS ===== */
+.news-section{background:#fff;border-left:4px solid var(--gold);margin:0 0 0 0;padding:20px 5%;border-bottom:1px solid var(--border)}
+.news-title{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.news-title::before{content:'';width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block}
+.news-list{display:flex;flex-direction:column;gap:0}
+.news-item{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid #f5f0e8;font-size:14px;line-height:1.6}
+.news-item:last-child{border-bottom:none}
+.news-date{color:var(--muted);font-size:12px;white-space:nowrap;flex-shrink:0;font-family:monospace}
+.news-text{color:var(--dark);flex:1}
+.news-text a{color:var(--gold);text-decoration:none}
+.news-text a:hover{text-decoration:underline}
+.news-empty{color:var(--muted);font-size:13px;padding:8px 0}
+
+/* ===== SHOP LAYOUT ===== */
+.shop-layout{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:start}
+
+/* ===== SIDEBAR ===== */
+.sidebar{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;position:sticky;top:80px}
+.sidebar-head{background:var(--thai-maroon);padding:12px 16px;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:13px;color:#fff;letter-spacing:1px}
+.cat-banner{cursor:pointer;position:relative;border-bottom:1px solid var(--border);transition:background 0.15s;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png');background-size:200% 200%;height:56px;overflow:hidden}
 .cat-banner.food{background-position:0% 0%}
 .cat-banner.zakka{background-position:100% 0%}
 .cat-banner.shokki{background-position:0% 100%}
 .cat-banner.acc{background-position:100% 100%}
-.cat-banner:hover{border-color:var(--gold)}
-.cat-banner.active{border-color:var(--gold)}
-.cat-banner-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(26,10,10,0.25);color:#fff;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;transition:background 0.2s;text-shadow:1px 1px 4px rgba(0,0,0,0.8)}
-.cat-banner:hover .cat-banner-label,.cat-banner.active .cat-banner-label{background:rgba(107,27,27,0.4)}
-@media(max-width:600px){.cat-banners{grid-template-columns:repeat(2,1fr)}.cat-banner{height:80px}.cat-banner-label{font-size:12px}}
+.cat-banner.kitchen{background:#f5f0e8}
+.cat-banner:last-child{border-bottom:none}
+.cat-banner:hover .cat-banner-label{background:rgba(107,27,27,0.55)}
+.cat-banner.active .cat-banner-label{background:rgba(107,27,27,0.65)}
+.cat-banner-label{position:absolute;inset:0;display:flex;align-items:center;padding:0 14px;background:rgba(26,10,10,0.35);color:#fff;font-size:13px;font-weight:700;letter-spacing:1px;transition:background 0.15s;text-shadow:1px 1px 3px rgba(0,0,0,0.8);gap:6px}
+.cat-all{background:var(--cream);height:44px}
+.cat-all .cat-banner-label{background:transparent;color:var(--dark);text-shadow:none}
+.cat-all:hover .cat-banner-label{background:rgba(200,146,42,0.15)}
+.cat-all.active .cat-banner-label{background:rgba(200,146,42,0.2);color:var(--gold)}
+
+/* ===== PRODUCT SECTION ===== */
+.shop-right{min-width:0}
+
+@media(max-width:700px){
+  .shop-layout{grid-template-columns:1fr}
+  .sidebar{position:static;display:flex;overflow-x:auto;border-radius:8px}
+  .sidebar-head{display:none}
+  .cat-banner{height:44px;min-width:100px;flex-shrink:0;border-bottom:none;border-right:1px solid var(--border)}
+  .cat-all{min-width:80px}
+}
 
 /* ===== CATEGORY FILTER ===== */
 .cat-bar{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin-bottom:28px;scrollbar-width:none}
@@ -76,7 +110,7 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 .cat-pill.active,.cat-pill:hover{background:var(--gold);border-color:var(--gold);color:#fff}
 
 /* ===== PRODUCT GRID ===== */
-.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;margin-bottom:48px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:48px}
 .product-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s;cursor:default}
 .product-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(44,24,16,0.13)}
 .product-thumb{height:165px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative}
@@ -267,6 +301,14 @@ footer a:hover{color:var(--gold)}
 <!-- 金装飾ボーダー -->
 <div class="hero-border"></div>
 
+<!-- お知らせ -->
+<section class="news-section">
+  <div class="news-title">お店からのお知らせ</div>
+  <div class="news-list" id="newsList">
+    <div class="news-empty">読み込み中...</div>
+  </div>
+</section>
+
 <!-- MAIN -->
 <main class="main">
 
@@ -276,33 +318,35 @@ footer a:hover{color:var(--gold)}
     <div class="sec-sub">バンコクから直送 — タイ厳選アルチザン商品</div>
     <div class="sec-line"></div>
 
-    <!-- カテゴリバナー -->
-    <div class="cat-banners">
-      <div class="cat-banner food" onclick="filterCatBanner('食品',this)">
-        <div class="cat-banner-label">🍜 食品・飲料</div>
-      </div>
-      <div class="cat-banner zakka" onclick="filterCatBanner('雑貨',this)">
-        <div class="cat-banner-label">🎁 雑貨</div>
-      </div>
-      <div class="cat-banner shokki" onclick="filterCatBanner('食器',this)">
-        <div class="cat-banner-label">🍽️ 食器</div>
-      </div>
-      <div class="cat-banner acc" onclick="filterCatBanner('アクセサリー',this)">
-        <div class="cat-banner-label">💎 アクセサリー</div>
-      </div>
-    </div>
-    <!-- カテゴリフィルター -->
-    <div class="cat-bar">
-      <button class="cat-pill active" onclick="filterCat('all',this)">🏪 すべて</button>
-      <button class="cat-pill" onclick="filterCat('食品',this)">食品</button>
-      <button class="cat-pill" onclick="filterCat('雑貨',this)">雑貨</button>
-      <button class="cat-pill" onclick="filterCat('食器',this)">食器</button>
-      <button class="cat-pill" onclick="filterCat('キッチン',this)">キッチン</button>
-      <button class="cat-pill" onclick="filterCat('アクセサリー',this)">アクセサリー</button>
-    </div>
+    <div class="shop-layout">
+      <!-- サイドバー（カテゴリ） -->
+      <nav class="sidebar">
+        <div class="sidebar-head">カテゴリ</div>
+        <div class="cat-banner cat-all active" onclick="filterCatBanner('all',this)">
+          <div class="cat-banner-label">🏪 すべて</div>
+        </div>
+        <div class="cat-banner food" onclick="filterCatBanner('食品',this)">
+          <div class="cat-banner-label">🍜 食品・飲料</div>
+        </div>
+        <div class="cat-banner zakka" onclick="filterCatBanner('雑貨',this)">
+          <div class="cat-banner-label">🎁 雑貨</div>
+        </div>
+        <div class="cat-banner shokki" onclick="filterCatBanner('食器',this)">
+          <div class="cat-banner-label">🍽️ 食器</div>
+        </div>
+        <div class="cat-banner kitchen" onclick="filterCatBanner('キッチン',this)">
+          <div class="cat-banner-label" style="color:var(--dark);text-shadow:none">🔪 キッチン</div>
+        </div>
+        <div class="cat-banner acc" onclick="filterCatBanner('アクセサリー',this)">
+          <div class="cat-banner-label">💎 アクセサリー</div>
+        </div>
+      </nav>
 
-    <!-- 商品グリッド -->
-    <div class="product-grid" id="productGrid"></div>
+      <!-- 商品グリッド -->
+      <div class="shop-right">
+        <div class="product-grid" id="productGrid"></div>
+      </div>
+    </div>
   </div>
 
   <!-- CART PANEL -->
@@ -607,10 +651,8 @@ function filterCat(cat, btn) {
 function filterCatBanner(cat, el) {
   currentCat = cat;
   document.querySelectorAll('.cat-banner').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   renderProducts();
-  document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ==========================================
@@ -1035,7 +1077,44 @@ document.addEventListener('keydown', e => {
 // ==========================================
 // INIT — Supabaseから商品を取得して表示
 // ==========================================
+// ==========================================
+// NEWS
+// ==========================================
+async function loadNews() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/news?select=*&is_active=eq.true&order=sort_order.asc,created_at.desc`,
+      {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+    const data = await res.json();
+    const list = document.getElementById('newsList');
+    if (!data || data.length === 0) {
+      list.innerHTML = '<div class="news-empty">現在お知らせはありません</div>';
+      return;
+    }
+    list.innerHTML = data.map(n => {
+      const date = new Date(n.created_at).toLocaleDateString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit'});
+      const linkHtml = n.link_url
+        ? ` <a href="${n.link_url}" target="_blank" rel="noopener">${n.link_text || '詳しくはこちら'} →</a>`
+        : '';
+      return `<div class="news-item">
+        <span class="news-date">${date}</span>
+        <span class="news-text">${n.title}${n.content ? '　' + n.content : ''}${linkHtml}</span>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    console.error('ニュース読み込みエラー', e);
+    document.getElementById('newsList').innerHTML = '<div class="news-empty">お知らせの読み込みに失敗しました</div>';
+  }
+}
+
 async function init() {
+  loadNews();
   document.getElementById('productGrid').innerHTML =
     '<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);font-size:15px">🐟 商品を読み込み中...</div>';
   try {
