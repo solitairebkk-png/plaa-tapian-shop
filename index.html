@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plaa Tapian ปลาตะเพียน — タイアルチザンショップ</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@600;700&family=Kosugi+Maru&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -17,29 +17,36 @@
   --muted:#8B7355;
   --border:#e8dcc8;
   --white:#ffffff;
+  --thai-navy:#1a2a4a;
+  --thai-maroon:#6B1B1B;
+  --thai-saffron:#E07820;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;font-size:15px;line-height:1.6}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;font-size:15px;line-height:1.6;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8922a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 
 /* ===== HEADER ===== */
-header{background:var(--dark);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-icon{font-size:28px}
-.logo-text{color:#fff;font-family:'Playfair Display',serif;font-size:20px;letter-spacing:1px}
-.logo-sub{color:var(--gold);font-size:10px;letter-spacing:3px;text-transform:uppercase;display:block;margin-top:-4px}
+header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{width:44px;height:44px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);flex-shrink:0;background:#fff}
+.logo-icon img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.logo-text{color:#fff;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:20px;letter-spacing:2px}
+.logo-sub{color:var(--gold);font-size:10px;letter-spacing:3px;text-transform:uppercase;display:block;margin-top:-3px}
 .cart-btn{background:var(--gold);color:#fff;border:none;border-radius:24px;padding:9px 20px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px;transition:background 0.2s}
 .cart-btn:hover{background:var(--gold-dark)}
 .cart-badge{background:var(--red);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;min-width:22px}
 
 /* ===== HERO ===== */
-.hero{background:linear-gradient(150deg,#2C1810 0%,#3d2215 50%,#1a3d2b 100%);padding:60px 5%;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'🌺';position:absolute;font-size:180px;opacity:0.05;right:-30px;top:-30px;pointer-events:none}
-.hero::after{content:'🐟';position:absolute;font-size:140px;opacity:0.05;left:-20px;bottom:-20px;pointer-events:none}
-.hero-badge{background:var(--gold);color:#fff;border-radius:20px;padding:5px 18px;font-size:12px;letter-spacing:2px;display:inline-block;margin-bottom:18px}
-.hero h1{color:#fff;font-family:'Playfair Display',serif;font-size:38px;margin-bottom:12px;line-height:1.25}
-.hero p{color:rgba(255,255,255,0.72);font-size:15px;margin-bottom:28px;line-height:1.8;max-width:520px;margin-left:auto;margin-right:auto}
+.hero{background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_ehr77wehr77wehr7.png');background-size:cover;background-position:center 30%;padding:80px 5%;text-align:center;position:relative;overflow:hidden;min-height:480px;display:flex;align-items:center;justify-content:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,10,10,0.55) 0%,rgba(26,10,10,0.72) 100%)}
+.hero-inner{position:relative;z-index:1;width:100%}
+.hero-badge{background:var(--gold);color:#fff;border-radius:0;padding:5px 20px;font-size:11px;letter-spacing:3px;display:inline-block;margin-bottom:20px;font-family:'Kosugi Maru',sans-serif}
+.hero h1{color:#fff;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:42px;margin-bottom:14px;line-height:1.3;text-shadow:2px 2px 8px rgba(0,0,0,0.5)}
+.hero-title-en{color:var(--gold);font-family:'Playfair Display',serif;font-size:16px;letter-spacing:6px;margin-bottom:16px;display:block}
+.hero p{color:rgba(255,255,255,0.85);font-size:15px;margin-bottom:28px;line-height:1.9;max-width:520px;margin-left:auto;margin-right:auto;text-shadow:1px 1px 4px rgba(0,0,0,0.4)}
+.hero-divider{width:80px;height:2px;background:var(--gold);margin:0 auto 20px;}
 .hero-features{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.hero-feature{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;color:rgba(255,255,255,0.82);font-size:13px;display:flex;align-items:center;gap:6px}
+.hero-feature{background:rgba(107,27,27,0.7);border:1px solid rgba(200,146,42,0.4);border-radius:4px;padding:8px 16px;color:rgba(255,255,255,0.9);font-size:13px;display:flex;align-items:center;gap:6px;backdrop-filter:blur(2px)}
+.hero-border{width:100%;height:50px;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_8p1tka8p1tka8p1t.png');background-size:auto 100%;background-repeat:repeat-x;background-position:bottom}
 
 /* ===== MAIN LAYOUT ===== */
 .main{padding:36px 5%}
@@ -48,6 +55,16 @@ header{background:var(--dark);padding:0 5%;display:flex;align-items:center;justi
 .sec-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--dark);margin-bottom:4px}
 .sec-sub{color:var(--muted);font-size:13px;margin-bottom:10px}
 .sec-line{width:44px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:24px}
+
+/* ===== CATEGORY BANNERS ===== */
+.cat-banners{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px}
+.cat-banner{height:100px;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;border:2px solid transparent;transition:border-color 0.2s}
+.cat-banner:hover{border-color:var(--gold)}
+.cat-banner.active{border-color:var(--gold)}
+.cat-banner img{width:100%;height:100%;object-fit:cover}
+.cat-banner-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(26,10,10,0.45);color:#fff;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;transition:background 0.2s}
+.cat-banner:hover .cat-banner-label,.cat-banner.active .cat-banner-label{background:rgba(107,27,27,0.6)}
+@media(max-width:600px){.cat-banners{grid-template-columns:repeat(2,1fr)}.cat-banner{height:72px}.cat-banner-label{font-size:12px}}
 
 /* ===== CATEGORY FILTER ===== */
 .cat-bar{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin-bottom:28px;scrollbar-width:none}
@@ -214,7 +231,9 @@ footer a:hover{color:var(--gold)}
 <!-- HEADER -->
 <header>
   <a class="logo" href="#top">
-    <span class="logo-icon">🐟</span>
+    <div class="logo-icon">
+      <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_8p1tka8p1tka8p1t.png" alt="Plaa Tapian logo" style="object-position:50% 15%">
+    </div>
     <div>
       <span class="logo-text">Plaa Tapian</span>
       <span class="logo-sub">ปลาตะเพียน</span>
@@ -227,16 +246,23 @@ footer a:hover{color:var(--gold)}
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-badge">🇹🇭 Bangkok → Japan</div>
-  <h1>タイの本物を、<br>あなたのもとへ。</h1>
-  <p>バンコク発。職人の手仕事と大地の恵み。<br>厳選したタイのアルチザン商品を日本へお届けします。</p>
-  <div class="hero-features">
-    <div class="hero-feature">✈️ 日本へ国際配送対応</div>
-    <div class="hero-feature">🏦 銀行振込払い</div>
-    <div class="hero-feature">📦 EMS・追跡番号あり</div>
-    <div class="hero-feature">🌿 OTOP認定商品多数</div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">🇹🇭 Bangkok → Japan</div>
+    <h1>タイの本物を、<br>あなたのもとへ。</h1>
+    <span class="hero-title-en">PLAA TAPIAN — Thai Artisan Shop</span>
+    <div class="hero-divider"></div>
+    <p>バンコク発。職人の手仕事と大地の恵み。<br>厳選したタイのアルチザン商品を日本へお届けします。</p>
+    <div class="hero-features">
+      <div class="hero-feature">✈️ 日本へ国際配送対応</div>
+      <div class="hero-feature">🏦 銀行振込払い</div>
+      <div class="hero-feature">📦 EMS・追跡番号あり</div>
+      <div class="hero-feature">🌿 OTOP認定商品多数</div>
+    </div>
   </div>
 </section>
+<!-- 金装飾ボーダー -->
+<div class="hero-border"></div>
 
 <!-- MAIN -->
 <main class="main">
@@ -247,14 +273,33 @@ footer a:hover{color:var(--gold)}
     <div class="sec-sub">バンコクから直送 — タイ厳選アルチザン商品</div>
     <div class="sec-line"></div>
 
+    <!-- カテゴリバナー -->
+    <div class="cat-banners">
+      <div class="cat-banner" onclick="filterCatBanner('食品',this)">
+        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:0% 0%" alt="食品">
+        <div class="cat-banner-label">🍜 食品・飲料</div>
+      </div>
+      <div class="cat-banner" onclick="filterCatBanner('雑貨',this)">
+        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:100% 0%" alt="雑貨">
+        <div class="cat-banner-label">🎁 雑貨</div>
+      </div>
+      <div class="cat-banner" onclick="filterCatBanner('食器',this)">
+        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:0% 100%" alt="食器">
+        <div class="cat-banner-label">🍽️ 食器</div>
+      </div>
+      <div class="cat-banner" onclick="filterCatBanner('アクセサリー',this)">
+        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:100% 100%" alt="アクセサリー">
+        <div class="cat-banner-label">💎 アクセサリー</div>
+      </div>
+    </div>
     <!-- カテゴリフィルター -->
     <div class="cat-bar">
       <button class="cat-pill active" onclick="filterCat('all',this)">🏪 すべて</button>
-      <button class="cat-pill" onclick="filterCat('食品',this)">🍜 食品・飲料</button>
-      <button class="cat-pill" onclick="filterCat('雑貨',this)">🎁 雑貨</button>
-      <button class="cat-pill" onclick="filterCat('食器',this)">🍽️ 食器</button>
-      <button class="cat-pill" onclick="filterCat('キッチン',this)">🔪 キッチン</button>
-      <button class="cat-pill" onclick="filterCat('アクセサリー',this)">💎 アクセサリー</button>
+      <button class="cat-pill" onclick="filterCat('食品',this)">食品</button>
+      <button class="cat-pill" onclick="filterCat('雑貨',this)">雑貨</button>
+      <button class="cat-pill" onclick="filterCat('食器',this)">食器</button>
+      <button class="cat-pill" onclick="filterCat('キッチン',this)">キッチン</button>
+      <button class="cat-pill" onclick="filterCat('アクセサリー',this)">アクセサリー</button>
     </div>
 
     <!-- 商品グリッド -->
@@ -433,10 +478,12 @@ footer a:hover{color:var(--gold)}
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <strong>Plaa Tapian ปลาตะเพียน</strong><br>
+<div style="width:100%;height:50px;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_8p1tka8p1tka8p1t.png');background-size:auto 100%;background-repeat:repeat-x;transform:scaleY(-1)"></div>
+<footer style="background:var(--thai-maroon);color:rgba(255,255,255,0.6);text-align:center;padding:28px 5%;font-size:13px;line-height:2.2;border-top:4px solid var(--gold)">
+  <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_8p1tka8p1tka8p1t.png" alt="logo" style="width:50px;height:50px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid var(--gold);margin-bottom:10px;display:block;margin-left:auto;margin-right:auto">
+  <strong style="color:var(--gold);font-family:'Kosugi Maru',sans-serif;font-size:16px;letter-spacing:2px">Plaa Tapian ปลาตะเพียน</strong><br>
   Bangkok, Thailand &nbsp;|&nbsp; 日本への国際配送対応<br>
-  お問い合わせ: <a href="mailto:info@plaatapian.com">info@plaatapian.com</a><br>
+  お問い合わせ: <a href="mailto:info@plaatapian.com" style="color:rgba(255,255,255,0.6)">info@plaatapian.com</a><br>
   <span style="font-size:11px;opacity:0.5">© 2026 Plaa Tapian. All rights reserved.</span>
 </footer>
 
@@ -557,6 +604,15 @@ function filterCat(cat, btn) {
   document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderProducts();
+}
+
+function filterCatBanner(cat, el) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-banner').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts();
+  document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ==========================================
