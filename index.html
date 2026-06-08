@@ -46,7 +46,7 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 .hero-divider{width:80px;height:2px;background:var(--gold);margin:0 auto 20px;}
 .hero-features{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .hero-feature{background:rgba(107,27,27,0.7);border:1px solid rgba(200,146,42,0.4);border-radius:4px;padding:8px 16px;color:rgba(255,255,255,0.9);font-size:13px;display:flex;align-items:center;gap:6px;backdrop-filter:blur(2px)}
-.hero-border{width:100%;height:50px;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_8p1tka8p1tka8p1t.png');background-size:auto 100%;background-repeat:repeat-x;background-position:bottom}
+.hero-border{width:100%;height:20px;background:linear-gradient(90deg,#6B1B1B 0%,#8B2020 20%,#C8922A 50%,#8B2020 80%,#6B1B1B 100%);border-top:2px solid #C8922A;border-bottom:2px solid #C8922A}
 
 /* ===== MAIN LAYOUT ===== */
 .main{padding:36px 5%}
@@ -58,13 +58,16 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 
 /* ===== CATEGORY BANNERS ===== */
 .cat-banners{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px}
-.cat-banner{height:100px;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;border:2px solid transparent;transition:border-color 0.2s}
+.cat-banner{height:120px;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;border:2px solid transparent;transition:border-color 0.2s;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png');background-size:200% 200%}
+.cat-banner.food{background-position:0% 0%}
+.cat-banner.zakka{background-position:100% 0%}
+.cat-banner.shokki{background-position:0% 100%}
+.cat-banner.acc{background-position:100% 100%}
 .cat-banner:hover{border-color:var(--gold)}
 .cat-banner.active{border-color:var(--gold)}
-.cat-banner img{width:100%;height:100%;object-fit:cover}
-.cat-banner-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(26,10,10,0.45);color:#fff;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;transition:background 0.2s}
-.cat-banner:hover .cat-banner-label,.cat-banner.active .cat-banner-label{background:rgba(107,27,27,0.6)}
-@media(max-width:600px){.cat-banners{grid-template-columns:repeat(2,1fr)}.cat-banner{height:72px}.cat-banner-label{font-size:12px}}
+.cat-banner-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(26,10,10,0.42);color:#fff;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;transition:background 0.2s}
+.cat-banner:hover .cat-banner-label,.cat-banner.active .cat-banner-label{background:rgba(107,27,27,0.58)}
+@media(max-width:600px){.cat-banners{grid-template-columns:repeat(2,1fr)}.cat-banner{height:80px}.cat-banner-label{font-size:12px}}
 
 /* ===== CATEGORY FILTER ===== */
 .cat-bar{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin-bottom:28px;scrollbar-width:none}
@@ -275,20 +278,16 @@ footer a:hover{color:var(--gold)}
 
     <!-- カテゴリバナー -->
     <div class="cat-banners">
-      <div class="cat-banner" onclick="filterCatBanner('食品',this)">
-        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:0% 0%" alt="食品">
+      <div class="cat-banner food" onclick="filterCatBanner('食品',this)">
         <div class="cat-banner-label">🍜 食品・飲料</div>
       </div>
-      <div class="cat-banner" onclick="filterCatBanner('雑貨',this)">
-        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:100% 0%" alt="雑貨">
+      <div class="cat-banner zakka" onclick="filterCatBanner('雑貨',this)">
         <div class="cat-banner-label">🎁 雑貨</div>
       </div>
-      <div class="cat-banner" onclick="filterCatBanner('食器',this)">
-        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:0% 100%" alt="食器">
+      <div class="cat-banner shokki" onclick="filterCatBanner('食器',this)">
         <div class="cat-banner-label">🍽️ 食器</div>
       </div>
-      <div class="cat-banner" onclick="filterCatBanner('アクセサリー',this)">
-        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_n34fh4n34fh4n34f.png" style="object-position:100% 100%" alt="アクセサリー">
+      <div class="cat-banner acc" onclick="filterCatBanner('アクセサリー',this)">
         <div class="cat-banner-label">💎 アクセサリー</div>
       </div>
     </div>
@@ -478,7 +477,6 @@ footer a:hover{color:var(--gold)}
 </div>
 
 <!-- FOOTER -->
-<div style="width:100%;height:50px;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_8p1tka8p1tka8p1t.png');background-size:auto 100%;background-repeat:repeat-x;transform:scaleY(-1)"></div>
 <footer style="background:var(--thai-maroon);color:rgba(255,255,255,0.6);text-align:center;padding:28px 5%;font-size:13px;line-height:2.2;border-top:4px solid var(--gold)">
   <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_8p1tka8p1tka8p1t.png" alt="logo" style="width:50px;height:50px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid var(--gold);margin-bottom:10px;display:block;margin-left:auto;margin-right:auto">
   <strong style="color:var(--gold);font-family:'Kosugi Maru',sans-serif;font-size:16px;letter-spacing:2px">Plaa Tapian ปลาตะเพียน</strong><br>
