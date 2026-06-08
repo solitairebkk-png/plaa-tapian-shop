@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plaa Tapian ปลาตะเพียน — タイアルチザンショップ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C8922A;
+  --gold-dark:#a87520;
+  --red:#B5451B;
+  --green:#2D6A4F;
+  --cream:#FDF6E3;
+  --dark:#2C1810;
+  --muted:#8B7355;
+  --border:#e8dcc8;
+  --white:#ffffff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;font-size:15px;line-height:1.6}
+
+/* ===== HEADER ===== */
+header{background:var(--dark);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{font-size:28px}
+.logo-text{color:#fff;font-family:'Playfair Display',serif;font-size:20px;letter-spacing:1px}
+.logo-sub{color:var(--gold);font-size:10px;letter-spacing:3px;text-transform:uppercase;display:block;margin-top:-4px}
+.cart-btn{background:var(--gold);color:#fff;border:none;border-radius:24px;padding:9px 20px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;gap:8px;transition:background 0.2s}
+.cart-btn:hover{background:var(--gold-dark)}
+.cart-badge{background:var(--red);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;min-width:22px}
+
+/* ===== HERO ===== */
+.hero{background:linear-gradient(150deg,#2C1810 0%,#3d2215 50%,#1a3d2b 100%);padding:60px 5%;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'🌺';position:absolute;font-size:180px;opacity:0.05;right:-30px;top:-30px;pointer-events:none}
+.hero::after{content:'🐟';position:absolute;font-size:140px;opacity:0.05;left:-20px;bottom:-20px;pointer-events:none}
+.hero-badge{background:var(--gold);color:#fff;border-radius:20px;padding:5px 18px;font-size:12px;letter-spacing:2px;display:inline-block;margin-bottom:18px}
+.hero h1{color:#fff;font-family:'Playfair Display',serif;font-size:38px;margin-bottom:12px;line-height:1.25}
+.hero p{color:rgba(255,255,255,0.72);font-size:15px;margin-bottom:28px;line-height:1.8;max-width:520px;margin-left:auto;margin-right:auto}
+.hero-features{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.hero-feature{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:8px 16px;color:rgba(255,255,255,0.82);font-size:13px;display:flex;align-items:center;gap:6px}
+
+/* ===== MAIN LAYOUT ===== */
+.main{padding:36px 5%}
+
+/* ===== SECTION TITLE ===== */
+.sec-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--dark);margin-bottom:4px}
+.sec-sub{color:var(--muted);font-size:13px;margin-bottom:10px}
+.sec-line{width:44px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:24px}
+
+/* ===== CATEGORY FILTER ===== */
+.cat-bar{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin-bottom:28px;scrollbar-width:none}
+.cat-bar::-webkit-scrollbar{display:none}
+.cat-pill{background:#fff;border:1.5px solid var(--border);border-radius:24px;padding:8px 18px;font-family:'Noto Sans JP',sans-serif;font-size:13px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all 0.2s}
+.cat-pill.active,.cat-pill:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+
+/* ===== PRODUCT GRID ===== */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;margin-bottom:48px}
+.product-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s;cursor:default}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(44,24,16,0.13)}
+.product-thumb{height:165px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative}
+.thumb-food{background:linear-gradient(135deg,#FFF3E0,#FFE0B2)}
+.thumb-zakka{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}
+.thumb-shokki{background:linear-gradient(135deg,#E3F2FD,#BBDEFB)}
+.thumb-acc{background:linear-gradient(135deg,#FCE4EC,#F8BBD0)}
+.thumb-other{background:linear-gradient(135deg,#F3E5F5,#E1BEE7)}
+.prod-badge{position:absolute;top:10px;left:10px;color:#fff;font-size:10px;padding:3px 9px;border-radius:10px;font-weight:700}
+.badge-hot{background:var(--red)}
+.badge-new{background:var(--green)}
+.badge-limited{background:#7B5EA7}
+.product-body{padding:13px 15px}
+.prod-cat{font-size:11px;color:var(--muted);margin-bottom:4px;letter-spacing:1px;text-transform:uppercase}
+.prod-name{font-size:14px;font-weight:500;line-height:1.4;margin-bottom:10px;color:var(--dark)}
+.prod-footer{display:flex;align-items:center;justify-content:space-between}
+.prod-price{font-size:18px;font-weight:700;color:var(--gold)}
+.prod-price small{font-size:11px;font-weight:400;color:var(--muted)}
+.add-to-cart{background:var(--dark);color:#fff;border:none;border-radius:8px;padding:7px 13px;font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:background 0.2s;white-space:nowrap}
+.add-to-cart:hover{background:var(--gold)}
+.sold-out{font-size:12px;color:#bbb;padding:7px 13px;border:1px solid #eee;border-radius:8px}
+
+/* ===== CART PANEL ===== */
+#cartPanel{background:#fff;border-radius:16px;border:1px solid var(--border);padding:24px;margin-bottom:40px;display:none}
+.cart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cart-head h2{font-family:'Playfair Display',serif;font-size:20px}
+.cart-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:22px;line-height:1}
+.cart-items{min-height:40px}
+.cart-empty-msg{color:var(--muted);font-size:14px;text-align:center;padding:20px 0}
+.c-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f2ead8}
+.c-item-icon{font-size:32px;width:48px;text-align:center;flex-shrink:0}
+.c-item-info{flex:1;min-width:0}
+.c-item-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-item-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.c-item-qty{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.qty-btn{background:#f5f0e8;border:none;border-radius:6px;width:30px;height:30px;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:background 0.15s;font-family:inherit}
+.qty-btn:hover{background:var(--gold);color:#fff}
+.qty-val{font-weight:700;font-size:15px;min-width:22px;text-align:center}
+.cart-summary{margin-top:16px;padding-top:16px;border-top:2px solid var(--border)}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.cart-total-label{font-size:15px;color:var(--muted)}
+.cart-total-amount{font-size:26px;font-weight:700;color:var(--gold)}
+.btn-checkout{width:100%;background:var(--gold);color:#fff;border:none;border-radius:10px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:background 0.2s;margin-bottom:10px}
+.btn-checkout:hover{background:var(--gold-dark)}
+.cart-note{font-size:12px;color:var(--muted);text-align:center;display:flex;align-items:center;justify-content:center;gap:5px}
+
+/* ===== ORDER FORM ===== */
+#orderSection{display:none}
+.order-box{background:#fff;border-radius:16px;border:1px solid var(--border);padding:28px;margin-bottom:40px}
+.order-box h2{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px}
+.order-box .sec-line{margin-bottom:20px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:6px;letter-spacing:0.5px}
+.form-group input,.form-group textarea,.form-group select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--dark);background:#fdfaf4;transition:border-color 0.2s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.order-summary{background:#fdf6e3;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px}
+.order-summary h3{font-size:14px;font-weight:500;color:var(--muted);margin-bottom:10px}
+.order-sum-item{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;border-bottom:1px solid var(--border)}
+.order-sum-item:last-child{border:none;font-weight:700;font-size:15px;color:var(--gold);padding-top:8px;margin-top:4px}
+.btn-submit{width:100%;background:var(--dark);color:#fff;border:none;border-radius:10px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:background 0.2s}
+.btn-submit:hover{background:var(--gold)}
+.btn-back{background:none;border:1.5px solid var(--border);border-radius:10px;padding:10px 24px;font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--muted);cursor:pointer;transition:all 0.2s;margin-bottom:16px}
+.btn-back:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ===== THANKS PAGE ===== */
+#thanksSection{display:none}
+.thanks-box{background:#fff;border-radius:16px;border:1px solid var(--border);padding:40px 28px;text-align:center;margin-bottom:40px}
+.thanks-icon{font-size:64px;margin-bottom:16px}
+.thanks-box h2{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:10px;color:var(--dark)}
+.thanks-box p{color:var(--muted);font-size:15px;line-height:1.8;margin-bottom:20px}
+.transfer-box{background:#fdf6e3;border:2px solid var(--gold);border-radius:12px;padding:20px;text-align:left;max-width:420px;margin:0 auto 24px}
+.transfer-box h3{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.transfer-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:14px}
+.transfer-row:last-child{border:none}
+.transfer-label{color:var(--muted)}
+.transfer-val{font-weight:500;color:var(--dark)}
+.transfer-amount{font-size:20px;font-weight:700;color:var(--gold)}
+.thanks-steps{text-align:left;max-width:420px;margin:0 auto 24px}
+.thanks-steps h3{font-size:14px;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.step-item{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.step-num{background:var(--gold);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-text{font-size:14px;color:var(--dark);line-height:1.6}
+.btn-top{background:var(--gold);color:#fff;border:none;border-radius:10px;padding:12px 32px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:background 0.2s}
+.btn-top:hover{background:var(--gold-dark)}
+
+/* ===== FOOTER ===== */
+footer{background:var(--dark);color:rgba(255,255,255,0.55);text-align:center;padding:28px 5%;font-size:13px;line-height:2.2}
+footer strong{color:var(--gold)}
+footer a{color:rgba(255,255,255,0.55);text-decoration:none}
+footer a:hover{color:var(--gold)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .hero h1{font-size:28px}
+  .form-row{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  header{padding:0 4%}
+  .main{padding:24px 4%}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="#top">
+    <span class="logo-icon">🐟</span>
+    <div>
+      <span class="logo-text">Plaa Tapian</span>
+      <span class="logo-sub">ปลาตะเพียน</span>
+    </div>
+  </a>
+  <button class="cart-btn" id="cartToggleBtn" onclick="toggleCart()">
+    🛒 カート <span class="cart-badge" id="cartCount">0</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-badge">🇹🇭 Bangkok → Japan</div>
+  <h1>タイの本物を、<br>あなたのもとへ。</h1>
+  <p>バンコク発。職人の手仕事と大地の恵み。<br>厳選したタイのアルチザン商品を日本へお届けします。</p>
+  <div class="hero-features">
+    <div class="hero-feature">✈️ 日本へ国際配送対応</div>
+    <div class="hero-feature">🏦 銀行振込払い</div>
+    <div class="hero-feature">📦 EMS・追跡番号あり</div>
+    <div class="hero-feature">🌿 OTOP認定商品多数</div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- PRODUCT SECTION -->
+  <div id="shopSection">
+    <div class="sec-title">商品一覧</div>
+    <div class="sec-sub">バンコクから直送 — タイ厳選アルチザン商品</div>
+    <div class="sec-line"></div>
+
+    <!-- カテゴリフィルター -->
+    <div class="cat-bar">
+      <button class="cat-pill active" onclick="filterCat('all',this)">🏪 すべて</button>
+      <button class="cat-pill" onclick="filterCat('食品',this)">🍜 食品・飲料</button>
+      <button class="cat-pill" onclick="filterCat('雑貨',this)">🎁 雑貨</button>
+      <button class="cat-pill" onclick="filterCat('食器',this)">🍽️ 食器</button>
+      <button class="cat-pill" onclick="filterCat('キッチン',this)">🔪 キッチン</button>
+      <button class="cat-pill" onclick="filterCat('アクセサリー',this)">💎 アクセサリー</button>
+    </div>
+
+    <!-- 商品グリッド -->
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+
+  <!-- CART PANEL -->
+  <div id="cartPanel">
+    <div class="cart-head">
+      <h2>🛒 カートの中身</h2>
+      <button class="cart-close" onclick="toggleCart()">×</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty-msg">カートは空です</div>
+    </div>
+    <div id="cartSummaryBlock" style="display:none">
+      <div class="cart-summary">
+        <div class="cart-total-row">
+          <span class="cart-total-label">商品合計</span>
+          <span class="cart-total-amount" id="cartTotal">฿0</span>
+        </div>
+        <button class="btn-checkout" onclick="goToOrder()">注文情報の入力へ →</button>
+        <div class="cart-note">✈️ 送料は注文確認後にメールでご案内します</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER FORM -->
+  <div id="orderSection">
+    <div class="order-box">
+      <h2>📋 注文情報の入力</h2>
+      <div class="sec-line"></div>
+      <button class="btn-back" onclick="backToShop()">← 買い物を続ける</button>
+
+      <!-- 注文内容確認 -->
+      <div class="order-summary" id="orderSummaryBox"></div>
+
+      <!-- フォーム -->
+      <div class="form-group">
+        <label>お名前 *</label>
+        <input type="text" id="fName" placeholder="山田 太郎" required>
+      </div>
+      <div class="form-group">
+        <label>メールアドレス *</label>
+        <input type="email" id="fEmail" placeholder="example@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>電話番号</label>
+        <input type="tel" id="fPhone" placeholder="090-0000-0000">
+      </div>
+      <div class="form-group">
+        <label>お届け先住所 *（日本国内）</label>
+        <input type="text" id="fAddress1" placeholder="〒000-0000 都道府県・市区町村" required style="margin-bottom:8px">
+        <input type="text" id="fAddress2" placeholder="番地・建物名・部屋番号">
+      </div>
+      <div class="form-group">
+        <label>ご要望・備考</label>
+        <textarea id="fNote" placeholder="ご要望があればご記入ください（例：ギフト包装希望、配送時期など）"></textarea>
+      </div>
+
+      <div style="background:#fdf6e3;border-radius:8px;padding:14px;margin-bottom:20px;font-size:13px;color:var(--muted);line-height:1.8">
+        🏦 お支払いは<strong style="color:var(--dark)">日本の銀行振込</strong>です。<br>
+        注文確定後、振込先口座をメールにてご案内いたします。<br>
+        入金確認後にタイより発送いたします。
+      </div>
+
+      <button class="btn-submit" onclick="submitOrder()">注文を確定する</button>
+    </div>
+  </div>
+
+  <!-- THANKS PAGE -->
+  <div id="thanksSection">
+    <div class="thanks-box">
+      <div class="thanks-icon">🎉</div>
+      <h2>ご注文ありがとうございます！</h2>
+      <p>ご注文を受け付けました。<br>まもなく確認メールをお送りします。<br>以下の口座へお振込みをお願いいたします。</p>
+
+      <div class="transfer-box">
+        <h3>🏦 お振込み先</h3>
+        <div class="transfer-row">
+          <span class="transfer-label">銀行名</span>
+          <span class="transfer-val">〇〇銀行 〇〇支店</span>
+        </div>
+        <div class="transfer-row">
+          <span class="transfer-label">口座種別</span>
+          <span class="transfer-val">普通</span>
+        </div>
+        <div class="transfer-row">
+          <span class="transfer-label">口座番号</span>
+          <span class="transfer-val">0000000</span>
+        </div>
+        <div class="transfer-row">
+          <span class="transfer-label">口座名義</span>
+          <span class="transfer-val">サイトウ マコト</span>
+        </div>
+        <div class="transfer-row">
+          <span class="transfer-label">お振込金額</span>
+          <span class="transfer-val transfer-amount" id="thanksTotalAmount">฿0</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:10px">※ 送料は確認メールにてご案内します</div>
+      </div>
+
+      <div class="thanks-steps">
+        <h3>次のステップ</h3>
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">上記口座へお振込みください<br><span style="font-size:13px;color:var(--muted)">振込期限：注文から7日以内</span></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">振込明細（スリップ）の画像を<br>メールへ添付してご返信ください</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">入金確認後、タイよりEMS発送<br><span style="font-size:13px;color:var(--muted)">発送完了メールをお送りします</span></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">日本国内へお届け<br><span style="font-size:13px;color:var(--muted)">追跡番号はメールにてご案内</span></div>
+        </div>
+      </div>
+
+      <button class="btn-top" onclick="backToTop()">トップページへ戻る</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Plaa Tapian ปลาตะเพียน</strong><br>
+  Bangkok, Thailand &nbsp;|&nbsp; 日本への国際配送対応<br>
+  お問い合わせ: <a href="mailto:info@plaatapian.com">info@plaatapian.com</a><br>
+  <span style="font-size:11px;opacity:0.5">© 2026 Plaa Tapian. All rights reserved.</span>
+</footer>
+
+<script>
+// ==========================================
+// 商品データ（スプレッドシートから抜粋）
+// 本番では GAS API から動的に取得します
+// ==========================================
+const PRODUCTS = [
+  {id:'FO-001',name:'Cookie Singapore Salaburi',nameJP:'クッキーシンガポール サラブリ',cat:'食品',emoji:'🍪',price:65,stock:10,badge:'人気',thumb:'thumb-food'},
+  {id:'FO-002',name:'PAPA Pineapple Jam',nameJP:'PAPAパイナップルジャム',cat:'食品',emoji:'🍍',price:100,stock:10,badge:'',thumb:'thumb-food'},
+  {id:'FO-004',name:'PAPA Pineapple Cookie 200g',nameJP:'PAPAパイナップルクッキー 200g',cat:'食品',emoji:'🍪',price:190,stock:5,badge:'おすすめ',thumb:'thumb-food'},
+  {id:'FO-010',name:'4Mix Nuts & Fruits Pink 140g',nameJP:'4種ナッツ＆フルーツ ピンク 140g',cat:'食品',emoji:'🥜',price:82,stock:10,badge:'',thumb:'thumb-food'},
+  {id:'FO-011',name:'4Mix Nuts & Fruits Green 65g',nameJP:'4種ナッツ＆フルーツ グリーン 65g',cat:'食品',emoji:'🥜',price:42,stock:10,badge:'',thumb:'thumb-food'},
+  {id:'FO-012',name:'Popcorn Doi Black',nameJP:'ドイポップコーン ブラック',cat:'食品',emoji:'🍿',price:64,stock:10,badge:'新着',thumb:'thumb-food'},
+  {id:'FO-015',name:'Sriracha Sauce Strong 200ml',nameJP:'シラチャソース ストロング 200ml',cat:'食品',emoji:'🌶️',price:58,stock:5,badge:'',thumb:'thumb-food'},
+  {id:'FO-017',name:'Tamarind Candy',nameJP:'タマリンドキャンディー',cat:'食品',emoji:'🍬',price:10,stock:20,badge:'',thumb:'thumb-food'},
+  {id:'FO-021',name:'Dry Mango Large',nameJP:'ドライマンゴー 大',cat:'食品',emoji:'🥭',price:180,stock:10,badge:'人気',thumb:'thumb-food'},
+  {id:'FO-022',name:'Dry Mango Small',nameJP:'ドライマンゴー 小',cat:'食品',emoji:'🥭',price:60,stock:10,badge:'',thumb:'thumb-food'},
+  {id:'FO-027',name:'Umeboshi',nameJP:'梅干し',cat:'食品',emoji:'🫙',price:110,stock:10,badge:'',thumb:'thumb-food'},
+  {id:'ZK-001',name:'Hair Pin Monotone',nameJP:'ヘアピン モノトーン',cat:'雑貨',emoji:'📎',price:100,stock:4,badge:'',thumb:'thumb-zakka'},
+  {id:'ZK-008',name:'Teak Round Coaster',nameJP:'チーク丸コースター',cat:'雑貨',emoji:'🪵',price:35,stock:18,badge:'',thumb:'thumb-zakka'},
+  {id:'ZK-009',name:'Retro Pla Coaster 4色',nameJP:'レトロプラ コースター 4色セット',cat:'雑貨',emoji:'🎨',price:25,stock:48,badge:'お土産',thumb:'thumb-zakka'},
+  {id:'ZK-011',name:'Thai Letter Nail Clipper L',nameJP:'サイ印タイ文字爪切り 大',cat:'雑貨',emoji:'✂️',price:65,stock:6,badge:'お土産',thumb:'thumb-zakka'},
+  {id:'ZK-017',name:'Ayutthaya Pumice Prik',nameJP:'アユタヤ軽石 プリック',cat:'雑貨',emoji:'🪨',price:180,stock:4,badge:'',thumb:'thumb-zakka'},
+  {id:'ZK-018',name:'Monkey Brand Yarmon',nameJP:'サル印 ヤーモン',cat:'雑貨',emoji:'🐒',price:55,stock:7,badge:'',thumb:'thumb-zakka'},
+  {id:'ZK-021',name:'Mutt Yaai Bamboo Pen',nameJP:'ムットばあちゃんの竹ペン',cat:'雑貨',emoji:'✒️',price:480,stock:6,badge:'職人技',thumb:'thumb-zakka'},
+  {id:'SH-001',name:'Rooster Glass dhanabadee',nameJP:'ニワトリグラス dhanabadee',cat:'食器',emoji:'🐓',price:100,stock:10,badge:'',thumb:'thumb-shokki'},
+  {id:'SH-002',name:'Rooster Mug dhanabadee',nameJP:'ニワトリマグカップ dhanabadee',cat:'食器',emoji:'☕',price:365,stock:9,badge:'人気',thumb:'thumb-shokki'},
+  {id:'SH-003',name:'Retro Mini Glass',nameJP:'レトロ地模様ミニグラス',cat:'食器',emoji:'🥛',price:50,stock:4,badge:'',thumb:'thumb-shokki'},
+  {id:'SH-006',name:'Retro Curry Plate L',nameJP:'レトロ皿 カレー 大',cat:'食器',emoji:'🍛',price:90,stock:11,badge:'',thumb:'thumb-shokki'},
+  {id:'SH-020',name:'Muay Thai Glass',nameJP:'ムエタイグラス',cat:'食器',emoji:'🥊',price:150,stock:6,badge:'',thumb:'thumb-shokki'},
+  {id:'KI-001',name:'Retro Cutlery Set',nameJP:'レトロカトラリーセット',cat:'キッチン',emoji:'🍴',price:50,stock:20,badge:'',thumb:'thumb-zakka'},
+  {id:'KI-002',name:'Butter Knife',nameJP:'バターナイフ',cat:'キッチン',emoji:'🔪',price:50,stock:36,badge:'',thumb:'thumb-zakka'},
+  {id:'AC-001',name:'Ceramic Earrings INTHAI',nameJP:'セラミックピアス INTHAI',cat:'アクセサリー',emoji:'💎',price:280,stock:2,badge:'限定',thumb:'thumb-acc'},
+  {id:'FO-009',name:'Morning Glory Sauce',nameJP:'モーニンググローリーソース',cat:'食品',emoji:'🌿',price:35,stock:0,badge:'',thumb:'thumb-food'},
+];
+
+// ==========================================
+// STATE
+// ==========================================
+let cart = {};
+let currentCat = 'all';
+
+// ==========================================
+// RENDER PRODUCTS
+// ==========================================
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  const list = currentCat === 'all'
+    ? PRODUCTS
+    : PRODUCTS.filter(p => p.cat === currentCat);
+
+  grid.innerHTML = list.map(p => {
+    const badgeClass = p.badge === '新着' ? 'badge-new' : p.badge === '限定' ? 'badge-limited' : 'badge-hot';
+    return `
+      <div class="product-card">
+        <div class="product-thumb ${p.thumb}">
+          ${p.badge ? `<span class="prod-badge ${badgeClass}">${p.badge}</span>` : ''}
+          <span>${p.emoji}</span>
+        </div>
+        <div class="product-body">
+          <div class="prod-cat">${p.cat}</div>
+          <div class="prod-name">${p.nameJP}</div>
+          <div class="prod-footer">
+            <div class="prod-price">฿${p.price}<small> THB</small></div>
+            ${p.stock > 0
+              ? `<button class="add-to-cart" onclick="addToCart('${p.id}')">＋ カートへ</button>`
+              : `<span class="sold-out">在庫なし</span>`
+            }
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ==========================================
+// FILTER
+// ==========================================
+function filterCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+
+// ==========================================
+// CART
+// ==========================================
+function addToCart(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  updateCartUI();
+  const panel = document.getElementById('cartPanel');
+  if (panel.style.display === 'none' || panel.style.display === '') {
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function changeQty(id, delta) {
+  cart[id] = (cart[id] || 0) + delta;
+  if (cart[id] <= 0) delete cart[id];
+  updateCartUI();
+  if (Object.keys(cart).length === 0) {
+    document.getElementById('cartSummaryBlock').style.display = 'none';
+  }
+}
+
+function toggleCart() {
+  const panel = document.getElementById('cartPanel');
+  if (panel.style.display === 'none' || panel.style.display === '') {
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } else {
+    panel.style.display = 'none';
+  }
+}
+
+function updateCartUI() {
+  const totalQty = Object.values(cart).reduce((s, v) => s + v, 0);
+  document.getElementById('cartCount').textContent = totalQty;
+
+  const itemsEl = document.getElementById('cartItems');
+  const summaryBlock = document.getElementById('cartSummaryBlock');
+
+  if (totalQty === 0) {
+    itemsEl.innerHTML = '<div class="cart-empty-msg">カートは空です</div>';
+    summaryBlock.style.display = 'none';
+    return;
+  }
+
+  let total = 0;
+  itemsEl.innerHTML = Object.entries(cart).map(([id, qty]) => {
+    const p = PRODUCTS.find(x => x.id === id);
+    if (!p || qty === 0) return '';
+    const subtotal = p.price * qty;
+    total += subtotal;
+    return `
+      <div class="c-item">
+        <span class="c-item-icon">${p.emoji}</span>
+        <div class="c-item-info">
+          <div class="c-item-name">${p.nameJP}</div>
+          <div class="c-item-sub">฿${p.price} × ${qty} = ฿${subtotal}</div>
+        </div>
+        <div class="c-item-qty">
+          <button class="qty-btn" onclick="changeQty('${id}',-1)">−</button>
+          <span class="qty-val">${qty}</span>
+          <button class="qty-btn" onclick="changeQty('${id}',1)">+</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('cartTotal').textContent = `฿${total.toLocaleString()}`;
+  summaryBlock.style.display = 'block';
+}
+
+// ==========================================
+// ORDER FLOW
+// ==========================================
+function goToOrder() {
+  // カートサマリーを注文画面に表示
+  let total = 0;
+  let summaryHTML = '';
+  Object.entries(cart).forEach(([id, qty]) => {
+    const p = PRODUCTS.find(x => x.id === id);
+    if (!p || qty === 0) return;
+    const sub = p.price * qty;
+    total += sub;
+    summaryHTML += `
+      <div class="order-sum-item">
+        <span>${p.nameJP} × ${qty}</span>
+        <span>฿${sub}</span>
+      </div>`;
+  });
+  summaryHTML += `
+    <div class="order-sum-item">
+      <span>商品合計</span>
+      <span>฿${total.toLocaleString()}</span>
+    </div>`;
+
+  const box = document.getElementById('orderSummaryBox');
+  box.innerHTML = `<h3>ご注文内容</h3>${summaryHTML}`;
+
+  document.getElementById('shopSection').style.display = 'none';
+  document.getElementById('cartPanel').style.display = 'none';
+  document.getElementById('orderSection').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToShop() {
+  document.getElementById('orderSection').style.display = 'none';
+  document.getElementById('shopSection').style.display = 'block';
+  document.getElementById('cartPanel').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitOrder() {
+  const name = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const addr1 = document.getElementById('fAddress1').value.trim();
+
+  if (!name || !email || !addr1) {
+    alert('お名前・メールアドレス・住所は必須項目です。');
+    return;
+  }
+  if (!email.includes('@')) {
+    alert('メールアドレスの形式が正しくありません。');
+    return;
+  }
+
+  // 合計金額取得
+  let total = 0;
+  Object.entries(cart).forEach(([id, qty]) => {
+    const p = PRODUCTS.find(x => x.id === id);
+    if (p && qty > 0) total += p.price * qty;
+  });
+
+  document.getElementById('thanksTotalAmount').textContent = `฿${total.toLocaleString()}`;
+
+  // TODO: ここにGASへのPOSTを追加（フェーズ2）
+  // sendOrderToGAS({ name, email, addr1, cart, total });
+
+  document.getElementById('orderSection').style.display = 'none';
+  document.getElementById('thanksSection').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // カートをリセット
+  cart = {};
+  updateCartUI();
+}
+
+function backToTop() {
+  document.getElementById('thanksSection').style.display = 'none';
+  document.getElementById('shopSection').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==========================================
+// INIT
+// ==========================================
+renderProducts();
+</script>
+</body>
+</html>
