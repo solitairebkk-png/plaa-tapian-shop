@@ -150,6 +150,42 @@ footer strong{color:var(--gold)}
 footer a{color:rgba(255,255,255,0.55);text-decoration:none}
 footer a:hover{color:var(--gold)}
 
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(44,24,16,0.72);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(20px);transition:transform 0.25s;scrollbar-width:thin}
+.modal-overlay.active .modal{transform:translateY(0)}
+.modal-close{position:sticky;top:12px;float:right;margin:12px 12px 0 0;background:rgba(44,24,16,0.12);border:none;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dark);z-index:10;transition:background 0.2s;flex-shrink:0}
+.modal-close:hover{background:var(--gold);color:#fff}
+.modal-imgs{padding:20px 20px 0;clear:both}
+.modal-main-img{width:100%;height:280px;border-radius:12px;overflow:hidden;background:var(--cream);display:flex;align-items:center;justify-content:center;margin-bottom:10px;position:relative}
+.modal-main-img img{width:100%;height:100%;object-fit:cover}
+.modal-main-img .modal-emoji{font-size:80px}
+.modal-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.modal-thumb{height:72px;border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:border-color 0.15s;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:28px}
+.modal-thumb.active{border-color:var(--gold)}
+.modal-thumb img{width:100%;height:100%;object-fit:cover}
+.modal-thumb-empty{border:2px dashed var(--border);cursor:default}
+.modal-thumb-empty span{font-size:13px;color:var(--border)}
+.modal-body{padding:20px 24px 28px}
+.modal-badge-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.modal-cat{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.modal-h1{font-family:'Playfair Display',serif;font-size:22px;line-height:1.3;margin-bottom:6px}
+.modal-id{font-size:11px;color:var(--border);margin-bottom:14px}
+.modal-desc{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.modal-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.modal-price{font-size:28px;font-weight:700;color:var(--gold)}
+.modal-price-note{font-size:13px;color:var(--muted)}
+.modal-stock{font-size:13px;margin-bottom:20px}
+.modal-stock.ok{color:var(--green)}
+.modal-stock.low{color:var(--red)}
+.modal-stock.out{color:#bbb}
+.modal-actions{display:flex;gap:12px}
+.btn-modal-cart{flex:1;background:var(--dark);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:background 0.2s}
+.btn-modal-cart:hover{background:var(--gold)}
+.btn-modal-cart:disabled{background:#ccc;cursor:not-allowed}
+.modal-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:600px){
   .hero h1{font-size:28px}
@@ -334,6 +370,35 @@ footer a:hover{color:var(--gold)}
 
 </main>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-imgs">
+      <div class="modal-main-img" id="modalMainImg"></div>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-badge-row">
+        <span class="modal-cat" id="modalCat"></span>
+        <span class="prod-badge badge-hot" id="modalBadge" style="display:none"></span>
+      </div>
+      <div class="modal-h1" id="modalName"></div>
+      <div class="modal-id" id="modalId"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-price-row">
+        <span class="modal-price" id="modalPrice"></span>
+        <span class="modal-price-note">THB（タイバーツ）</span>
+      </div>
+      <div class="modal-stock" id="modalStock"></div>
+      <div class="modal-actions">
+        <button class="btn-modal-cart" id="modalCartBtn" onclick="addFromModal()">🛒 カートに追加する</button>
+      </div>
+      <div class="modal-note">✈️ 送料は注文確認後にメールでご案内します</div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <strong>Plaa Tapian ปลาตะเพียน</strong><br>
@@ -344,37 +409,70 @@ footer a:hover{color:var(--gold)}
 
 <script>
 // ==========================================
-// 商品データ（スプレッドシートから抜粋）
-// 本番では GAS API から動的に取得します
+// SUPABASE CONFIG
+// ★ここを自分のキーに変更してください★
 // ==========================================
-const PRODUCTS = [
-  {id:'FO-001',name:'Cookie Singapore Salaburi',nameJP:'クッキーシンガポール サラブリ',cat:'食品',emoji:'🍪',price:65,stock:10,badge:'人気',thumb:'thumb-food'},
-  {id:'FO-002',name:'PAPA Pineapple Jam',nameJP:'PAPAパイナップルジャム',cat:'食品',emoji:'🍍',price:100,stock:10,badge:'',thumb:'thumb-food'},
-  {id:'FO-004',name:'PAPA Pineapple Cookie 200g',nameJP:'PAPAパイナップルクッキー 200g',cat:'食品',emoji:'🍪',price:190,stock:5,badge:'おすすめ',thumb:'thumb-food'},
-  {id:'FO-010',name:'4Mix Nuts & Fruits Pink 140g',nameJP:'4種ナッツ＆フルーツ ピンク 140g',cat:'食品',emoji:'🥜',price:82,stock:10,badge:'',thumb:'thumb-food'},
-  {id:'FO-011',name:'4Mix Nuts & Fruits Green 65g',nameJP:'4種ナッツ＆フルーツ グリーン 65g',cat:'食品',emoji:'🥜',price:42,stock:10,badge:'',thumb:'thumb-food'},
-  {id:'FO-012',name:'Popcorn Doi Black',nameJP:'ドイポップコーン ブラック',cat:'食品',emoji:'🍿',price:64,stock:10,badge:'新着',thumb:'thumb-food'},
-  {id:'FO-015',name:'Sriracha Sauce Strong 200ml',nameJP:'シラチャソース ストロング 200ml',cat:'食品',emoji:'🌶️',price:58,stock:5,badge:'',thumb:'thumb-food'},
-  {id:'FO-017',name:'Tamarind Candy',nameJP:'タマリンドキャンディー',cat:'食品',emoji:'🍬',price:10,stock:20,badge:'',thumb:'thumb-food'},
-  {id:'FO-021',name:'Dry Mango Large',nameJP:'ドライマンゴー 大',cat:'食品',emoji:'🥭',price:180,stock:10,badge:'人気',thumb:'thumb-food'},
-  {id:'FO-022',name:'Dry Mango Small',nameJP:'ドライマンゴー 小',cat:'食品',emoji:'🥭',price:60,stock:10,badge:'',thumb:'thumb-food'},
-  {id:'FO-027',name:'Umeboshi',nameJP:'梅干し',cat:'食品',emoji:'🫙',price:110,stock:10,badge:'',thumb:'thumb-food'},
-  {id:'ZK-001',name:'Hair Pin Monotone',nameJP:'ヘアピン モノトーン',cat:'雑貨',emoji:'📎',price:100,stock:4,badge:'',thumb:'thumb-zakka'},
-  {id:'ZK-008',name:'Teak Round Coaster',nameJP:'チーク丸コースター',cat:'雑貨',emoji:'🪵',price:35,stock:18,badge:'',thumb:'thumb-zakka'},
-  {id:'ZK-009',name:'Retro Pla Coaster 4色',nameJP:'レトロプラ コースター 4色セット',cat:'雑貨',emoji:'🎨',price:25,stock:48,badge:'お土産',thumb:'thumb-zakka'},
-  {id:'ZK-011',name:'Thai Letter Nail Clipper L',nameJP:'サイ印タイ文字爪切り 大',cat:'雑貨',emoji:'✂️',price:65,stock:6,badge:'お土産',thumb:'thumb-zakka'},
-  {id:'ZK-017',name:'Ayutthaya Pumice Prik',nameJP:'アユタヤ軽石 プリック',cat:'雑貨',emoji:'🪨',price:180,stock:4,badge:'',thumb:'thumb-zakka'},
-  {id:'ZK-018',name:'Monkey Brand Yarmon',nameJP:'サル印 ヤーモン',cat:'雑貨',emoji:'🐒',price:55,stock:7,badge:'',thumb:'thumb-zakka'},
-  {id:'ZK-021',name:'Mutt Yaai Bamboo Pen',nameJP:'ムットばあちゃんの竹ペン',cat:'雑貨',emoji:'✒️',price:480,stock:6,badge:'職人技',thumb:'thumb-zakka'},
-  {id:'SH-001',name:'Rooster Glass dhanabadee',nameJP:'ニワトリグラス dhanabadee',cat:'食器',emoji:'🐓',price:100,stock:10,badge:'',thumb:'thumb-shokki'},
-  {id:'SH-002',name:'Rooster Mug dhanabadee',nameJP:'ニワトリマグカップ dhanabadee',cat:'食器',emoji:'☕',price:365,stock:9,badge:'人気',thumb:'thumb-shokki'},
+const SUPABASE_URL = 'https://kzacpqrpnoxqtbcstswp.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_X-40StOgx5Q6Gl9k6JRCHw_6w4m3d03';
+
+// 商品データ（Supabaseから動的に取得）
+// 以下は起動前の空配列。init()で上書きされます
+let PRODUCTS = [
+  {id:'FO-001',name:'Cookie Singapore Salaburi',nameJP:'クッキーシンガポール サラブリ',cat:'食品',emoji:'🍪',price:65,stock:10,badge:'人気',thumb:'thumb-food',
+   desc:'サラブリ産の厳選素材を使った香ばしいクッキー。サクサクの食感と上品な甘さが特徴です。日本へのお土産にも大人気！',images:[]},
+  {id:'FO-002',name:'PAPA Pineapple Jam',nameJP:'PAPAパイナップルジャム',cat:'食品',emoji:'🍍',price:100,stock:10,badge:'',thumb:'thumb-food',
+   desc:'チェンライ産プーレー種パイナップルを使用した自然派ジャム。防腐剤・香料・着色料無添加。パンはもちろん、お菓子作りにも。',images:[]},
+  {id:'FO-004',name:'PAPA Pineapple Cookie 200g',nameJP:'PAPAパイナップルクッキー 200g',cat:'食品',emoji:'🍪',price:190,stock:5,badge:'おすすめ',thumb:'thumb-food',
+   desc:'農薬不使用のパイナップルを原料にした無添加クッキー。ザクザク食感でパイナップルの風味が口いっぱいに広がります。',images:[]},
+  {id:'FO-010',name:'4Mix Nuts & Fruits Pink 140g',nameJP:'4種ナッツ＆フルーツ ピンク 140g',cat:'食品',emoji:'🥜',price:82,stock:10,badge:'',thumb:'thumb-food',
+   desc:'タイ産の厳選ナッツと南国フルーツの贅沢ミックス。小腹が空いた時のおやつや、お酒のお供にもぴったり。',images:[]},
+  {id:'FO-011',name:'4Mix Nuts & Fruits Green 65g',nameJP:'4種ナッツ＆フルーツ グリーン 65g',cat:'食品',emoji:'🥜',price:42,stock:10,badge:'',thumb:'thumb-food',
+   desc:'持ち歩きやすい小サイズのナッツ＆フルーツミックス。オフィスや旅行のおともに。',images:[]},
+  {id:'FO-012',name:'Popcorn Doi Black',nameJP:'ドイポップコーン ブラック',cat:'食品',emoji:'🍿',price:64,stock:10,badge:'新着',thumb:'thumb-food',
+   desc:'チェンライ山岳地帯で育ったこだわりのコーン使用。ブラックペッパーの刺激がクセになる大人のポップコーン。',images:[]},
+  {id:'FO-015',name:'Sriracha Sauce Strong 200ml',nameJP:'シラチャソース ストロング 200ml',cat:'食品',emoji:'🌶️',price:58,stock:5,badge:'',thumb:'thumb-food',
+   desc:'タイ・シラチャ発祥の本格チリソース。辛さの中に旨味がギュッと詰まっています。炒め物・ディップ・麺料理に。',images:[]},
+  {id:'FO-017',name:'Tamarind Candy',nameJP:'タマリンドキャンディー',cat:'食品',emoji:'🍬',price:10,stock:20,badge:'',thumb:'thumb-food',
+   desc:'タイ人が大好きなタマリンドを使った甘酸っぱいキャンディー。ちょっとしたお土産にも喜ばれます。',images:[]},
+  {id:'FO-021',name:'Dry Mango Large',nameJP:'ドライマンゴー 大',cat:'食品',emoji:'🥭',price:180,stock:10,badge:'人気',thumb:'thumb-food',
+   desc:'タイ産マンゴーをじっくり乾燥させた本格ドライフルーツ。濃厚な甘みと適度な酸味が絶品。大容量でお得なサイズ。',images:[]},
+  {id:'FO-022',name:'Dry Mango Small',nameJP:'ドライマンゴー 小',cat:'食品',emoji:'🥭',price:60,stock:10,badge:'',thumb:'thumb-food',
+   desc:'ドライマンゴーのお試しサイズ。まずは少量から試してみたい方に。',images:[]},
+  {id:'FO-027',name:'Umeboshi',nameJP:'梅干し',cat:'食品',emoji:'🫙',price:110,stock:10,badge:'',thumb:'thumb-food',
+   desc:'タイで手作りされた昔ながらの梅干し。バンコク在住の日本人シェフが丁寧に仕込んだ一品です。',images:[]},
+  {id:'ZK-001',name:'Hair Pin Monotone',nameJP:'ヘアピン モノトーン',cat:'雑貨',emoji:'📎',price:100,stock:4,badge:'',thumb:'thumb-zakka',
+   desc:'タイの職人が手作りしたモノトーンヘアピン。シンプルなデザインで普段使いからフォーマルまで幅広く活躍。',images:[]},
+  {id:'ZK-008',name:'Teak Round Coaster',nameJP:'チーク丸コースター',cat:'雑貨',emoji:'🪵',price:35,stock:18,badge:'',thumb:'thumb-zakka',
+   desc:'タイ北部産チーク材を使った天然木のコースター。木目がひとつひとつ異なる世界に一つだけのアイテム。',images:[]},
+  {id:'ZK-009',name:'Retro Pla Coaster 4色',nameJP:'レトロプラ コースター 4色セット',cat:'雑貨',emoji:'🎨',price:25,stock:48,badge:'お土産',thumb:'thumb-zakka',
+   desc:'タイのレトロなプラスチック食器をモチーフにしたポップなコースター。4色セットでカラフル。ばらまきお土産に最適。',images:[]},
+  {id:'ZK-011',name:'Thai Letter Nail Clipper L',nameJP:'サイ印タイ文字爪切り 大',cat:'雑貨',emoji:'✂️',price:65,stock:6,badge:'お土産',thumb:'thumb-zakka',
+   desc:'タイ文字が刻印されたユニークな爪切り。切れ味も抜群で実用的。タイらしさ満点のお土産として大好評。',images:[]},
+  {id:'ZK-017',name:'Ayutthaya Pumice Prik',nameJP:'アユタヤ軽石 プリック',cat:'雑貨',emoji:'🪨',price:180,stock:4,badge:'',thumb:'thumb-zakka',
+   desc:'アユタヤ産天然軽石にタイ文字を刻んだ一品。かかとケアに最適。文字を太めにオーダーした特注品です。',images:[]},
+  {id:'ZK-018',name:'Monkey Brand Yarmon',nameJP:'サル印 ヤーモン',cat:'雑貨',emoji:'🐒',price:55,stock:7,badge:'',thumb:'thumb-zakka',
+   desc:'タイの定番ハーブ系スメリングソルト「ヤーモン」。旅行中の気分転換や頭痛・鼻づまりに。サル印は老舗ブランド。',images:[]},
+  {id:'ZK-021',name:'Mutt Yaai Bamboo Pen',nameJP:'ムットばあちゃんの竹ペン',cat:'雑貨',emoji:'✒️',price:480,stock:6,badge:'職人技',thumb:'thumb-zakka',
+   desc:'チェンマイの職人・ムットばあちゃんが一本一本手削りした竹ペン。書き心地は滑らか。世界にひとつの手仕事品。',images:[]},
+  {id:'SH-001',name:'Rooster Glass dhanabadee',nameJP:'ニワトリグラス dhanabadee',cat:'食器',emoji:'🐓',price:100,stock:10,badge:'',thumb:'thumb-shokki',
+   desc:'チェンライの老舗陶器工房dhanabadeeのニワトリ模様グラス。タイ北部の伝統的なセラドン焼きをベースにした定番柄。',images:[]},
+  {id:'SH-002',name:'Rooster Mug dhanabadee',nameJP:'ニワトリマグカップ dhanabadee',cat:'食器',emoji:'☕',price:365,stock:9,badge:'人気',thumb:'thumb-shokki',
+   desc:'dhanabadeeのニワトリ模様マグカップ。ずっしりとした重みと温かみのある絵付けが魅力。毎日使いたくなる一杯。',images:[]},
   {id:'SH-003',name:'Retro Mini Glass',nameJP:'レトロ地模様ミニグラス',cat:'食器',emoji:'🥛',price:50,stock:4,badge:'',thumb:'thumb-shokki'},
-  {id:'SH-006',name:'Retro Curry Plate L',nameJP:'レトロ皿 カレー 大',cat:'食器',emoji:'🍛',price:90,stock:11,badge:'',thumb:'thumb-shokki'},
-  {id:'SH-020',name:'Muay Thai Glass',nameJP:'ムエタイグラス',cat:'食器',emoji:'🥊',price:150,stock:6,badge:'',thumb:'thumb-shokki'},
-  {id:'KI-001',name:'Retro Cutlery Set',nameJP:'レトロカトラリーセット',cat:'キッチン',emoji:'🍴',price:50,stock:20,badge:'',thumb:'thumb-zakka'},
-  {id:'KI-002',name:'Butter Knife',nameJP:'バターナイフ',cat:'キッチン',emoji:'🔪',price:50,stock:36,badge:'',thumb:'thumb-zakka'},
-  {id:'AC-001',name:'Ceramic Earrings INTHAI',nameJP:'セラミックピアス INTHAI',cat:'アクセサリー',emoji:'💎',price:280,stock:2,badge:'限定',thumb:'thumb-acc'},
-  {id:'FO-009',name:'Morning Glory Sauce',nameJP:'モーニンググローリーソース',cat:'食品',emoji:'🌿',price:35,stock:0,badge:'',thumb:'thumb-food'},
+  {id:'SH-003',name:'Retro Mini Glass',nameJP:'レトロ地模様ミニグラス',cat:'食器',emoji:'🥛',price:50,stock:4,badge:'',thumb:'thumb-shokki',
+   desc:'昭和レトロを思わせるタイの型押しガラスミニグラス。ショットグラスとしても、小物入れとしても。',images:[]},
+  {id:'SH-006',name:'Retro Curry Plate L',nameJP:'レトロ皿 カレー 大',cat:'食器',emoji:'🍛',price:90,stock:11,badge:'',thumb:'thumb-shokki',
+   desc:'タイの食堂で長年使われてきたレトロなメラミン皿。カレーやおかずを盛り付けると雰囲気抜群。大サイズで使いやすい。',images:[]},
+  {id:'SH-020',name:'Muay Thai Glass',nameJP:'ムエタイグラス',cat:'食器',emoji:'🥊',price:150,stock:6,badge:'',thumb:'thumb-shokki',
+   desc:'ムエタイのモチーフが描かれた陶器グラス。タイらしさ満点のユニークなお土産。ビールや冷たいドリンクに。',images:[]},
+  {id:'KI-001',name:'Retro Cutlery Set',nameJP:'レトロカトラリーセット',cat:'キッチン',emoji:'🍴',price:50,stock:20,badge:'',thumb:'thumb-zakka',
+   desc:'タイのレトロな食堂をイメージしたステンレスカトラリーセット。スプーン・フォークのセットでデイリーユースに。',images:[]},
+  {id:'KI-002',name:'Butter Knife',nameJP:'バターナイフ',cat:'キッチン',emoji:'🔪',price:50,stock:36,badge:'',thumb:'thumb-zakka',
+   desc:'タイ製のシンプルなバターナイフ。ジャムやバターを塗るのに使いやすいサイズ感。キッチンに一本あると便利。',images:[]},
+  {id:'AC-001',name:'Ceramic Earrings INTHAI',nameJP:'セラミックピアス INTHAI',cat:'アクセサリー',emoji:'💎',price:280,stock:2,badge:'限定',thumb:'thumb-acc',
+   desc:'タイの陶芸作家INTHAIによるハンドメイドセラミックピアス。一点一点手作りのため表情が異なります。在庫わずか。',images:[]},
+  {id:'FO-009',name:'Morning Glory Sauce',nameJP:'モーニンググローリーソース',cat:'食品',emoji:'🌿',price:35,stock:0,badge:'',thumb:'thumb-food',
+   desc:'タイの定番野菜・空芯菜の炒め物に使う特製ソース。本格的なタイ家庭料理がご自宅で楽しめます。',images:[]},
 ];
 
 // ==========================================
@@ -395,10 +493,13 @@ function renderProducts() {
   grid.innerHTML = list.map(p => {
     const badgeClass = p.badge === '新着' ? 'badge-new' : p.badge === '限定' ? 'badge-limited' : 'badge-hot';
     return `
-      <div class="product-card">
+      <div class="product-card" onclick="openModal('${p.id}')">
         <div class="product-thumb ${p.thumb}">
           ${p.badge ? `<span class="prod-badge ${badgeClass}">${p.badge}</span>` : ''}
-          <span>${p.emoji}</span>
+          ${p.images && p.images.length > 0
+            ? `<img src="${p.images[0]}" alt="${p.nameJP}" style="width:100%;height:100%;object-fit:cover;">`
+            : `<span>${p.emoji}</span>`
+          }
         </div>
         <div class="product-body">
           <div class="prod-cat">${p.cat}</div>
@@ -406,7 +507,7 @@ function renderProducts() {
           <div class="prod-footer">
             <div class="prod-price">฿${p.price}<small> THB</small></div>
             ${p.stock > 0
-              ? `<button class="add-to-cart" onclick="addToCart('${p.id}')">＋ カートへ</button>`
+              ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart('${p.id}')">＋ カートへ</button>`
               : `<span class="sold-out">在庫なし</span>`
             }
           </div>
@@ -577,9 +678,160 @@ function backToTop() {
 }
 
 // ==========================================
-// INIT
+// MODAL
 // ==========================================
-renderProducts();
+let currentModalId = null;
+let currentImgIndex = 0;
+
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  currentModalId = id;
+  currentImgIndex = 0;
+
+  // メイン画像
+  renderModalMainImg(p, 0);
+
+  // サムネイル4枚
+  const thumbsEl = document.getElementById('modalThumbs');
+  thumbsEl.innerHTML = [0,1,2,3].map(i => {
+    if (p.images && p.images[i]) {
+      return `<div class="modal-thumb ${i===0?'active':''}" onclick="switchImg(${i})">
+        <img src="${p.images[i]}" alt="${p.nameJP} ${i+1}">
+      </div>`;
+    } else if (i === 0) {
+      return `<div class="modal-thumb active" onclick="switchImg(0)">
+        <span>${p.emoji}</span>
+      </div>`;
+    } else {
+      return `<div class="modal-thumb modal-thumb-empty">
+        <span>準備中</span>
+      </div>`;
+    }
+  }).join('');
+
+  // テキスト情報
+  document.getElementById('modalCat').textContent = p.cat;
+  const badgeEl = document.getElementById('modalBadge');
+  if (p.badge) {
+    badgeEl.textContent = p.badge;
+    badgeEl.style.display = 'inline-block';
+    badgeEl.className = `prod-badge ${p.badge==='新着'?'badge-new':p.badge==='限定'?'badge-limited':'badge-hot'}`;
+  } else {
+    badgeEl.style.display = 'none';
+  }
+  document.getElementById('modalName').textContent = p.nameJP;
+  document.getElementById('modalId').textContent = `商品コード: ${p.id}`;
+  document.getElementById('modalDesc').textContent = p.desc || '商品説明を準備中です。';
+  document.getElementById('modalPrice').textContent = `฿${p.price.toLocaleString()}`;
+
+  const stockEl = document.getElementById('modalStock');
+  const cartBtn = document.getElementById('modalCartBtn');
+  if (p.stock <= 0) {
+    stockEl.textContent = '在庫なし';
+    stockEl.className = 'modal-stock out';
+    cartBtn.disabled = true;
+    cartBtn.textContent = '在庫なし';
+  } else if (p.stock <= 3) {
+    stockEl.textContent = `残りわずか（残${p.stock}点）`;
+    stockEl.className = 'modal-stock low';
+    cartBtn.disabled = false;
+    cartBtn.textContent = '🛒 カートに追加する';
+  } else {
+    stockEl.textContent = '在庫あり';
+    stockEl.className = 'modal-stock ok';
+    cartBtn.disabled = false;
+    cartBtn.textContent = '🛒 カートに追加する';
+  }
+
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderModalMainImg(p, idx) {
+  const mainEl = document.getElementById('modalMainImg');
+  if (p.images && p.images[idx]) {
+    mainEl.innerHTML = `<img src="${p.images[idx]}" alt="${p.nameJP}">`;
+  } else {
+    mainEl.innerHTML = `<span class="modal-emoji">${p.emoji}</span>`;
+  }
+}
+
+function switchImg(idx) {
+  const p = PRODUCTS.find(x => x.id === currentModalId);
+  if (!p) return;
+  currentImgIndex = idx;
+  renderModalMainImg(p, idx);
+  document.querySelectorAll('.modal-thumb').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+  });
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  currentModalId = null;
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function addFromModal() {
+  if (currentModalId) {
+    addToCart(currentModalId);
+    closeModal();
+  }
+}
+
+// キーボードでも閉じられるように
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ==========================================
+// INIT — Supabaseから商品を取得して表示
+// ==========================================
+async function init() {
+  document.getElementById('productGrid').innerHTML =
+    '<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);font-size:15px">🐟 商品を読み込み中...</div>';
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/products?select=*&is_active=eq.true&order=id.asc`,
+      {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+    const data = await res.json();
+    // Supabaseのカラム名をフロント用に変換してPRODUCTSに格納
+    PRODUCTS.length = 0;
+    data.forEach(p => {
+      PRODUCTS.push({
+        id: p.id,
+        name: p.name_en || p.name_jp,
+        nameJP: p.name_jp,
+        cat: p.category,
+        emoji: p.emoji || '📦',
+        price: p.price || 0,
+        stock: p.stock || 0,
+        badge: p.badge || '',
+        thumb: p.thumb_class || 'thumb-food',
+        desc: p.description || '',
+        images: p.images || []
+      });
+    });
+    renderProducts();
+  } catch(e) {
+    console.error(e);
+    document.getElementById('productGrid').innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted)">商品の読み込みに失敗しました。しばらくしてからお試しください。</div>';
+  }
+}
+
+init();
 </script>
 </body>
 </html>
