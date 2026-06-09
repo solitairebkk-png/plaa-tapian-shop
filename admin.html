@@ -845,7 +845,20 @@ async function saveProduct() {
   };
 
   try {
-    await upsertProduct(data);
+    if (editingProduct) {
+      // 既存商品の更新はPATCH
+      await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify(data)
+      });
+    } else {
+      // 新規商品はPOST
+      await sbFetch('products', {
+        method: 'POST',
+        prefer: 'return=representation',
+        body: JSON.stringify(data)
+      });
+    }
     showToast('保存しました ✓', 'success');
     closeProductModal();
     await loadProducts();

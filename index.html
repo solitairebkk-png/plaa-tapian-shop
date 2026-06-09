@@ -139,53 +139,55 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
   aspect-ratio:1/1;
   background-size:100% 100%;
   background-repeat:no-repeat;
+  background-color:#f5f0e8;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
+  mix-blend-mode:multiply;
 }
 .prod-photo-wrap{
   position:absolute;
-  top:14%;
-  left:14%;
-  width:72%;
-  height:72%;
+  top:18%;
+  left:18%;
+  width:64%;
+  height:64%;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  border-radius:3px;
+  border-radius:50%;
 }
 .prod-photo-wrap img{
   width:100%;
   height:100%;
   object-fit:cover;
-  -webkit-mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,black 60%,rgba(0,0,0,0.8) 72%,rgba(0,0,0,0.3) 85%,transparent 100%);
-  mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,black 60%,rgba(0,0,0,0.8) 72%,rgba(0,0,0,0.3) 85%,transparent 100%);
+  border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,black 55%,rgba(0,0,0,0.7) 70%,rgba(0,0,0,0.2) 85%,transparent 100%);
+  mask-image:radial-gradient(circle at 50% 50%,black 55%,rgba(0,0,0,0.7) 70%,rgba(0,0,0,0.2) 85%,transparent 100%);
 }
 .prod-photo-emoji{
   font-size:60px;
-  -webkit-mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,black 60%,rgba(0,0,0,0.8) 72%,rgba(0,0,0,0.3) 85%,transparent 100%);
-  mask-image:radial-gradient(ellipse 75% 75% at 50% 50%,black 60%,rgba(0,0,0,0.8) 72%,rgba(0,0,0,0.3) 85%,transparent 100%);
+  border-radius:50%;
 }
 
 /* テキストエリア */
 .product-body{
-  background:rgba(44,24,16,0.88);
-  padding:10px 12px;
+  background:rgba(253,246,227,0.97);
+  padding:10px 14px;
   display:flex;
   flex-direction:column;
   gap:6px;
+  border-top:2px solid rgba(200,146,42,0.6);
 }
 .prod-cat{display:none}
 .prod-name{
   font-size:13px;
   font-weight:700;
   line-height:1.4;
-  color:#fff;
+  color:#2C1810;
   text-align:center;
   font-family:'Kosugi Maru','Noto Sans JP',sans-serif;
-  text-shadow:1px 1px 4px rgba(0,0,0,0.8);
   letter-spacing:0.5px;
 }
 .prod-footer{
@@ -194,10 +196,10 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
   justify-content:space-between;
   gap:4px;
 }
-.prod-price{font-size:15px;font-weight:700;color:var(--gold)}
-.prod-price small{font-size:9px;font-weight:400;color:rgba(255,255,255,0.6)}
+.prod-price{font-size:15px;font-weight:700;color:var(--gold-dark)}
+.prod-price small{font-size:9px;font-weight:400;color:var(--muted)}
 .add-to-cart{
-  background:var(--gold);
+  background:var(--thai-maroon);
   color:#fff;
   border:none;
   border-radius:4px;
@@ -208,8 +210,8 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
   transition:background 0.2s;
   white-space:nowrap;
 }
-.add-to-cart:hover{background:var(--gold-dark)}
-.sold-out{font-size:11px;color:rgba(255,255,255,0.5);padding:4px 8px}
+.add-to-cart:hover{background:var(--gold)}
+.sold-out{font-size:11px;color:var(--muted);padding:4px 8px}
 .product-thumb{height:165px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative}
 .thumb-food{background:linear-gradient(135deg,#FFF3E0,#FFE0B2)}
 .thumb-zakka{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}
@@ -619,7 +621,7 @@ footer a:hover{color:var(--gold)}
 
 <!-- FOOTER -->
 <footer style="background:var(--thai-maroon);color:rgba(255,255,255,0.6);text-align:center;padding:28px 5%;font-size:13px;line-height:2.2;border-top:4px solid var(--gold)">
-  <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_.png" alt="logo" style="width:50px;height:50px;border-radius:50%;object-fit:contain;border:2px solid var(--gold);margin-bottom:10px;display:block;margin-left:auto;margin-right:auto;background:transparent">
+  <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_.png" alt="logo" style="width:90px;height:90px;border-radius:50%;object-fit:contain;border:2px solid var(--gold);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto;background:transparent">
   <strong style="color:var(--gold);font-family:'Kosugi Maru',sans-serif;font-size:16px;letter-spacing:2px">Plaa Tapian ปลาตะเพียน</strong><br>
   Bangkok, Thailand &nbsp;|&nbsp; 日本への国際配送対応<br>
   お問い合わせ: <a href="mailto:info@plaatapian.com" style="color:rgba(255,255,255,0.6)">info@plaatapian.com</a><br>
