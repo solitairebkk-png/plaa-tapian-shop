@@ -476,12 +476,17 @@ footer a:hover{color:var(--gold)}
 
       <!-- フォーム -->
       <div class="form-group">
-        <label>お名前 *</label>
-        <input type="text" id="fName" placeholder="山田 太郎" required>
+        <label>メールアドレス *</label>
+        <div style="position:relative">
+          <input type="email" id="fEmail" placeholder="example@email.com" required oninput="onEmailInput(this.value)">
+          <div id="memberFoundMsg" style="display:none;margin-top:6px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:8px 12px;font-size:13px;color:#2D6A4F">
+            ✅ 会員情報が見つかりました。住所を自動入力しました。
+          </div>
+        </div>
       </div>
       <div class="form-group">
-        <label>メールアドレス *</label>
-        <input type="email" id="fEmail" placeholder="example@email.com" required>
+        <label>お名前 *</label>
+        <input type="text" id="fName" placeholder="山田 太郎" required>
       </div>
       <div class="form-group">
         <label>電話番号</label>
@@ -495,6 +500,19 @@ footer a:hover{color:var(--gold)}
       <div class="form-group">
         <label>ご要望・備考</label>
         <textarea id="fNote" placeholder="ご要望があればご記入ください（例：ギフト包装希望、配送時期など）"></textarea>
+      </div>
+
+      <!-- 会員登録オプション -->
+      <div style="background:#fdf6e3;border:1.5px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:10px">🪪 会員登録（任意）</div>
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--dark);margin-bottom:8px;line-height:1.6">
+          <input type="checkbox" id="fRegister" style="width:16px;height:16px;accent-color:var(--gold);margin-top:2px;flex-shrink:0" onchange="toggleDmOption()">
+          <span>会員登録する<span style="color:var(--muted);font-size:12px;display:block">次回のご注文時に住所などを自動入力できます</span></span>
+        </label>
+        <label id="dmOptLabel" style="display:none;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--dark);margin-left:26px;line-height:1.6">
+          <input type="checkbox" id="fDmOptIn" style="width:16px;height:16px;accent-color:var(--gold);margin-top:2px;flex-shrink:0">
+          <span>お店からのお知らせメールを受け取る<span style="color:var(--muted);font-size:12px;display:block">新商品・セール情報などをお届けします（いつでも解除可能）</span></span>
+        </label>
       </div>
 
       <div style="background:#fdf6e3;border-radius:8px;padding:14px;margin-bottom:20px;font-size:13px;color:var(--muted);line-height:1.8">
@@ -873,6 +891,12 @@ function goToOrder() {
   document.getElementById('shopSection').style.display = 'none';
   document.getElementById('cartPanel').style.display = 'none';
   document.getElementById('orderSection').style.display = 'block';
+  // フォームリセット
+  document.getElementById('fRegister').checked = false;
+  document.getElementById('fDmOptIn').checked = false;
+  document.getElementById('dmOptLabel').style.display = 'none';
+  document.getElementById('memberFoundMsg').style.display = 'none';
+  foundMember = null;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -883,7 +907,82 @@ function backToShop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// 注文番号を生成（PT + 日付 + 4桁乱数）
+// ==========================================
+// 会員機能
+// ==========================================
+let memberLookupTimer = null;
+let foundMember = null;
+
+function toggleDmOption() {
+  const dmLabel = document.getElementById('dmOptLabel');
+  dmLabel.style.display = document.getElementById('fRegister').checked ? 'flex' : 'none';
+}
+
+function onEmailInput(val) {
+  clearTimeout(memberLookupTimer);
+  document.getElementById('memberFoundMsg').style.display = 'none';
+  foundMember = null;
+  if (!val || !val.includes('@')) return;
+  // 入力が止まってから600ms後に検索
+  memberLookupTimer = setTimeout(() => lookupMember(val), 600);
+}
+
+async function lookupMember(email) {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/members?email=eq.${encodeURIComponent(email)}&select=*&limit=1`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    const data = await res.json();
+    if (data && data.length > 0) {
+      foundMember = data[0];
+      document.getElementById('fName').value = foundMember.name || '';
+      document.getElementById('fPhone').value = foundMember.phone || '';
+      document.getElementById('fAddress1').value = foundMember.address1 || '';
+      document.getElementById('fAddress2').value = foundMember.address2 || '';
+      document.getElementById('memberFoundMsg').style.display = 'block';
+    }
+  } catch(e) {
+    console.log('会員検索エラー:', e);
+  }
+}
+
+async function saveMemberIfNeeded(name, email, phone, addr1, addr2) {
+  if (!document.getElementById('fRegister').checked) return;
+  const dmOptIn = document.getElementById('fDmOptIn').checked;
+  try {
+    // 既存会員なら更新、なければ新規作成
+    if (foundMember) {
+      await fetch(`${SUPABASE_URL}/rest/v1/members?id=eq.${foundMember.id}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ name, phone, address1: addr1, address2: addr2, dm_opt_in: dmOptIn })
+      });
+    } else {
+      await fetch(`${SUPABASE_URL}/rest/v1/members`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ name, email, phone, address1: addr1, address2: addr2, dm_opt_in: dmOptIn })
+      });
+    }
+  } catch(e) {
+    console.log('会員登録エラー:', e);
+  }
+}
+
+
 function generateOrderNo() {
   const now = new Date();
   const date = now.toISOString().slice(0,10).replace(/-/g,'');
@@ -951,6 +1050,9 @@ async function submitOrder() {
     });
 
     if (!res.ok) throw new Error('注文の保存に失敗しました');
+
+    // 会員登録（チェックされていれば）
+    await saveMemberIfNeeded(name, email, phone, addr1, addr2);
 
     // サンクスページに注文番号と合計を表示
     document.getElementById('thanksOrderNo').textContent = orderNo;
