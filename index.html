@@ -550,71 +550,14 @@ footer a:hover{color:var(--gold)}
     <div class="thanks-box">
       <div class="thanks-icon">🎉</div>
       <h2>ご注文ありがとうございます！</h2>
-      <p>ご注文を受け付けました。<br>まもなく確認メールをお送りします。<br>以下の口座へお振込みをお願いいたします。</p>
+      <p>ご注文を受け付けました。<br>内容を確認し送料を加味した合計金額のお知らせを<br>準備ができ次第送付させていただきます。<br>そちらのメールの指示に従ってお振込みをお願いいたします。</p>
 
-      <div class="transfer-box">
-        <h3>🏦 お振込み先</h3>
-        <div class="transfer-row">
-          <span class="transfer-label">注文番号</span>
-          <span class="transfer-val" id="thanksOrderNo" style="color:var(--gold);font-weight:700">—</span>
+      <div style="background:#fdf6e3;border:2px solid var(--gold);border-radius:12px;padding:20px;max-width:420px;margin:0 auto 24px;text-align:center">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">注文番号</div>
+        <div id="thanksOrderNo" style="font-size:20px;font-weight:700;color:var(--gold);font-family:monospace">—</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.8">
+          このメールは自動送信されます。<br>送料確定メールをお待ちください。
         </div>
-        <div class="transfer-row">
-          <span class="transfer-label">銀行名</span>
-          <span class="transfer-val">〇〇銀行 〇〇支店</span>
-        </div>
-        <div class="transfer-row">
-          <span class="transfer-label">口座種別</span>
-          <span class="transfer-val">普通</span>
-        </div>
-        <div class="transfer-row">
-          <span class="transfer-label">口座番号</span>
-          <span class="transfer-val">0000000</span>
-        </div>
-        <div class="transfer-row">
-          <span class="transfer-label">口座名義</span>
-          <span class="transfer-val">サイトウ マコト</span>
-        </div>
-        <div class="transfer-row">
-          <span class="transfer-label">お振込金額</span>
-          <span class="transfer-val transfer-amount" id="thanksTotalAmount">฿0</span>
-        </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:10px">※ 送料は確認メールにてご案内します<br>※ 振込名義に注文番号をご記入ください</div>
-      </div>
-
-      <div class="thanks-steps">
-        <h3>次のステップ</h3>
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-text">上記口座へお振込みください<br><span style="font-size:13px;color:var(--muted)">振込期限：注文から7日以内</span></div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-text">振込明細（スリップ）の画像を<br>メールへ添付してご返信ください</div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-text">入金確認後、タイよりEMS発送<br><span style="font-size:13px;color:var(--muted)">発送完了メールをお送りします</span></div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">4</div>
-          <div class="step-text">日本国内へお届け<br><span style="font-size:13px;color:var(--muted)">追跡番号はメールにてご案内</span></div>
-        </div>
-      </div>
-
-      <!-- スリップアップロード -->
-      <div id="slipSection" style="max-width:420px;margin:0 auto 24px;text-align:left">
-        <div style="font-size:15px;font-weight:700;color:var(--dark);margin-bottom:8px">📎 振込スリップを送る</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.7">
-          お振込み後、スリップ（明細）の写真をこちらからお送りください。<br>入金確認が早くなります。
-        </div>
-        <div class="slip-upload-area" id="slipUploadArea" onclick="document.getElementById('slipFileInput').click()">
-          <div class="slip-upload-icon">📷</div>
-          <div class="slip-upload-text"><strong>タップして写真を選択</strong><br>JPG・PNG・PDFに対応</div>
-          <img id="slipPreview" class="slip-preview" style="display:none">
-        </div>
-        <input type="file" id="slipFileInput" accept="image/*,application/pdf" style="display:none" onchange="handleSlipSelect(event)">
-        <button class="btn-slip-submit" id="slipSubmitBtn" onclick="uploadSlip()" disabled>📤 スリップを送信する</button>
-        <div class="slip-done" id="slipDone">✅ スリップを受け取りました！確認後に発送いたします。</div>
       </div>
 
       <button class="btn-top" onclick="backToTop()">トップページへ戻る</button>
