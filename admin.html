@@ -1377,6 +1377,42 @@ function openOrderModal(id) {
       <h4>振込スリップ</h4>
       ${slipHtml}
     </div>
+
+    <div class="order-detail-section">
+      <h4>送料確定・振込案内メール</h4>
+      ${o.shipping_notified_at ? `
+        <div style="background:#d4edda;border-radius:8px;padding:10px 14px;font-size:13px;color:#155724;margin-bottom:12px">
+          ✅ 送料確定メール送信済み（${new Date(o.shipping_notified_at).toLocaleDateString('ja-JP')}）<br>
+          送料：฿${(o.shipping_thb||0).toLocaleString()} / ¥${(o.shipping_jpy||0).toLocaleString()}（レート：${o.exchange_rate || '—'}）
+        </div>` : ''}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div>
+          <div class="form-label">送料（THB）</div>
+          <input class="form-input" type="number" id="shippingThb" placeholder="例: 850" min="0"
+            value="${o.shipping_thb || ''}" oninput="calcShipping()">
+        </div>
+        <div>
+          <div class="form-label">為替レート（1THB = 円）</div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <input class="form-input" type="number" id="exchangeRate" placeholder="自動取得" step="0.01"
+              value="${o.exchange_rate || ''}" oninput="calcShipping()">
+            <button class="btn btn-secondary btn-sm" onclick="fetchRate()" style="white-space:nowrap">🔄 取得</button>
+          </div>
+        </div>
+      </div>
+      <div id="shippingCalcResult" style="background:var(--cream);border-radius:8px;padding:12px 16px;font-size:14px;margin-bottom:12px;display:${o.shipping_thb ? 'block' : 'none'}">
+        ${o.shipping_thb && o.exchange_rate ? `
+          送料：<strong>¥${Math.ceil(o.shipping_thb * o.exchange_rate).toLocaleString()}</strong>
+          ／ 商品合計：<strong>¥—</strong>
+          ／ <span style="color:var(--gold);font-weight:700">振込合計：¥—</span>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">※円換算は目安です。実際のレートは変動します</div>
+        ` : '計算中...'}
+      </div>
+      <div id="shippingCalcResult" style="background:var(--cream);border-radius:8px;padding:12px 16px;font-size:14px;margin-bottom:12px;display:none"></div>
+      <button class="btn btn-primary" onclick="sendShippingMail('${o.id}')" style="width:100%">
+        📧 送料確定メールをお客様に送る
+      </button>
+    </div>
   `;
 
   document.getElementById('orderModal').classList.add('active');
@@ -1417,6 +1453,140 @@ async function updateOrderStatus(id, newStatus) {
     document.getElementById('statSlipReady').textContent = allOrders.filter(o => o.status === 'pending' && o.slip_url).length;
   } catch(e) {
     showToast('更新に失敗しました', 'error');
+    console.error(e);
+  }
+}
+
+// ==========================================
+// 送料確定・振込案内
+// ==========================================
+async function fetchRate() {
+  const btn = document.querySelector('#shippingCalcResult + button, .btn-secondary[onclick="fetchRate()"]');
+  const rateInput = document.getElementById('exchangeRate');
+  if (rateInput) rateInput.placeholder = '取得中...';
+  try {
+    const res = await fetch('https://api.frankfurter.app/latest?from=THB&to=JPY');
+    const data = await res.json();
+    const rate = data.rates?.JPY;
+    if (rate && rateInput) {
+      rateInput.value = Math.round(rate * 100) / 100;
+      calcShipping();
+      showToast(`レート取得: 1THB = ${rateInput.value}円`, 'success');
+    }
+  } catch(e) {
+    showToast('レート取得に失敗しました', 'error');
+    if (rateInput) rateInput.placeholder = '手動で入力';
+  }
+}
+
+function calcShipping() {
+  const thb = parseFloat(document.getElementById('shippingThb')?.value) || 0;
+  const rate = parseFloat(document.getElementById('exchangeRate')?.value) || 0;
+  const resultEl = document.getElementById('shippingCalcResult');
+  if (!resultEl) return;
+
+  if (thb > 0 && rate > 0) {
+    const shippingJpy = Math.ceil(thb * rate);
+    const itemTotal = viewingOrder?.total_amount || 0;
+    const itemJpy = Math.ceil(itemTotal * rate);
+    const totalJpy = shippingJpy + itemJpy;
+    resultEl.style.display = 'block';
+    resultEl.innerHTML = `
+      送料：<strong>฿${thb.toLocaleString()} → ¥${shippingJpy.toLocaleString()}</strong><br>
+      商品合計：<strong>฿${itemTotal.toLocaleString()} → ¥${itemJpy.toLocaleString()}</strong><br>
+      <span style="color:var(--gold);font-weight:700;font-size:15px">振込合計：¥${totalJpy.toLocaleString()}</span>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px">レート: 1THB = ${rate}円（目安）</div>
+    `;
+  } else {
+    resultEl.style.display = 'none';
+  }
+}
+
+async function sendShippingMail(orderId) {
+  const thb = parseFloat(document.getElementById('shippingThb')?.value);
+  const rate = parseFloat(document.getElementById('exchangeRate')?.value);
+
+  if (!thb || thb <= 0) { showToast('送料（THB）を入力してください', 'error'); return; }
+  if (!rate || rate <= 0) { showToast('為替レートを入力してください', 'error'); return; }
+
+  const o = viewingOrder;
+  const shippingJpy = Math.ceil(thb * rate);
+  const itemJpy = Math.ceil((o.total_amount || 0) * rate);
+  const totalJpy = shippingJpy + itemJpy;
+
+  if (!confirm(`${o.customer_name}様に送料確定メールを送ります。\n\n送料: ¥${shippingJpy.toLocaleString()}\n商品: ¥${itemJpy.toLocaleString()}\n振込合計: ¥${totalJpy.toLocaleString()}\n\nよろしいですか？`)) return;
+
+  try {
+    // Supabaseに保存
+    await sbFetch(`orders?id=eq.${orderId}`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        shipping_thb: thb,
+        shipping_jpy: shippingJpy,
+        exchange_rate: rate,
+        shipping_notified_at: new Date().toISOString(),
+        status: 'confirmed'
+      })
+    });
+
+    // ローカルデータ更新
+    const idx = allOrders.findIndex(o => o.id === orderId);
+    if (idx !== -1) {
+      allOrders[idx].shipping_thb = thb;
+      allOrders[idx].shipping_jpy = shippingJpy;
+      allOrders[idx].exchange_rate = rate;
+      allOrders[idx].shipping_notified_at = new Date().toISOString();
+      allOrders[idx].status = 'confirmed';
+    }
+
+    showToast('送料を保存しました ✓', 'success');
+
+    // GASでメール送信
+    await sendShippingMailViaGas(o, thb, shippingJpy, itemJpy, totalJpy, rate);
+
+    closeOrderModal();
+    applyOrderFilter(currentOrderFilter);
+
+  } catch(e) {
+    showToast('エラーが発生しました', 'error');
+    console.error(e);
+  }
+}
+
+async function sendShippingMailViaGas(o, shippingThb, shippingJpy, itemJpy, totalJpy, rate) {
+  const GAS_URL = 'YOUR_GAS_MAIL_WEBAPP_URL'; // ★デプロイ後に差し替え
+
+  const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
+
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'sendShippingNotification',
+        orderId: o.id,
+        customerName: o.customer_name,
+        customerEmail: o.customer_email,
+        orderNo: o.order_no,
+        items,
+        itemTotal: o.total_amount || 0,
+        shippingThb,
+        shippingJpy,
+        itemJpy,
+        totalJpy,
+        rate,
+        address1: o.address1,
+        address2: o.address2
+      })
+    });
+    const result = await res.json();
+    if (result.success) {
+      showToast('送料確定メールを送信しました ✓', 'success');
+    } else {
+      showToast('メール送信に失敗しました: ' + result.message, 'error');
+    }
+  } catch(e) {
+    showToast('メール送信に失敗しました', 'error');
     console.error(e);
   }
 }
