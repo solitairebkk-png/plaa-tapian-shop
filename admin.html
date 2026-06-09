@@ -1466,7 +1466,7 @@ async function fetchRate() {
   try {
     const res = await fetch('https://api.frankfurter.dev/v2/rates?base=THB&quotes=JPY');
     const data = await res.json();
-    const rate = data.rates?.JPY;
+    const rate = Array.isArray(data) ? data[0]?.rate : data.rates?.JPY;
     if (rate && rateInput) {
       rateInput.value = Math.round(rate * 100) / 100;
       calcShipping();
@@ -1553,7 +1553,7 @@ async function sendShippingMail(orderId) {
 }
 
 async function sendShippingMailViaGas(o, shippingThb, shippingJpy, itemJpy, totalJpy, rate) {
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbyr-Z6gTkKqqcBK5TWrP4edBFAa5Fnw_SeQzG8W3ElSo0fhJqI8JqeS-ngl-YGSUimqJw/exec'; // ★デプロイ後に差し替え
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbyr-Z6gTkKqqcBK5TWrP4edBFAa5Fnw_SeQzG8W3ElSo0fhJqI8JqeS-ngl-YGSUimqJw/exec';
 
   const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
 
