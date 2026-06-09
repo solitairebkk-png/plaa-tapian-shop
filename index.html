@@ -1118,6 +1118,9 @@ function backToTop() {
   document.getElementById('slipSubmitBtn').disabled = true;
   document.getElementById('slipDone').style.display = 'none';
   selectedSlipFile = null;
+  // 送信ボタンをリセット
+  const submitBtn = document.querySelector('.btn-submit');
+  if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '注文を確定する'; }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
