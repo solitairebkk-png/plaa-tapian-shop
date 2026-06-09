@@ -1095,7 +1095,7 @@ async function submitOrder() {
 
     document.getElementById('orderSection').style.display = 'none';
     document.getElementById('thanksSection').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('thanksSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // カートをリセット
     cart = {};
