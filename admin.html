@@ -156,6 +156,36 @@ tr:hover td{background:#fdfaf4}
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 .spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== ORDER STATUS ===== */
+.os-pending{background:#fff3cd;color:#856404}
+.os-confirmed{background:#cfe2ff;color:#084298}
+.os-shipped{background:#d1ecf1;color:#0c5460}
+.os-done{background:#d4edda;color:#155724}
+.os-cancelled{background:#f8d7da;color:#721c24}
+
+/* ===== ORDER DETAIL MODAL ===== */
+.order-detail-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.order-detail-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.order-detail-section h4{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.order-detail-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;font-size:14px;border-bottom:1px solid #f5f0e8}
+.order-detail-row:last-child{border:none}
+.order-detail-row .label{color:var(--muted);font-size:13px;flex-shrink:0;margin-right:12px}
+.order-detail-row .value{text-align:right;word-break:break-all}
+.order-items-table{width:100%;border-collapse:collapse;font-size:13px}
+.order-items-table th{background:var(--bg);padding:7px 10px;text-align:left;color:var(--muted);font-weight:500;font-size:12px}
+.order-items-table td{padding:8px 10px;border-bottom:1px solid #f5f0e8}
+.order-items-table tr:last-child td{border:none}
+.order-total-row{background:var(--cream);font-weight:700}
+.order-total-row td{color:var(--gold);font-size:15px}
+.slip-preview{max-width:100%;max-height:280px;border-radius:8px;border:1px solid var(--border);display:block;margin:8px auto 0;cursor:pointer}
+.slip-placeholder{background:var(--bg);border-radius:8px;padding:16px;text-align:center;color:var(--muted);font-size:13px}
+.status-select{border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;font-family:'Noto Sans JP',sans-serif;font-size:14px;background:#fff;outline:none;transition:border-color 0.2s}
+.status-select:focus{border-color:var(--gold)}
+.order-filter-bar{display:flex;gap:10px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--border);align-items:center}
+.filter-chip{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;color:var(--muted);transition:all 0.15s}
+.filter-chip:hover{border-color:var(--gold);color:var(--gold)}
+.filter-chip.active{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:500}
 </style>
 </head>
 <body>
@@ -197,6 +227,10 @@ tr:hover td{background:#fdfaf4}
     <div class="nav-item" onclick="showPage('products',this)">
       <span class="nav-icon">📦</span> 商品管理
     </div>
+    <div class="nav-item" id="navOrders" onclick="showPage('orders',this);loadOrdersTable()">
+      <span class="nav-icon">📋</span> 注文管理
+      <span class="nav-badge" id="orderBadge" style="display:none">0</span>
+    </div>
     <div class="nav-item" onclick="showPage('news',this);loadNewsTable()">
       <span class="nav-icon">📢</span> お知らせ管理
     </div>
@@ -237,6 +271,16 @@ tr:hover td{background:#fdfaf4}
           <div class="stat-label">画像未登録</div>
           <div class="stat-value" id="statNoImg" style="color:var(--muted)">—</div>
           <div class="stat-sub">写真を追加してください</div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('navOrders').click()">
+          <div class="stat-label">新着注文</div>
+          <div class="stat-value" id="statPending" style="color:var(--red)">—</div>
+          <div class="stat-sub">未確認（pending）</div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('navOrders').click()">
+          <div class="stat-label">振込待ち確認</div>
+          <div class="stat-value" id="statSlipReady" style="color:var(--gold)">—</div>
+          <div class="stat-sub">スリップ提出済み</div>
         </div>
       </div>
       <div class="table-wrap">
@@ -283,6 +327,31 @@ tr:hover td{background:#fdfaf4}
       </div>
       <div class="table-wrap">
         <div id="newsTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="page" id="page-orders">
+      <div class="page-header">
+        <div>
+          <div class="page-title">注文管理</div>
+          <div class="page-sub">受注一覧・ステータス管理</div>
+        </div>
+        <button class="btn btn-secondary" onclick="loadOrdersTable()">🔄 更新</button>
+      </div>
+      <div class="table-wrap">
+        <div class="order-filter-bar">
+          <span style="font-size:13px;color:var(--muted);margin-right:4px">絞り込み:</span>
+          <span class="filter-chip active" onclick="filterOrders('all',this)">すべて</span>
+          <span class="filter-chip" onclick="filterOrders('pending',this)">🟡 未確認</span>
+          <span class="filter-chip" onclick="filterOrders('confirmed',this)">🔵 確認済</span>
+          <span class="filter-chip" onclick="filterOrders('shipped',this)">🟢 発送済</span>
+          <span class="filter-chip" onclick="filterOrders('done',this)">✅ 完了</span>
+          <span class="filter-chip" onclick="filterOrders('cancelled',this)">❌ キャンセル</span>
+        </div>
+        <div id="orderTableWrap">
+          <div class="loading"><span class="spinner"></span>読み込み中...</div>
+        </div>
       </div>
     </div>
 
@@ -460,6 +529,18 @@ tr:hover td{background:#fdfaf4}
   </div>
 </div>
 
+<!-- 注文詳細モーダル -->
+<div class="modal-overlay" id="orderModal" onclick="handleOrderModalBgClick(event)">
+  <div class="modal" id="orderModalBox" style="max-width:640px">
+    <div class="modal-header">
+      <h2 id="orderModalTitle">注文詳細</h2>
+      <button class="modal-close" onclick="closeOrderModal()">×</button>
+    </div>
+    <div class="modal-body" id="orderModalBody">
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -575,11 +656,28 @@ function showPage(name, el) {
 // ==========================================
 async function loadDashboard() {
   try {
-    const products = await getProducts();
+    const [products, orders] = await Promise.all([
+      getProducts(),
+      sbFetch('orders?select=status,slip_url').catch(() => [])
+    ]);
     document.getElementById('statTotal').textContent = products.length;
     document.getElementById('statActive').textContent = products.filter(p => p.is_active).length;
     document.getElementById('statZero').textContent = products.filter(p => p.stock === 0).length;
     document.getElementById('statNoImg').textContent = products.filter(p => !p.images || p.images.length === 0).length;
+
+    const pendingCount = orders.filter(o => o.status === 'pending').length;
+    const slipReadyCount = orders.filter(o => o.status === 'pending' && o.slip_url).length;
+    document.getElementById('statPending').textContent = pendingCount;
+    document.getElementById('statSlipReady').textContent = slipReadyCount;
+
+    // サイドバーバッジ更新
+    const badge = document.getElementById('orderBadge');
+    if (pendingCount > 0) {
+      badge.textContent = pendingCount;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
 
     const low = products.filter(p => p.stock > 0 && p.stock <= 5).sort((a,b) => a.stock - b.stock);
     const wrap = document.getElementById('lowStockList');
@@ -1020,10 +1118,202 @@ async function deleteNews() {
 }
 
 // ==========================================
+// ORDERS
+// ==========================================
+let allOrders = [];
+let filteredOrders = [];
+let currentOrderFilter = 'all';
+let viewingOrder = null;
+
+const STATUS_LABEL = {
+  pending:   { label: '未確認',  cls: 'os-pending' },
+  confirmed: { label: '確認済',  cls: 'os-confirmed' },
+  shipped:   { label: '発送済',  cls: 'os-shipped' },
+  done:      { label: '完了',    cls: 'os-done' },
+  cancelled: { label: 'キャンセル', cls: 'os-cancelled' }
+};
+
+function statusBadge(status) {
+  const s = STATUS_LABEL[status] || { label: status, cls: '' };
+  return `<span class="status-badge ${s.cls}">${s.label}</span>`;
+}
+
+async function loadOrdersTable() {
+  document.getElementById('orderTableWrap').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
+  try {
+    allOrders = await sbFetch('orders?order=created_at.desc&select=*') || [];
+    filteredOrders = [...allOrders];
+    applyOrderFilter(currentOrderFilter);
+  } catch(e) {
+    document.getElementById('orderTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>';
+  }
+}
+
+function filterOrders(status, el) {
+  currentOrderFilter = status;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  applyOrderFilter(status);
+}
+
+function applyOrderFilter(status) {
+  filteredOrders = status === 'all' ? [...allOrders] : allOrders.filter(o => o.status === status);
+  renderOrdersTable();
+}
+
+function renderOrdersTable() {
+  if (filteredOrders.length === 0) {
+    document.getElementById('orderTableWrap').innerHTML = '<div class="loading">注文はありません</div>';
+    return;
+  }
+  document.getElementById('orderTableWrap').innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>注文日時</th>
+          <th>注文番号</th>
+          <th>お客様名</th>
+          <th>合計金額</th>
+          <th>スリップ</th>
+          <th>ステータス</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filteredOrders.map(o => {
+          const dt = new Date(o.created_at);
+          const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+          const slip = o.slip_url
+            ? `<span style="color:var(--green);font-size:12px;font-weight:500">✅ あり</span>`
+            : `<span style="color:var(--muted);font-size:12px">—</span>`;
+          return `
+          <tr>
+            <td style="font-size:12px;color:var(--muted);white-space:nowrap">${dateStr}</td>
+            <td style="font-size:12px;font-family:monospace">${o.order_no || '—'}</td>
+            <td><strong>${o.customer_name || '—'}</strong><br><span style="font-size:12px;color:var(--muted)">${o.customer_email || ''}</span></td>
+            <td style="font-weight:700;color:var(--gold)">฿${(o.total_amount || 0).toLocaleString()}</td>
+            <td>${slip}</td>
+            <td>${statusBadge(o.status)}</td>
+            <td><button class="btn btn-secondary btn-sm" onclick="openOrderModal('${o.id}')">📄 詳細</button></td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+}
+
+function openOrderModal(id) {
+  viewingOrder = allOrders.find(o => o.id === id);
+  if (!viewingOrder) return;
+  const o = viewingOrder;
+  document.getElementById('orderModalTitle').textContent = `注文 ${o.order_no || o.id}`;
+
+  const dt = new Date(o.created_at);
+  const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+
+  const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
+  const itemRows = items.map(it =>
+    `<tr><td>${it.name || it.id}</td><td style="text-align:right">฿${(it.price||0).toLocaleString()}</td><td style="text-align:right">${it.qty}</td><td style="text-align:right;font-weight:500">฿${((it.price||0)*(it.qty||1)).toLocaleString()}</td></tr>`
+  ).join('');
+
+  const slipHtml = o.slip_url
+    ? `<img src="${o.slip_url}" class="slip-preview" alt="振込スリップ" onclick="window.open('${o.slip_url}','_blank')" title="クリックで拡大">`
+    : `<div class="slip-placeholder">📄 スリップ未提出</div>`;
+
+  document.getElementById('orderModalBody').innerHTML = `
+    <div class="order-detail-section">
+      <h4>ステータス変更</h4>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        ${statusBadge(o.status)}
+        <select class="status-select" id="orderStatusSelect" onchange="updateOrderStatus('${o.id}',this.value)">
+          <option value="pending"   ${o.status==='pending'   ?'selected':''}>🟡 未確認</option>
+          <option value="confirmed" ${o.status==='confirmed' ?'selected':''}>🔵 確認済</option>
+          <option value="shipped"   ${o.status==='shipped'   ?'selected':''}>🟢 発送済</option>
+          <option value="done"      ${o.status==='done'      ?'selected':''}>✅ 完了</option>
+          <option value="cancelled" ${o.status==='cancelled' ?'selected':''}>❌ キャンセル</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="order-detail-section">
+      <h4>注文情報</h4>
+      <div class="order-detail-row"><span class="label">注文番号</span><span class="value" style="font-family:monospace">${o.order_no || '—'}</span></div>
+      <div class="order-detail-row"><span class="label">注文日時</span><span class="value">${dateStr}</span></div>
+    </div>
+
+    <div class="order-detail-section">
+      <h4>お客様情報</h4>
+      <div class="order-detail-row"><span class="label">お名前</span><span class="value"><strong>${o.customer_name || '—'}</strong></span></div>
+      <div class="order-detail-row"><span class="label">メール</span><span class="value"><a href="mailto:${o.customer_email}" style="color:var(--gold)">${o.customer_email || '—'}</a></span></div>
+      <div class="order-detail-row"><span class="label">電話</span><span class="value">${o.customer_phone || '—'}</span></div>
+      <div class="order-detail-row"><span class="label">住所①</span><span class="value">${o.address1 || '—'}</span></div>
+      <div class="order-detail-row"><span class="label">住所②</span><span class="value">${o.address2 || '—'}</span></div>
+      ${o.note ? `<div class="order-detail-row"><span class="label">備考</span><span class="value">${o.note}</span></div>` : ''}
+    </div>
+
+    <div class="order-detail-section">
+      <h4>注文商品</h4>
+      <table class="order-items-table">
+        <thead><tr><th>商品名</th><th style="text-align:right">単価</th><th style="text-align:right">数量</th><th style="text-align:right">小計</th></tr></thead>
+        <tbody>
+          ${itemRows}
+          <tr class="order-total-row"><td colspan="3">合計</td><td style="text-align:right">฿${(o.total_amount||0).toLocaleString()}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="order-detail-section">
+      <h4>振込スリップ</h4>
+      ${slipHtml}
+    </div>
+  `;
+
+  document.getElementById('orderModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeOrderModal() {
+  document.getElementById('orderModal').classList.remove('active');
+  document.body.style.overflow = '';
+  viewingOrder = null;
+}
+
+function handleOrderModalBgClick(e) {
+  if (e.target === document.getElementById('orderModal')) closeOrderModal();
+}
+
+async function updateOrderStatus(id, newStatus) {
+  try {
+    await sbFetch(`orders?id=eq.${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status: newStatus })
+    });
+    // ローカルデータを更新
+    const idx = allOrders.findIndex(o => o.id === id);
+    if (idx !== -1) allOrders[idx].status = newStatus;
+    if (viewingOrder && viewingOrder.id === id) viewingOrder.status = newStatus;
+    // バッジ表示部分を更新
+    const badgeEl = document.getElementById('orderModal').querySelector('.status-badge');
+    if (badgeEl) badgeEl.outerHTML = statusBadge(newStatus);
+    showToast('ステータスを更新しました ✓', 'success');
+    applyOrderFilter(currentOrderFilter);
+    // ダッシュボードバッジも更新
+    const pendingCount = allOrders.filter(o => o.status === 'pending').length;
+    const badge = document.getElementById('orderBadge');
+    badge.textContent = pendingCount;
+    badge.style.display = pendingCount > 0 ? '' : 'none';
+    document.getElementById('statPending').textContent = pendingCount;
+    document.getElementById('statSlipReady').textContent = allOrders.filter(o => o.status === 'pending' && o.slip_url).length;
+  } catch(e) {
+    showToast('更新に失敗しました', 'error');
+    console.error(e);
+  }
+}
+
+// ==========================================
 // KEYBOARD
 // ==========================================
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeProductModal();
+  if (e.key === 'Escape') { closeProductModal(); closeOrderModal(); }
   if (e.key === 'Enter' && document.getElementById('loginScreen').style.display !== 'none') doLogin();
 });
 </script>
