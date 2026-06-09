@@ -63,7 +63,7 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 .news-section::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0}
 .news-section>*{position:relative;z-index:1}
 .news-board-wrap{position:relative;max-width:860px;margin:0 auto}
-.news-board-bg{width:100%;display:block;mix-blend-mode:multiply;opacity:0.88;pointer-events:none;user-select:none;filter:sepia(1) saturate(4) hue-rotate(10deg) brightness(1.1)}
+.news-board-bg{width:100%;display:block;mix-blend-mode:multiply;opacity:0.88;pointer-events:none;user-select:none;filter:sepia(1) saturate(2) hue-rotate(5deg) brightness(0.95)}
 .news-board-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:8% 12%}
 .news-title{font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .news-title::before{content:'';width:6px;height:6px;background:rgba(255,255,255,0.8);border-radius:50%;display:inline-block}
@@ -71,10 +71,10 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 .news-item{display:flex;align-items:baseline;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.2);font-size:15px;line-height:1.6}
 .news-item:last-child{border-bottom:none}
 .news-date{color:rgba(255,255,255,0.7);font-size:12px;white-space:nowrap;flex-shrink:0;font-family:monospace}
-.news-text{color:#fff;flex:1;text-shadow:0 1px 4px rgba(0,0,0,0.7);font-weight:500}
+.news-text{color:#fff;flex:1;text-shadow:0 1px 3px rgba(0,0,0,0.5);font-weight:500}
 .news-text a{color:#ffd89b;text-decoration:none}
 .news-text a:hover{text-decoration:underline}
-.news-empty{color:rgba(255,255,255,0.7);font-size:14px;padding:6px 0}
+.news-empty{color:rgba(255,255,255,0.7);font-size:15px;padding:6px 0}
 
 /* ===== SHOP LAYOUT ===== */
 .shop-layout{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:start}
@@ -303,6 +303,19 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 /* ===== FOOTER ===== */
 footer{background:var(--dark);color:rgba(255,255,255,0.55);text-align:center;padding:28px 5%;font-size:13px;line-height:2.2}
 footer strong{color:var(--gold)}
+
+/* ===== フッター横並び ===== */
+.footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;max-width:1100px;margin:0 auto;align-items:start}
+.footer-brand{display:flex;flex-direction:column;align-items:center;text-align:center}
+.footer-photos{display:flex;flex-direction:column;gap:8px}
+.footer-photo{border-radius:8px;overflow:hidden;border:1px solid rgba(200,146,42,0.4);aspect-ratio:4/3}
+.footer-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
+.footer-photo:hover img{transform:scale(1.05)}
+.footer-map{border-radius:8px;overflow:hidden;border:2px solid rgba(200,146,42,0.4)}
+.footer-map iframe{width:100%;height:220px;display:block;border:none}
+@media(max-width:760px){
+  .footer-inner{grid-template-columns:1fr}
+}
 footer a{color:rgba(255,255,255,0.55);text-decoration:none}
 footer a:hover{color:var(--gold)}
 
@@ -628,12 +641,44 @@ footer a:hover{color:var(--gold)}
 </div>
 
 <!-- FOOTER -->
-<footer style="background:var(--thai-maroon);color:rgba(255,255,255,0.6);text-align:center;padding:28px 5%;font-size:13px;line-height:2.2;border-top:4px solid var(--gold)">
-  <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_.png" alt="logo" style="width:90px;height:90px;border-radius:50%;object-fit:contain;border:2px solid var(--gold);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto;background:transparent">
-  <strong style="color:var(--gold);font-family:'Kosugi Maru',sans-serif;font-size:16px;letter-spacing:2px">Plaa Tapian ปลาตะเพียน</strong><br>
-  Bangkok, Thailand &nbsp;|&nbsp; 日本への国際配送対応<br>
-  お問い合わせ: <a href="mailto:info@plaatapian.com" style="color:rgba(255,255,255,0.6)">info@plaatapian.com</a><br>
-  <span style="font-size:11px;opacity:0.5">© 2026 Plaa Tapian. All rights reserved.</span>
+<footer style="background:var(--thai-maroon);color:rgba(255,255,255,0.6);padding:36px 5%;border-top:4px solid var(--gold)">
+  <div class="footer-inner">
+
+    <!-- 左：ロゴ・店名・連絡先 -->
+    <div class="footer-brand">
+      <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_.png" alt="logo" style="width:80px;height:80px;border-radius:50%;object-fit:contain;border:2px solid var(--gold);margin-bottom:12px;background:transparent">
+      <strong style="color:var(--gold);font-family:'Kosugi Maru',sans-serif;font-size:15px;letter-spacing:2px;display:block;margin-bottom:10px">Plaa Tapian ปลาตะเพียน</strong>
+      <div style="font-size:13px;line-height:2;text-align:center">
+        Bangkok, Thailand<br>
+        日本への国際配送対応<br>
+        <a href="mailto:info@plaatapian.com" style="color:rgba(255,255,255,0.6)">info@plaatapian.com</a>
+      </div>
+      <div style="font-size:11px;opacity:0.4;margin-top:16px">© 2026 Plaa Tapian. All rights reserved.</div>
+    </div>
+
+    <!-- 中央：店舗写真2枚 -->
+    <div class="footer-photos">
+      <div class="footer-photo">
+        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/store-inside.jpg" alt="店内">
+      </div>
+      <div class="footer-photo">
+        <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/store-outside.jpg" alt="外観">
+      </div>
+    </div>
+
+    <!-- 右：Googleマップ -->
+    <div>
+      <div style="font-size:12px;color:var(--gold);letter-spacing:1px;margin-bottom:8px;font-weight:500">📍 実店舗</div>
+      <div class="footer-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242.24594279763716!2d100.57402801199835!3d13.72237994963852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29fba80f922f3%3A0x692f83529fc751b!2z44K144Kk44OG44Ox44OV44O844K65qCq5byP5Lya56S-!5e0!3m2!1sja!2sth!4v1780999410332!5m2!1sja!2sth" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.8">
+        217/33 Sukhumvit Soi 4<br>
+        Khlong Toei, Bangkok 10110
+      </div>
+    </div>
+
+  </div>
 </footer>
 
 <script>
