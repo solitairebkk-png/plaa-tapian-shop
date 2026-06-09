@@ -231,6 +231,9 @@ tr:hover td{background:#fdfaf4}
       <span class="nav-icon">📋</span> 注文管理
       <span class="nav-badge" id="orderBadge" style="display:none">0</span>
     </div>
+    <div class="nav-item" onclick="showPage('members',this);loadMembersTable()">
+      <span class="nav-icon">🪪</span> 会員管理
+    </div>
     <div class="nav-item" onclick="showPage('news',this);loadNewsTable()">
       <span class="nav-icon">📢</span> お知らせ管理
     </div>
@@ -327,6 +330,30 @@ tr:hover td{background:#fdfaf4}
       </div>
       <div class="table-wrap">
         <div id="newsTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
+      </div>
+    </div>
+
+    <!-- MEMBERS -->
+    <div class="page" id="page-members">
+      <div class="page-header">
+        <div>
+          <div class="page-title">会員管理</div>
+          <div class="page-sub">登録会員の一覧・DM希望状況</div>
+        </div>
+        <button class="btn btn-secondary" onclick="loadMembersTable()">🔄 更新</button>
+      </div>
+      <div class="table-wrap">
+        <div class="table-toolbar">
+          <input class="search-input" type="text" placeholder="名前・メールで検索..." oninput="filterMembers(this.value)">
+          <select class="filter-select" onchange="filterMembersByDm(this.value)">
+            <option value="">すべて</option>
+            <option value="true">DM希望あり</option>
+            <option value="false">DM希望なし</option>
+          </select>
+        </div>
+        <div id="memberTableWrap">
+          <div class="loading"><span class="spinner"></span>読み込み中...</div>
+        </div>
       </div>
     </div>
 
@@ -1115,6 +1142,88 @@ async function deleteNews() {
   } catch(e) {
     showToast('削除に失敗しました', 'error');
   }
+}
+
+// ==========================================
+// MEMBERS
+// ==========================================
+let allMembers = [];
+let filteredMembers = [];
+let memberSearchQuery = '';
+let memberDmFilter = '';
+
+async function loadMembersTable() {
+  document.getElementById('memberTableWrap').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
+  try {
+    allMembers = await sbFetch('members?order=created_at.desc&select=*') || [];
+    filteredMembers = [...allMembers];
+    renderMembersTable();
+  } catch(e) {
+    document.getElementById('memberTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>';
+  }
+}
+
+function filterMembers(q) {
+  memberSearchQuery = q.toLowerCase();
+  applyMemberFilter();
+}
+
+function filterMembersByDm(val) {
+  memberDmFilter = val;
+  applyMemberFilter();
+}
+
+function applyMemberFilter() {
+  filteredMembers = allMembers.filter(m => {
+    const matchSearch = !memberSearchQuery ||
+      (m.name || '').toLowerCase().includes(memberSearchQuery) ||
+      (m.email || '').toLowerCase().includes(memberSearchQuery);
+    const matchDm = memberDmFilter === '' ? true :
+      memberDmFilter === 'true' ? m.dm_opt_in === true : m.dm_opt_in !== true;
+    return matchSearch && matchDm;
+  });
+  renderMembersTable();
+}
+
+function renderMembersTable() {
+  const dmCount = allMembers.filter(m => m.dm_opt_in).length;
+  if (filteredMembers.length === 0) {
+    document.getElementById('memberTableWrap').innerHTML = '<div class="loading">会員が見つかりません</div>';
+    return;
+  }
+  document.getElementById('memberTableWrap').innerHTML = `
+    <div style="padding:10px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--border)">
+      全 <strong style="color:var(--dark)">${allMembers.length}</strong> 名 ／ DM希望 <strong style="color:var(--green)">${dmCount}</strong> 名
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>登録日</th>
+          <th>お名前</th>
+          <th>メールアドレス</th>
+          <th>電話番号</th>
+          <th>住所</th>
+          <th>DMお知らせ</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filteredMembers.map(m => {
+          const dt = new Date(m.created_at);
+          const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`;
+          return `
+          <tr>
+            <td style="font-size:12px;color:var(--muted);white-space:nowrap">${dateStr}</td>
+            <td><strong>${m.name || '—'}</strong></td>
+            <td style="font-size:13px">${m.email || '—'}</td>
+            <td style="font-size:13px">${m.phone || '—'}</td>
+            <td style="font-size:12px;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.address1 || '—'}${m.address2 ? ' ' + m.address2 : ''}</td>
+            <td>${m.dm_opt_in
+              ? '<span class="status-badge status-active">✅ 希望あり</span>'
+              : '<span class="status-badge status-inactive">— なし</span>'}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
 }
 
 // ==========================================
