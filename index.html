@@ -948,7 +948,7 @@ function goToOrder() {
   document.getElementById('dmOptLabel').style.display = 'none';
   document.getElementById('memberFoundMsg').style.display = 'none';
   foundMember = null;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function backToShop() {
