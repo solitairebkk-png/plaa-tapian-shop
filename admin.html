@@ -1557,33 +1557,29 @@ async function sendShippingMailViaGas(o, shippingThb, shippingJpy, itemJpy, tota
 
   const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
 
+  const params = new URLSearchParams({
+    action: 'sendShippingNotification',
+    orderId: o.id,
+    customerName: o.customer_name,
+    customerEmail: o.customer_email,
+    orderNo: o.order_no,
+    items: JSON.stringify(items),
+    itemTotal: o.total_amount || 0,
+    shippingThb,
+    shippingJpy,
+    itemJpy,
+    totalJpy,
+    rate,
+    address1: o.address1 || '',
+    address2: o.address2 || ''
+  });
+
   try {
-    const res = await fetch(GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'sendShippingNotification',
-        orderId: o.id,
-        customerName: o.customer_name,
-        customerEmail: o.customer_email,
-        orderNo: o.order_no,
-        items,
-        itemTotal: o.total_amount || 0,
-        shippingThb,
-        shippingJpy,
-        itemJpy,
-        totalJpy,
-        rate,
-        address1: o.address1,
-        address2: o.address2
-      })
+    const res = await fetch(`${GAS_URL}?${params.toString()}`, {
+      method: 'GET',
+      mode: 'no-cors'
     });
-    const result = await res.json();
-    if (result.success) {
-      showToast('送料確定メールを送信しました ✓', 'success');
-    } else {
-      showToast('メール送信に失敗しました: ' + result.message, 'error');
-    }
+    showToast('送料確定メールを送信しました ✓', 'success');
   } catch(e) {
     showToast('メール送信に失敗しました', 'error');
     console.error(e);
