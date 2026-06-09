@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plaa Tapian ปลาตะเพียน — タイアルチザンショップ</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@600;700&family=Kosugi+Maru&family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@600;700&family=Kosugi+Maru&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -59,35 +59,43 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 .sec-line{width:44px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:24px}
 
 /* ===== NEWS ===== */
-.news-section{background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/background.jpg');background-size:cover;background-position:center;border-left:4px solid var(--gold);margin:0;padding:20px 5%;border-bottom:2px solid var(--gold);position:relative}
-.news-section::before{content:'';position:absolute;inset:0;background:rgba(253,246,227,0.82);pointer-events:none;z-index:0}
+.news-section{margin:0;padding:20px 5%;border-bottom:2px solid var(--gold);position:relative;background:var(--cream);overflow:hidden}
+.news-section::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0}
 .news-section>*{position:relative;z-index:1}
-.news-title{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.news-title::before{content:'';width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block}
-.news-list{display:flex;flex-direction:column;gap:0}
-.news-item{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid #f5f0e8;font-size:14px;line-height:1.6}
+.news-board-wrap{position:relative;max-width:860px;margin:0 auto}
+.news-board-bg{width:100%;display:block;mix-blend-mode:multiply;opacity:0.88;pointer-events:none;user-select:none;filter:sepia(1) saturate(2) hue-rotate(5deg) brightness(0.95)}
+.news-board-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:8% 14%;text-align:center}
+.news-title{font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.news-title::before{content:'';width:6px;height:6px;background:rgba(255,255,255,0.8);border-radius:50%;display:inline-block}
+.news-list{display:flex;flex-direction:column;gap:0;width:100%}
+.news-item{display:flex;align-items:baseline;justify-content:center;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.2);font-size:15px;line-height:1.6}
 .news-item:last-child{border-bottom:none}
-.news-date{color:var(--muted);font-size:12px;white-space:nowrap;flex-shrink:0;font-family:monospace}
-.news-text{color:var(--dark);flex:1}
-.news-text a{color:var(--gold);text-decoration:none}
+.news-date{color:rgba(255,255,255,0.7);font-size:12px;white-space:nowrap;flex-shrink:0;font-family:monospace}
+.news-text{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5);font-weight:500}
+.news-text a{color:#ffd89b;text-decoration:none}
 .news-text a:hover{text-decoration:underline}
-.news-empty{color:var(--muted);font-size:13px;padding:8px 0}
+.news-empty{color:rgba(255,255,255,0.7);font-size:15px;padding:6px 0}
 
 /* ===== SHOP LAYOUT ===== */
 .shop-layout{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:start}
 
 /* ===== SIDEBAR ===== */
-.sidebar{background:var(--dark);border-radius:12px;border:2px solid var(--gold);overflow:hidden;position:sticky;top:80px;box-shadow:0 4px 16px rgba(44,24,16,0.18)}
-.sidebar-head{background:var(--thai-maroon);padding:12px 16px;font-family:'Sawarabi Mincho','Noto Sans JP',serif;font-size:14px;color:#fff;letter-spacing:3px;border-bottom:2px solid var(--gold)}
-.cat-banner{cursor:pointer;position:relative;border-bottom:1px solid rgba(200,146,42,0.25);transition:all 0.2s;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/fabric.jpg');background-size:cover;background-position:center;height:56px;overflow:hidden}
+.sidebar{background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/background.jpg');background-size:cover;background-position:center;border-radius:12px;border:1px solid var(--border);overflow:hidden;position:sticky;top:80px}
+.sidebar-head{background:var(--thai-maroon);padding:12px 16px;font-family:'Kosugi Maru','Noto Sans JP',sans-serif;font-size:13px;color:#fff;letter-spacing:1px}
+.cat-banner{cursor:pointer;position:relative;border-bottom:1px solid var(--border);transition:background 0.15s;background-image:url('https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/image.jpg');background-size:200% 200%;height:56px;overflow:hidden}
+.cat-banner.food{background-position:0% 0%}
+.cat-banner.zakka{background-position:100% 0%}
+.cat-banner.shokki{background-position:0% 100%}
+.cat-banner.acc{background-position:100% 100%}
+.cat-banner.kitchen{background:#f5f0e8}
 .cat-banner:last-child{border-bottom:none}
-.cat-banner:hover .cat-banner-label{background:rgba(253,246,227,0.55)}
-.cat-banner.active .cat-banner-label{background:rgba(253,246,227,0.65);border-left:3px solid var(--gold)}
-.cat-banner-label{position:absolute;inset:0;display:flex;align-items:center;padding:0 14px;background:rgba(253,246,227,0.72);color:var(--dark);font-family:'Sawarabi Mincho','Noto Sans JP',serif;font-size:14px;font-weight:400;letter-spacing:2px;transition:all 0.2s;text-shadow:none;gap:8px}
-.cat-all{background-image:none;background:var(--thai-maroon);height:48px;opacity:0.95}
-.cat-all .cat-banner-label{background:transparent;color:rgba(255,255,255,0.9);text-shadow:1px 1px 3px rgba(0,0,0,0.4);font-size:13px}
-.cat-all:hover .cat-banner-label{background:rgba(200,146,42,0.2)}
-.cat-all.active .cat-banner-label{background:rgba(200,146,42,0.25);color:var(--gold);border-left:3px solid var(--gold)}
+.cat-banner:hover .cat-banner-label{background:rgba(107,27,27,0.55)}
+.cat-banner.active .cat-banner-label{background:rgba(107,27,27,0.65)}
+.cat-banner-label{position:absolute;inset:0;display:flex;align-items:center;padding:0 14px;background:rgba(26,10,10,0.35);color:#fff;font-size:13px;font-weight:700;letter-spacing:1px;transition:background 0.15s;text-shadow:1px 1px 3px rgba(0,0,0,0.8);gap:6px}
+.cat-all{background:var(--cream);height:44px}
+.cat-all .cat-banner-label{background:transparent;color:var(--dark);text-shadow:none}
+.cat-all:hover .cat-banner-label{background:rgba(200,146,42,0.15)}
+.cat-all.active .cat-banner-label{background:rgba(200,146,42,0.2);color:var(--gold)}
 
 /* ===== PRODUCT SECTION ===== */
 .shop-right{min-width:0}
@@ -96,7 +104,7 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
   .shop-layout{grid-template-columns:1fr}
   .sidebar{position:static;display:flex;overflow-x:auto;border-radius:8px}
   .sidebar-head{display:none}
-  .cat-banner{height:44px;min-width:100px;flex-shrink:0;border-bottom:none;border-right:1px solid rgba(200,146,42,0.25)}
+  .cat-banner{height:44px;min-width:100px;flex-shrink:0;border-bottom:none;border-right:1px solid var(--border)}
   .cat-all{min-width:80px}
 }
 
@@ -158,8 +166,8 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
   height:100%;
   object-fit:cover;
   border-radius:50%;
-  -webkit-mask-image:radial-gradient(circle at 50% 50%,black 48%,rgba(0,0,0,0.5) 66%,transparent 88%);
-  mask-image:radial-gradient(circle at 50% 50%,black 48%,rgba(0,0,0,0.5) 66%,transparent 88%);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,black 55%,rgba(0,0,0,0.7) 70%,rgba(0,0,0,0.2) 85%,transparent 100%);
+  mask-image:radial-gradient(circle at 50% 50%,black 55%,rgba(0,0,0,0.7) 70%,rgba(0,0,0,0.2) 85%,transparent 100%);
 }
 .prod-photo-emoji{
   font-size:60px;
@@ -298,6 +306,18 @@ footer strong{color:var(--gold)}
 footer a{color:rgba(255,255,255,0.55);text-decoration:none}
 footer a:hover{color:var(--gold)}
 
+/* ===== フッター横並び ===== */
+.footer-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;max-width:1100px;margin:0 auto;align-items:start}
+.footer-brand{display:flex;flex-direction:column;align-items:center;text-align:center}
+.footer-photo{border-radius:8px;overflow:hidden;border:1px solid rgba(200,146,42,0.4);aspect-ratio:3/2}
+.footer-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
+.footer-photo:hover img{transform:scale(1.05)}
+.footer-map{border-radius:8px;overflow:hidden;border:2px solid rgba(200,146,42,0.4)}
+.footer-map iframe{width:100%;height:220px;display:block;border:none}
+@media(max-width:760px){
+  .footer-inner{grid-template-columns:1fr}
+}
+
 /* ===== MODAL ===== */
 .modal-overlay{position:fixed;inset:0;background:rgba(44,24,16,0.72);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity 0.25s}
 .modal-overlay.active{opacity:1;pointer-events:all}
@@ -397,9 +417,14 @@ footer a:hover{color:var(--gold)}
 
 <!-- お知らせ -->
 <section class="news-section">
-  <div class="news-title">お店からのお知らせ</div>
-  <div class="news-list" id="newsList">
-    <div class="news-empty">読み込み中...</div>
+  <div class="news-board-wrap">
+    <img class="news-board-bg" src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/info.jpg" alt="">
+    <div class="news-board-content">
+      <div class="news-title">お店からのお知らせ</div>
+      <div class="news-list" id="newsList">
+        <div class="news-empty">読み込み中...</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -429,7 +454,7 @@ footer a:hover{color:var(--gold)}
           <div class="cat-banner-label">🍽️ 食器</div>
         </div>
         <div class="cat-banner kitchen" onclick="filterCatBanner('キッチン',this)">
-          <div class="cat-banner-label">🔪 キッチン</div>
+          <div class="cat-banner-label" style="color:var(--dark);text-shadow:none">🔪 キッチン</div>
         </div>
         <div class="cat-banner acc" onclick="filterCatBanner('アクセサリー',this)">
           <div class="cat-banner-label">💎 アクセサリー</div>
@@ -476,17 +501,12 @@ footer a:hover{color:var(--gold)}
 
       <!-- フォーム -->
       <div class="form-group">
-        <label>メールアドレス *</label>
-        <div style="position:relative">
-          <input type="email" id="fEmail" placeholder="example@email.com" required oninput="onEmailInput(this.value)">
-          <div id="memberFoundMsg" style="display:none;margin-top:6px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:8px 12px;font-size:13px;color:#2D6A4F">
-            ✅ 会員情報が見つかりました。住所を自動入力しました。
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
         <label>お名前 *</label>
         <input type="text" id="fName" placeholder="山田 太郎" required>
+      </div>
+      <div class="form-group">
+        <label>メールアドレス *</label>
+        <input type="email" id="fEmail" placeholder="example@email.com" required>
       </div>
       <div class="form-group">
         <label>電話番号</label>
@@ -500,19 +520,6 @@ footer a:hover{color:var(--gold)}
       <div class="form-group">
         <label>ご要望・備考</label>
         <textarea id="fNote" placeholder="ご要望があればご記入ください（例：ギフト包装希望、配送時期など）"></textarea>
-      </div>
-
-      <!-- 会員登録オプション -->
-      <div style="background:#fdf6e3;border:1.5px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px">
-        <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:10px">🪪 会員登録（任意）</div>
-        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--dark);margin-bottom:8px;line-height:1.6">
-          <input type="checkbox" id="fRegister" style="width:16px;height:16px;accent-color:var(--gold);margin-top:2px;flex-shrink:0" onchange="toggleDmOption()">
-          <span>会員登録する<span style="color:var(--muted);font-size:12px;display:block">次回のご注文時に住所などを自動入力できます</span></span>
-        </label>
-        <label id="dmOptLabel" style="display:none;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--dark);margin-left:26px;line-height:1.6">
-          <input type="checkbox" id="fDmOptIn" style="width:16px;height:16px;accent-color:var(--gold);margin-top:2px;flex-shrink:0">
-          <span>お店からのお知らせメールを受け取る<span style="color:var(--muted);font-size:12px;display:block">新商品・セール情報などをお届けします（いつでも解除可能）</span></span>
-        </label>
       </div>
 
       <div style="background:#fdf6e3;border-radius:8px;padding:14px;margin-bottom:20px;font-size:13px;color:var(--muted);line-height:1.8">
@@ -633,47 +640,12 @@ footer a:hover{color:var(--gold)}
 </div>
 
 <!-- FOOTER -->
-<footer style="background:var(--thai-maroon);color:rgba(255,255,255,0.6);padding:36px 5%;border-top:4px solid var(--gold)">
-  <div class="footer-inner">
-
-    <!-- 左：ロゴ・店名・連絡先 -->
-    <div class="footer-brand">
-      <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_.png" alt="logo" style="width:80px;height:80px;border-radius:50%;object-fit:contain;border:2px solid var(--gold);margin-bottom:12px;background:transparent">
-      <strong style="color:var(--gold);font-family:'Kosugi Maru',sans-serif;font-size:15px;letter-spacing:2px;display:block;margin-bottom:10px">Plaa Tapian ปลาตะเพียน</strong>
-      <div style="font-size:13px;line-height:2;text-align:center">
-        Bangkok, Thailand<br>
-        日本への国際配送対応<br>
-        <a href="mailto:info@plaatapian.com" style="color:rgba(255,255,255,0.6)">info@plaatapian.com</a>
-      </div>
-      <div style="font-size:11px;opacity:0.4;margin-top:16px">© 2026 Plaa Tapian. All rights reserved.</div>
-    </div>
-
-    <!-- 中央：店舗写真2枚横並び -->
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <div style="font-size:12px;color:var(--gold);letter-spacing:1px;font-weight:500">📸 店舗写真</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div class="footer-photo">
-          <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/store-inside.jpg" alt="店内">
-        </div>
-        <div class="footer-photo">
-          <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/store-outside.jpg" alt="外観">
-        </div>
-      </div>
-    </div>
-
-    <!-- 右：Googleマップ -->
-    <div>
-      <div style="font-size:12px;color:var(--gold);letter-spacing:1px;margin-bottom:8px;font-weight:500">📍 実店舗</div>
-      <div class="footer-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242.24594279763716!2d100.57402801199835!3d13.72237994963852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29fba80f922f3%3A0x692f83529fc751b!2z44K144Kk44OG44Ox44OV44O844K65qCq5byP5Lya56S-!5e0!3m2!1sja!2sth!4v1780999410332!5m2!1sja!2sth" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.8">
-        23/7 Soi Naphasub Yaek 2<br>
-        Sukhumvit Soi 36, Bangkok
-      </div>
-    </div>
-
-  </div>
+<footer style="background:var(--thai-maroon);color:rgba(255,255,255,0.6);text-align:center;padding:28px 5%;font-size:13px;line-height:2.2;border-top:4px solid var(--gold)">
+  <img src="https://kzacpqrpnoxqtbcstswp.supabase.co/storage/v1/object/public/site-assets/Gemini_Generated_Image_.png" alt="logo" style="width:90px;height:90px;border-radius:50%;object-fit:contain;border:2px solid var(--gold);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto;background:transparent">
+  <strong style="color:var(--gold);font-family:'Kosugi Maru',sans-serif;font-size:16px;letter-spacing:2px">Plaa Tapian ปลาตะเพียน</strong><br>
+  Bangkok, Thailand &nbsp;|&nbsp; 日本への国際配送対応<br>
+  お問い合わせ: <a href="mailto:info@plaatapian.com" style="color:rgba(255,255,255,0.6)">info@plaatapian.com</a><br>
+  <span style="font-size:11px;opacity:0.5">© 2026 Plaa Tapian. All rights reserved.</span>
 </footer>
 
 <script>
@@ -926,12 +898,6 @@ function goToOrder() {
   document.getElementById('shopSection').style.display = 'none';
   document.getElementById('cartPanel').style.display = 'none';
   document.getElementById('orderSection').style.display = 'block';
-  // フォームリセット
-  document.getElementById('fRegister').checked = false;
-  document.getElementById('fDmOptIn').checked = false;
-  document.getElementById('dmOptLabel').style.display = 'none';
-  document.getElementById('memberFoundMsg').style.display = 'none';
-  foundMember = null;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -942,80 +908,6 @@ function backToShop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ==========================================
-// 会員機能
-// ==========================================
-let memberLookupTimer = null;
-let foundMember = null;
-
-function toggleDmOption() {
-  const dmLabel = document.getElementById('dmOptLabel');
-  dmLabel.style.display = document.getElementById('fRegister').checked ? 'flex' : 'none';
-}
-
-function onEmailInput(val) {
-  clearTimeout(memberLookupTimer);
-  document.getElementById('memberFoundMsg').style.display = 'none';
-  foundMember = null;
-  if (!val || !val.includes('@')) return;
-  memberLookupTimer = setTimeout(() => lookupMember(val), 600);
-}
-
-async function lookupMember(email) {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/members?email=eq.${encodeURIComponent(email)}&select=*&limit=1`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
-    });
-    const data = await res.json();
-    if (data && data.length > 0) {
-      foundMember = data[0];
-      document.getElementById('fName').value = foundMember.name || '';
-      document.getElementById('fPhone').value = foundMember.phone || '';
-      document.getElementById('fAddress1').value = foundMember.address1 || '';
-      document.getElementById('fAddress2').value = foundMember.address2 || '';
-      document.getElementById('memberFoundMsg').style.display = 'block';
-    }
-  } catch(e) {
-    console.log('会員検索エラー:', e);
-  }
-}
-
-async function saveMemberIfNeeded(name, email, phone, addr1, addr2) {
-  if (!document.getElementById('fRegister').checked) return;
-  const dmOptIn = document.getElementById('fDmOptIn').checked;
-  try {
-    if (foundMember) {
-      await fetch(`${SUPABASE_URL}/rest/v1/members?id=eq.${foundMember.id}`, {
-        method: 'PATCH',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ name, phone, address1: addr1, address2: addr2, dm_opt_in: dmOptIn })
-      });
-    } else {
-      await fetch(`${SUPABASE_URL}/rest/v1/members`, {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ name, email, phone, address1: addr1, address2: addr2, dm_opt_in: dmOptIn })
-      });
-    }
-  } catch(e) {
-    console.log('会員登録エラー:', e);
-  }
-}
-
-// ==========================================
 // 注文番号を生成（PT + 日付 + 4桁乱数）
 function generateOrderNo() {
   const now = new Date();
@@ -1084,9 +976,6 @@ async function submitOrder() {
     });
 
     if (!res.ok) throw new Error('注文の保存に失敗しました');
-
-    // 会員登録（チェックされていれば）
-    await saveMemberIfNeeded(name, email, phone, addr1, addr2);
 
     // サンクスページに注文番号と合計を表示
     document.getElementById('thanksOrderNo').textContent = orderNo;
