@@ -1554,7 +1554,7 @@ async function sendShippingMail(orderId) {
 }
 
 async function sendShippingMailViaGas(o, shippingThb, shippingJpy, itemJpy, totalJpy, rate) {
-  const GAS_URL = 'YOUR_GAS_MAIL_WEBAPP_URL'; // ★デプロイ後に差し替え
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbyr-Z6gTkKqqcBK5TWrP4edBFAa5Fnw_SeQzG8W3ElSo0fhJqI8JqeS-ngl-YGSUimqJw/exec'; // ★デプロイ後に差し替え
 
   const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
 
