@@ -1313,9 +1313,31 @@ function renderOrdersTable() {
     </table>`;
 }
 
-function openOrderModal(id) {
-  viewingOrder = allOrders.find(o => o.id === id);
-  if (!viewingOrder) return;
+async function openOrderModal(id) {
+  // モーダルを先に開いてローディング表示
+  document.getElementById('orderModalTitle').textContent = '読み込み中...';
+  document.getElementById('orderModalBody').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
+  document.getElementById('orderModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  try {
+    // Supabaseから最新データを毎回取得
+    const data = await sbFetch(`orders?id=eq.${id}&select=*&limit=1`);
+    if (!data || data.length === 0) {
+      showToast('注文データの取得に失敗しました', 'error');
+      closeOrderModal();
+      return;
+    }
+    viewingOrder = data[0];
+    // allOrdersのローカルキャッシュも更新
+    const idx = allOrders.findIndex(o => o.id === id);
+    if (idx !== -1) allOrders[idx] = viewingOrder;
+  } catch(e) {
+    showToast('読み込みに失敗しました', 'error');
+    closeOrderModal();
+    return;
+  }
+
   const o = viewingOrder;
   document.getElementById('orderModalTitle').textContent = `注文 ${o.order_no || o.id}`;
 
