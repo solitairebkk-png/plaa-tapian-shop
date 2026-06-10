@@ -792,7 +792,14 @@ function filterCatBanner(cat, el) {
 // CART
 // ==========================================
 function addToCart(id) {
-  cart[id] = (cart[id] || 0) + 1;
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const current = cart[id] || 0;
+  if (current >= p.stock) {
+    alert(`在庫数（${p.stock}点）を超えて追加できません。`);
+    return;
+  }
+  cart[id] = current + 1;
   updateCartUI();
   const panel = document.getElementById('cartPanel');
   if (panel.style.display === 'none' || panel.style.display === '') {
@@ -802,8 +809,11 @@ function addToCart(id) {
 }
 
 function changeQty(id, delta) {
-  cart[id] = (cart[id] || 0) + delta;
-  if (cart[id] <= 0) delete cart[id];
+  const p = PRODUCTS.find(x => x.id === id);
+  const newQty = (cart[id] || 0) + delta;
+  if (newQty <= 0) { delete cart[id]; }
+  else if (p && newQty > p.stock) { return; }
+  else { cart[id] = newQty; }
   updateCartUI();
   if (Object.keys(cart).length === 0) {
     document.getElementById('cartSummaryBlock').style.display = 'none';
