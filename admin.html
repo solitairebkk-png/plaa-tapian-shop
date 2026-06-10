@@ -19,8 +19,6 @@
   --bg:#f5f0e8;
 }
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--dark);font-size:14px}
-
-/* ===== LOGIN ===== */
 #loginScreen{position:fixed;inset:0;background:var(--dark);display:flex;align-items:center;justify-content:center;z-index:1000}
 .login-box{background:#fff;border-radius:16px;padding:40px;width:320px;text-align:center}
 .login-logo{font-size:48px;margin-bottom:12px}
@@ -31,8 +29,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--dark
 .login-btn{width:100%;background:var(--gold);color:#fff;border:none;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif}
 .login-btn:hover{background:var(--gold-dark)}
 .login-error{color:var(--red);font-size:13px;margin-top:8px;display:none}
-
-/* ===== HEADER ===== */
 header{background:var(--dark);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;border-bottom:3px solid var(--gold)}
 .header-left{display:flex;align-items:center;gap:10px;color:#fff}
 .header-logo{font-size:22px}
@@ -43,11 +39,7 @@ header{background:var(--dark);padding:0 24px;display:flex;align-items:center;jus
 .btn-view-site:hover{border-color:var(--gold);color:var(--gold)}
 .btn-logout{background:none;border:none;color:rgba(255,255,255,0.5);font-size:13px;cursor:pointer;font-family:'Noto Sans JP',sans-serif}
 .btn-logout:hover{color:#fff}
-
-/* ===== LAYOUT ===== */
 .layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 56px)}
-
-/* ===== SIDEBAR ===== */
 .sidebar{background:#fff;border-right:1px solid var(--border);padding:20px 0}
 .sidebar-section{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:0 20px;margin-bottom:8px;margin-top:20px}
 .sidebar-section:first-child{margin-top:0}
@@ -56,18 +48,12 @@ header{background:var(--dark);padding:0 24px;display:flex;align-items:center;jus
 .nav-item.active{background:var(--cream);color:var(--gold);border-left-color:var(--gold);font-weight:500}
 .nav-icon{font-size:16px;width:20px;text-align:center}
 .nav-badge{background:var(--red);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:auto}
-
-/* ===== MAIN ===== */
 .main{padding:28px;overflow-y:auto}
 .page{display:none}
 .page.active{display:block}
-
-/* ===== PAGE HEADER ===== */
 .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .page-title{font-size:22px;font-weight:700;color:var(--dark)}
 .page-sub{font-size:13px;color:var(--muted);margin-top:2px}
-
-/* ===== BUTTONS ===== */
 .btn{border:none;border-radius:8px;padding:9px 18px;font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--gold);color:#fff}
 .btn-primary:hover{background:var(--gold-dark)}
@@ -76,15 +62,11 @@ header{background:var(--dark);padding:0 24px;display:flex;align-items:center;jus
 .btn-danger{background:#fff;color:var(--red);border:1px solid #f5c4b3}
 .btn-danger:hover{background:var(--red);color:#fff}
 .btn-sm{padding:5px 12px;font-size:12px}
-
-/* ===== STATS ===== */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:28px}
 .stat-card{background:#fff;border-radius:12px;border:1px solid var(--border);padding:16px 20px}
 .stat-label{font-size:12px;color:var(--muted);margin-bottom:6px}
 .stat-value{font-size:26px;font-weight:700;color:var(--dark)}
 .stat-sub{font-size:12px;color:var(--muted);margin-top:4px}
-
-/* ===== PRODUCT TABLE ===== */
 .table-wrap{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden}
 .table-toolbar{padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
 .search-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-family:'Noto Sans JP',sans-serif;font-size:14px;outline:none}
@@ -104,8 +86,6 @@ tr:hover td{background:#fdfaf4}
 .stock-zero{color:#bbb}
 .img-count{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px}
 .img-count.has-img{color:var(--green)}
-
-/* ===== MODAL ===== */
 .modal-overlay{position:fixed;inset:0;background:rgba(44,24,16,0.65);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.2s}
 .modal-overlay.active{opacity:1;pointer-events:all}
 .modal{background:#fff;border-radius:16px;width:100%;max-width:700px;max-height:90vh;overflow-y:auto;transform:translateY(16px);transition:transform 0.2s}
@@ -115,8 +95,6 @@ tr:hover td{background:#fdfaf4}
 .modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1}
 .modal-close:hover{color:var(--dark)}
 .modal-body{padding:20px 24px 28px}
-
-/* ===== FORM ===== */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .form-group{margin-bottom:16px}
 .form-group.full{grid-column:1/-1}
@@ -125,8 +103,6 @@ tr:hover td{background:#fdfaf4}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
 .form-textarea{resize:vertical;min-height:80px}
 .form-row{display:flex;gap:12px}
-
-/* ===== IMAGE UPLOAD ===== */
 .img-upload-section{margin-bottom:20px}
 .img-upload-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
 .img-slot{aspect-ratio:1;border-radius:10px;border:2px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;background:var(--bg)}
@@ -142,29 +118,19 @@ tr:hover td{background:#fdfaf4}
 .img-slot-num{position:absolute;top:6px;left:6px;background:rgba(44,24,16,0.6);color:#fff;border-radius:4px;font-size:10px;padding:1px 6px}
 .upload-progress{background:var(--cream);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--muted);display:none;align-items:center;gap:8px;margin-top:8px}
 .upload-progress.active{display:flex}
-
-/* ===== MODAL FOOTER ===== */
 .modal-footer{padding:0 24px 24px;display:flex;gap:10px;justify-content:flex-end;border-top:1px solid var(--border);padding-top:16px}
-
-/* ===== TOAST ===== */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--dark);color:#fff;border-radius:10px;padding:12px 20px;font-size:14px;z-index:999;transform:translateY(80px);transition:transform 0.3s;display:flex;align-items:center;gap:8px}
 .toast.show{transform:translateY(0)}
 .toast.success{background:var(--green)}
 .toast.error{background:var(--red)}
-
-/* ===== LOADING ===== */
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 .spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ===== ORDER STATUS ===== */
 .os-pending{background:#fff3cd;color:#856404}
 .os-confirmed{background:#cfe2ff;color:#084298}
 .os-shipped{background:#d1ecf1;color:#0c5460}
 .os-done{background:#d4edda;color:#155724}
 .os-cancelled{background:#f8d7da;color:#721c24}
-
-/* ===== ORDER DETAIL MODAL ===== */
 .order-detail-section{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
 .order-detail-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
 .order-detail-section h4{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
@@ -189,8 +155,6 @@ tr:hover td{background:#fdfaf4}
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">🐟</div>
@@ -201,8 +165,6 @@ tr:hover td{background:#fdfaf4}
     <div class="login-error" id="loginError">パスワードが違います</div>
   </div>
 </div>
-
-<!-- HEADER -->
 <header>
   <div class="header-left">
     <span class="header-logo">🐟</span>
@@ -214,161 +176,65 @@ tr:hover td{background:#fdfaf4}
     <button class="btn-logout" onclick="doLogout()">ログアウト</button>
   </div>
 </header>
-
-<!-- LAYOUT -->
 <div class="layout">
-
-  <!-- SIDEBAR -->
   <nav class="sidebar">
     <div class="sidebar-section">メニュー</div>
-    <div class="nav-item active" onclick="showPage('dashboard',this)">
-      <span class="nav-icon">📊</span> ダッシュボード
-    </div>
-    <div class="nav-item" onclick="showPage('products',this)">
-      <span class="nav-icon">📦</span> 商品管理
-    </div>
+    <div class="nav-item active" onclick="showPage('dashboard',this)"><span class="nav-icon">📊</span> ダッシュボード</div>
+    <div class="nav-item" onclick="showPage('products',this)"><span class="nav-icon">📦</span> 商品管理</div>
     <div class="nav-item" id="navOrders" onclick="showPage('orders',this);loadOrdersTable()">
       <span class="nav-icon">📋</span> 注文管理
       <span class="nav-badge" id="orderBadge" style="display:none">0</span>
     </div>
-    <div class="nav-item" onclick="showPage('members',this);loadMembersTable()">
-      <span class="nav-icon">🪪</span> 会員管理
-    </div>
-    <div class="nav-item" onclick="showPage('news',this);loadNewsTable()">
-      <span class="nav-icon">📢</span> お知らせ管理
-    </div>
+    <div class="nav-item" onclick="showPage('members',this);loadMembersTable()"><span class="nav-icon">🪪</span> 会員管理</div>
+    <div class="nav-item" onclick="showPage('news',this);loadNewsTable()"><span class="nav-icon">📢</span> お知らせ管理</div>
     <div class="sidebar-section">ツール</div>
-    <div class="nav-item" onclick="window.open('https://script.google.com/macros/s/AKfycbxziGf3bhnceGyp2qtdHIu1dUeqvMU5ertdPHq13dusQ5IbzdIIAQpN4VJKJJrTp2_J/exec','_blank')">
-      <span class="nav-icon">📨</span> メルマガ送信
-    </div>
-    <div class="nav-item" onclick="showPage('settings',this)">
-      <span class="nav-icon">⚙️</span> 設定
-    </div>
+    <div class="nav-item" onclick="window.open('https://script.google.com/macros/s/AKfycbxziGf3bhnceGyp2qtdHIu1dUeqvMU5ertdPHq13dusQ5IbzdIIAQpN4VJKJJrTp2_J/exec','_blank')"><span class="nav-icon">📨</span> メルマガ送信</div>
+    <div class="nav-item" onclick="showPage('settings',this)"><span class="nav-icon">⚙️</span> 設定</div>
   </nav>
-
-  <!-- MAIN -->
   <main class="main">
-
-    <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
-      <div class="page-header">
-        <div>
-          <div class="page-title">ダッシュボード</div>
-          <div class="page-sub">Plaa Tapian 管理概要</div>
-        </div>
-      </div>
+      <div class="page-header"><div><div class="page-title">ダッシュボード</div><div class="page-sub">Plaa Tapian 管理概要</div></div></div>
       <div class="stats-grid" id="statsGrid">
-        <div class="stat-card">
-          <div class="stat-label">総商品数</div>
-          <div class="stat-value" id="statTotal">—</div>
-          <div class="stat-sub">登録済み商品</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">公開中</div>
-          <div class="stat-value" id="statActive">—</div>
-          <div class="stat-sub">ECサイトに表示中</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">在庫なし</div>
-          <div class="stat-value" id="statZero" style="color:var(--red)">—</div>
-          <div class="stat-sub">要補充</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">画像未登録</div>
-          <div class="stat-value" id="statNoImg" style="color:var(--muted)">—</div>
-          <div class="stat-sub">写真を追加してください</div>
-        </div>
-        <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('navOrders').click()">
-          <div class="stat-label">新着注文</div>
-          <div class="stat-value" id="statPending" style="color:var(--red)">—</div>
-          <div class="stat-sub">未確認（pending）</div>
-        </div>
-        <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('navOrders').click()">
-          <div class="stat-label">振込待ち確認</div>
-          <div class="stat-value" id="statSlipReady" style="color:var(--gold)">—</div>
-          <div class="stat-sub">スリップ提出済み</div>
-        </div>
+        <div class="stat-card"><div class="stat-label">総商品数</div><div class="stat-value" id="statTotal">—</div><div class="stat-sub">登録済み商品</div></div>
+        <div class="stat-card"><div class="stat-label">公開中</div><div class="stat-value" id="statActive">—</div><div class="stat-sub">ECサイトに表示中</div></div>
+        <div class="stat-card"><div class="stat-label">在庫なし</div><div class="stat-value" id="statZero" style="color:var(--red)">—</div><div class="stat-sub">要補充</div></div>
+        <div class="stat-card"><div class="stat-label">画像未登録</div><div class="stat-value" id="statNoImg" style="color:var(--muted)">—</div><div class="stat-sub">写真を追加してください</div></div>
+        <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('navOrders').click()"><div class="stat-label">新着注文</div><div class="stat-value" id="statPending" style="color:var(--red)">—</div><div class="stat-sub">未確認（pending）</div></div>
+        <div class="stat-card" style="cursor:pointer" onclick="document.getElementById('navOrders').click()"><div class="stat-label">振込待ち確認</div><div class="stat-value" id="statSlipReady" style="color:var(--gold)">—</div><div class="stat-sub">スリップ提出済み</div></div>
       </div>
       <div class="table-wrap">
         <div style="padding:16px 18px;font-weight:500;border-bottom:1px solid var(--border)">在庫が少ない商品</div>
         <div id="lowStockList"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
       </div>
     </div>
-
-    <!-- PRODUCTS -->
     <div class="page" id="page-products">
-      <div class="page-header">
-        <div>
-          <div class="page-title">商品管理</div>
-          <div class="page-sub">商品の追加・編集・画像管理</div>
-        </div>
-        <button class="btn btn-primary" onclick="openProductModal(null)">＋ 商品を追加</button>
-      </div>
+      <div class="page-header"><div><div class="page-title">商品管理</div><div class="page-sub">商品の追加・編集・画像管理</div></div><button class="btn btn-primary" onclick="openProductModal(null)">＋ 商品を追加</button></div>
       <div class="table-wrap">
         <div class="table-toolbar">
           <input class="search-input" type="text" placeholder="商品名で検索..." oninput="filterProducts(this.value)">
           <select class="filter-select" onchange="filterByCategory(this.value)">
-            <option value="">すべてのカテゴリ</option>
-            <option>食品</option>
-            <option>雑貨</option>
-            <option>食器</option>
-            <option>キッチン</option>
-            <option>アクセサリー</option>
+            <option value="">すべてのカテゴリ</option><option>食品</option><option>雑貨</option><option>食器</option><option>キッチン</option><option>アクセサリー</option>
           </select>
         </div>
-        <div id="productTableWrap">
-          <div class="loading"><span class="spinner"></span>読み込み中...</div>
-        </div>
+        <div id="productTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
       </div>
     </div>
-
-    <!-- NEWS -->
     <div class="page" id="page-news">
-      <div class="page-header">
-        <div>
-          <div class="page-title">お知らせ管理</div>
-          <div class="page-sub">ECサイトに表示するお知らせを管理</div>
-        </div>
-        <button class="btn btn-primary" onclick="openNewsModal(null)">＋ お知らせを追加</button>
-      </div>
-      <div class="table-wrap">
-        <div id="newsTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
-      </div>
+      <div class="page-header"><div><div class="page-title">お知らせ管理</div><div class="page-sub">ECサイトに表示するお知らせを管理</div></div><button class="btn btn-primary" onclick="openNewsModal(null)">＋ お知らせを追加</button></div>
+      <div class="table-wrap"><div id="newsTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div></div>
     </div>
-
-    <!-- MEMBERS -->
     <div class="page" id="page-members">
-      <div class="page-header">
-        <div>
-          <div class="page-title">会員管理</div>
-          <div class="page-sub">登録会員の一覧・DM希望状況</div>
-        </div>
-        <button class="btn btn-secondary" onclick="loadMembersTable()">🔄 更新</button>
-      </div>
+      <div class="page-header"><div><div class="page-title">会員管理</div><div class="page-sub">登録会員の一覧・DM希望状況</div></div><button class="btn btn-secondary" onclick="loadMembersTable()">🔄 更新</button></div>
       <div class="table-wrap">
         <div class="table-toolbar">
           <input class="search-input" type="text" placeholder="名前・メールで検索..." oninput="filterMembers(this.value)">
-          <select class="filter-select" onchange="filterMembersByDm(this.value)">
-            <option value="">すべて</option>
-            <option value="true">DM希望あり</option>
-            <option value="false">DM希望なし</option>
-          </select>
+          <select class="filter-select" onchange="filterMembersByDm(this.value)"><option value="">すべて</option><option value="true">DM希望あり</option><option value="false">DM希望なし</option></select>
         </div>
-        <div id="memberTableWrap">
-          <div class="loading"><span class="spinner"></span>読み込み中...</div>
-        </div>
+        <div id="memberTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
       </div>
     </div>
-
-    <!-- ORDERS -->
     <div class="page" id="page-orders">
-      <div class="page-header">
-        <div>
-          <div class="page-title">注文管理</div>
-          <div class="page-sub">受注一覧・ステータス管理</div>
-        </div>
-        <button class="btn btn-secondary" onclick="loadOrdersTable()">🔄 更新</button>
-      </div>
+      <div class="page-header"><div><div class="page-title">注文管理</div><div class="page-sub">受注一覧・ステータス管理</div></div><button class="btn btn-secondary" onclick="loadOrdersTable()">🔄 更新</button></div>
       <div class="table-wrap">
         <div class="order-filter-bar">
           <span style="font-size:13px;color:var(--muted);margin-right:4px">絞り込み:</span>
@@ -379,133 +245,43 @@ tr:hover td{background:#fdfaf4}
           <span class="filter-chip" onclick="filterOrders('done',this)">✅ 完了</span>
           <span class="filter-chip" onclick="filterOrders('cancelled',this)">❌ キャンセル</span>
         </div>
-        <div id="orderTableWrap">
-          <div class="loading"><span class="spinner"></span>読み込み中...</div>
-        </div>
+        <div id="orderTableWrap"><div class="loading"><span class="spinner"></span>読み込み中...</div></div>
       </div>
     </div>
-
-    <!-- SETTINGS -->
     <div class="page" id="page-settings">
-      <div class="page-header">
-        <div>
-          <div class="page-title">設定</div>
-          <div class="page-sub">システム設定</div>
-        </div>
-      </div>
+      <div class="page-header"><div><div class="page-title">設定</div><div class="page-sub">システム設定</div></div></div>
       <div class="table-wrap" style="padding:24px">
-        <div class="form-group">
-          <label class="form-label">管理画面パスワード変更</label>
-          <div class="form-row">
-            <input class="form-input" type="password" id="newPass" placeholder="新しいパスワード">
-            <button class="btn btn-primary" onclick="changePassword()">変更</button>
-          </div>
-        </div>
-        <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border)">
-          <div class="form-label">Supabase接続情報</div>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px">Project URL: <code style="background:var(--bg);padding:2px 6px;border-radius:4px">https://kzacpqrpnoxqtbcstswp.supabase.co</code></div>
-        </div>
+        <div class="form-group"><label class="form-label">管理画面パスワード変更</label><div class="form-row"><input class="form-input" type="password" id="newPass" placeholder="新しいパスワード"><button class="btn btn-primary" onclick="changePassword()">変更</button></div></div>
+        <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border)"><div class="form-label">Supabase接続情報</div><div style="font-size:13px;color:var(--muted);margin-top:4px">Project URL: <code style="background:var(--bg);padding:2px 6px;border-radius:4px">https://kzacpqrpnoxqtbcstswp.supabase.co</code></div></div>
       </div>
     </div>
-
   </main>
 </div>
 
 <!-- 商品編集モーダル -->
 <div class="modal-overlay" id="productModal">
   <div class="modal" id="productModalBox">
-    <div class="modal-header">
-      <h2 id="modalTitle">商品を追加</h2>
-      <button class="modal-close" onclick="closeProductModal()">×</button>
-    </div>
+    <div class="modal-header"><h2 id="modalTitle">商品を追加</h2><button class="modal-close" onclick="closeProductModal()">×</button></div>
     <div class="modal-body">
-
-      <!-- 画像アップロード -->
       <div class="img-upload-section">
         <div class="form-label">商品画像（最大4枚）</div>
-        <div class="img-upload-grid" id="imgUploadGrid">
-          <!-- JS で生成 -->
-        </div>
-        <div class="upload-progress" id="uploadProgress">
-          <span class="spinner"></span> アップロード中...
-        </div>
-        <!-- 非表示のファイル入力 -->
+        <div class="img-upload-grid" id="imgUploadGrid"></div>
+        <div class="upload-progress" id="uploadProgress"><span class="spinner"></span> アップロード中...</div>
         <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
       </div>
-
-      <!-- 基本情報 -->
       <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">商品コード *</label>
-          <input class="form-input" type="text" id="fId" placeholder="例: FO-001">
-        </div>
-        <div class="form-group">
-          <label class="form-label">カテゴリ *</label>
-          <select class="form-select" id="fCategory">
-            <option value="">選択してください</option>
-            <option>食品</option>
-            <option>雑貨</option>
-            <option>食器</option>
-            <option>キッチン</option>
-            <option>アクセサリー</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label class="form-label">商品名（日本語）*</label>
-          <input class="form-input" type="text" id="fNameJp" placeholder="例: クッキーシンガポール サラブリ">
-        </div>
-        <div class="form-group full">
-          <label class="form-label">商品名（英語）</label>
-          <input class="form-input" type="text" id="fNameEn" placeholder="例: Cookie Singapore Salaburi">
-        </div>
-        <div class="form-group">
-          <label class="form-label">価格（THB）*</label>
-          <input class="form-input" type="number" id="fPrice" placeholder="0" min="0">
-        </div>
-        <div class="form-group">
-          <label class="form-label">在庫数 *</label>
-          <input class="form-input" type="number" id="fStock" placeholder="0" min="0">
-        </div>
-        <div class="form-group">
-          <label class="form-label">絵文字</label>
-          <input class="form-input" type="text" id="fEmoji" placeholder="🍪">
-        </div>
-        <div class="form-group">
-          <label class="form-label">バッジ</label>
-          <select class="form-select" id="fBadge">
-            <option value="">なし</option>
-            <option>人気</option>
-            <option>新着</option>
-            <option>おすすめ</option>
-            <option>限定</option>
-            <option>お土産</option>
-            <option>職人技</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label class="form-label">商品説明</label>
-          <textarea class="form-textarea" id="fDesc" placeholder="商品の説明文を入力してください（お客さんに表示されます）"></textarea>
-        </div>
-        <div class="form-group full">
-          <label class="form-label">内部メモ（お客さんには表示されません）</label>
-          <textarea class="form-textarea" id="fMemo" placeholder="仕入れ先・注意事項などのメモ" style="min-height:60px"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">サムネイル背景</label>
-          <select class="form-select" id="fThumb">
-            <option value="thumb-food">食品（オレンジ系）</option>
-            <option value="thumb-zakka">雑貨（グリーン系）</option>
-            <option value="thumb-shokki">食器（ブルー系）</option>
-            <option value="thumb-acc">アクセサリー（ピンク系）</option>
-            <option value="thumb-other">その他（パープル系）</option>
-          </select>
-        </div>
-        <div class="form-group" style="display:flex;align-items:center;gap:12px;padding-top:24px">
-          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px">
-            <input type="checkbox" id="fIsActive" checked style="width:18px;height:18px;accent-color:var(--gold)">
-            ECサイトに公開する
-          </label>
-        </div>
+        <div class="form-group"><label class="form-label">商品コード *</label><input class="form-input" type="text" id="fId" placeholder="例: FO-001"></div>
+        <div class="form-group"><label class="form-label">カテゴリ *</label><select class="form-select" id="fCategory"><option value="">選択してください</option><option>食品</option><option>雑貨</option><option>食器</option><option>キッチン</option><option>アクセサリー</option></select></div>
+        <div class="form-group full"><label class="form-label">商品名（日本語）*</label><input class="form-input" type="text" id="fNameJp" placeholder="例: クッキーシンガポール サラブリ"></div>
+        <div class="form-group full"><label class="form-label">商品名（英語）</label><input class="form-input" type="text" id="fNameEn" placeholder="例: Cookie Singapore Salaburi"></div>
+        <div class="form-group"><label class="form-label">価格（THB）*</label><input class="form-input" type="number" id="fPrice" placeholder="0" min="0"></div>
+        <div class="form-group"><label class="form-label">在庫数 *</label><input class="form-input" type="number" id="fStock" placeholder="0" min="0"></div>
+        <div class="form-group"><label class="form-label">絵文字</label><input class="form-input" type="text" id="fEmoji" placeholder="🍪"></div>
+        <div class="form-group"><label class="form-label">バッジ</label><select class="form-select" id="fBadge"><option value="">なし</option><option>人気</option><option>新着</option><option>おすすめ</option><option>限定</option><option>お土産</option><option>職人技</option></select></div>
+        <div class="form-group full"><label class="form-label">商品説明</label><textarea class="form-textarea" id="fDesc" placeholder="商品の説明文を入力してください（お客さんに表示されます）"></textarea></div>
+        <div class="form-group full"><label class="form-label">内部メモ（お客さんには表示されません）</label><textarea class="form-textarea" id="fMemo" placeholder="仕入れ先・注意事項などのメモ" style="min-height:60px"></textarea></div>
+        <div class="form-group"><label class="form-label">サムネイル背景</label><select class="form-select" id="fThumb"><option value="thumb-food">食品（オレンジ系）</option><option value="thumb-zakka">雑貨（グリーン系）</option><option value="thumb-shokki">食器（ブルー系）</option><option value="thumb-acc">アクセサリー（ピンク系）</option><option value="thumb-other">その他（パープル系）</option></select></div>
+        <div class="form-group" style="display:flex;align-items:center;gap:12px;padding-top:24px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px"><input type="checkbox" id="fIsActive" checked style="width:18px;height:18px;accent-color:var(--gold)">ECサイトに公開する</label></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -519,37 +295,14 @@ tr:hover td{background:#fdfaf4}
 <!-- お知らせモーダル -->
 <div class="modal-overlay" id="newsModal">
   <div class="modal" id="newsModalBox">
-    <div class="modal-header">
-      <h2 id="newsModalTitle">お知らせを追加</h2>
-      <button class="modal-close" onclick="closeNewsModal()">×</button>
-    </div>
+    <div class="modal-header"><h2 id="newsModalTitle">お知らせを追加</h2><button class="modal-close" onclick="closeNewsModal()">×</button></div>
     <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">タイトル *</label>
-        <input class="form-input" type="text" id="nTitle" placeholder="例: 新商品入荷しました！">
-      </div>
-      <div class="form-group">
-        <label class="form-label">本文（任意）</label>
-        <textarea class="form-textarea" id="nContent" placeholder="詳細内容（省略可）"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">リンクURL（任意）</label>
-        <input class="form-input" type="url" id="nLinkUrl" placeholder="https://...">
-      </div>
-      <div class="form-group">
-        <label class="form-label">リンクテキスト</label>
-        <input class="form-input" type="text" id="nLinkText" placeholder="詳しくはこちら">
-      </div>
-      <div class="form-group">
-        <label class="form-label">表示順（小さい数字が上）</label>
-        <input class="form-input" type="number" id="nSortOrder" value="0" min="0">
-      </div>
-      <div class="form-group" style="display:flex;align-items:center;gap:12px">
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px">
-          <input type="checkbox" id="nIsActive" checked style="width:18px;height:18px;accent-color:var(--gold)">
-          ECサイトに公開する
-        </label>
-      </div>
+      <div class="form-group"><label class="form-label">タイトル *</label><input class="form-input" type="text" id="nTitle" placeholder="例: 新商品入荷しました！"></div>
+      <div class="form-group"><label class="form-label">本文（任意）</label><textarea class="form-textarea" id="nContent" placeholder="詳細内容（省略可）"></textarea></div>
+      <div class="form-group"><label class="form-label">リンクURL（任意）</label><input class="form-input" type="url" id="nLinkUrl" placeholder="https://..."></div>
+      <div class="form-group"><label class="form-label">リンクテキスト</label><input class="form-input" type="text" id="nLinkText" placeholder="詳しくはこちら"></div>
+      <div class="form-group"><label class="form-label">表示順（小さい数字が上）</label><input class="form-input" type="number" id="nSortOrder" value="0" min="0"></div>
+      <div class="form-group" style="display:flex;align-items:center;gap:12px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px"><input type="checkbox" id="nIsActive" checked style="width:18px;height:18px;accent-color:var(--gold)">ECサイトに公開する</label></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger btn-sm" id="newsDeleteBtn" onclick="deleteNews()" style="margin-right:auto;display:none">🗑️ 削除</button>
@@ -562,118 +315,53 @@ tr:hover td{background:#fdfaf4}
 <!-- 注文詳細モーダル -->
 <div class="modal-overlay" id="orderModal" onclick="handleOrderModalBgClick(event)">
   <div class="modal" id="orderModalBox" style="max-width:640px">
-    <div class="modal-header">
-      <h2 id="orderModalTitle">注文詳細</h2>
-      <button class="modal-close" onclick="closeOrderModal()">×</button>
-    </div>
-    <div class="modal-body" id="orderModalBody">
-    </div>
+    <div class="modal-header"><h2 id="orderModalTitle">注文詳細</h2><button class="modal-close" onclick="closeOrderModal()">×</button></div>
+    <div class="modal-body" id="orderModalBody"></div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ==========================================
-// CONFIG
-// ★ここを自分のSupabase情報に変更してください★
-// ==========================================
 const SUPABASE_URL = 'https://kzacpqrpnoxqtbcstswp.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_X-40StOgx5Q6Gl9k6JRCHw_6w4m3d03';
-const ADMIN_PASSWORD = 'kanobkk'; // ★好きなパスワードに変更してください★
+const ADMIN_PASSWORD = 'kanobkk';
 const STORAGE_BUCKET = 'product-images';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbyr-Z6gTkKqqcBK5TWrP4edBFAa5Fnw_SeQzG8W3ElSo0fhJqI8JqeS-ngl-YGSUimqJw/exec';
 
-// ==========================================
-// SUPABASE HELPERS
-// ==========================================
 async function sbFetch(path, options = {}) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': options.prefer || '',
-      ...options.headers
-    },
+    headers: {'apikey': SUPABASE_KEY,'Authorization': `Bearer ${SUPABASE_KEY}`,'Content-Type': 'application/json','Prefer': options.prefer || '',...options.headers},
     ...options
   });
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(err);
-  }
+  if (!res.ok) { const err = await res.text(); throw new Error(err); }
   const text = await res.text();
   return text ? JSON.parse(text) : null;
 }
 
-async function getProducts() {
-  return await sbFetch('products?order=id.asc&select=*');
-}
+async function getProducts() { return await sbFetch('products?order=id.asc&select=*'); }
+async function deleteProductById(id) { return await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {method: 'DELETE'}); }
 
-async function upsertProduct(data) {
-  return await sbFetch('products', {
-    method: 'POST',
-    prefer: 'resolution=merge-duplicates,return=representation',
-    body: JSON.stringify(data)
-  });
-}
-
-async function deleteProductById(id) {
-  return await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {
-    method: 'DELETE'
-  });
-}
-
-// Storage upload
 async function uploadImage(file, productId, slotIndex) {
   const ext = file.name.split('.').pop().toLowerCase();
   const path = `${productId}/${slotIndex}.${ext}`;
-  const res = await fetch(
-    `${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`,
-    {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': file.type,
-        'x-upsert': 'true'
-      },
-      body: file
-    }
-  );
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`, {
+    method: 'POST',
+    headers: {'apikey': SUPABASE_KEY,'Authorization': `Bearer ${SUPABASE_KEY}`,'Content-Type': file.type,'x-upsert': 'true'},
+    body: file
+  });
   if (!res.ok) throw new Error('Upload failed');
   return `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`;
 }
 
-// ==========================================
-// LOGIN
-// ==========================================
 function doLogin() {
   const pass = document.getElementById('loginPass').value;
-  if (pass === ADMIN_PASSWORD) {
-    document.getElementById('loginScreen').style.display = 'none';
-    loadDashboard();
-    loadProducts();
-  } else {
-    document.getElementById('loginError').style.display = 'block';
-    document.getElementById('loginPass').value = '';
-  }
+  if (pass === ADMIN_PASSWORD) { document.getElementById('loginScreen').style.display = 'none'; loadDashboard(); loadProducts(); }
+  else { document.getElementById('loginError').style.display = 'block'; document.getElementById('loginPass').value = ''; }
 }
+function doLogout() { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('loginPass').value = ''; }
+function changePassword() { showToast('パスワードはHTMLファイル内のADMIN_PASSWORDを直接変更してください', 'error'); }
 
-function doLogout() {
-  document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('loginPass').value = '';
-}
-
-function changePassword() {
-  const np = document.getElementById('newPass').value.trim();
-  if (!np) return;
-  showToast('パスワードはHTMLファイル内のADMIN_PASSWORDを直接変更してください', 'error');
-}
-
-// ==========================================
-// NAVIGATION
-// ==========================================
 function showPage(name, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -681,390 +369,133 @@ function showPage(name, el) {
   el.classList.add('active');
 }
 
-// ==========================================
-// DASHBOARD
-// ==========================================
 async function loadDashboard() {
   try {
-    const [products, orders] = await Promise.all([
-      getProducts(),
-      sbFetch('orders?select=status,slip_url').catch(() => [])
-    ]);
+    const [products, orders] = await Promise.all([getProducts(), sbFetch('orders?select=status,slip_url').catch(() => [])]);
     document.getElementById('statTotal').textContent = products.length;
     document.getElementById('statActive').textContent = products.filter(p => p.is_active).length;
     document.getElementById('statZero').textContent = products.filter(p => p.stock === 0).length;
     document.getElementById('statNoImg').textContent = products.filter(p => !p.images || p.images.length === 0).length;
-
     const pendingCount = orders.filter(o => o.status === 'pending').length;
-    const slipReadyCount = orders.filter(o => o.status === 'pending' && o.slip_url).length;
+    const slipReadyCount = orders.filter(o => o.status === 'slip_received').length;
     document.getElementById('statPending').textContent = pendingCount;
     document.getElementById('statSlipReady').textContent = slipReadyCount;
-
-    // サイドバーバッジ更新
     const badge = document.getElementById('orderBadge');
-    if (pendingCount > 0) {
-      badge.textContent = pendingCount;
-      badge.style.display = '';
-    } else {
-      badge.style.display = 'none';
-    }
-
+    if (pendingCount > 0) { badge.textContent = pendingCount; badge.style.display = ''; } else { badge.style.display = 'none'; }
     const low = products.filter(p => p.stock > 0 && p.stock <= 5).sort((a,b) => a.stock - b.stock);
     const wrap = document.getElementById('lowStockList');
-    if (low.length === 0) {
-      wrap.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">在庫が少ない商品はありません</div>';
-      return;
-    }
-    wrap.innerHTML = `<table>
-      <thead><tr><th>商品名</th><th>カテゴリ</th><th>在庫数</th><th>操作</th></tr></thead>
-      <tbody>${low.map(p => `
-        <tr>
-          <td><strong>${p.name_jp || p.name_en}</strong></td>
-          <td>${p.category || '—'}</td>
-          <td><span class="stock-low">残${p.stock}点</span></td>
-          <td><button class="btn btn-secondary btn-sm" onclick="showPage('products',document.querySelector('.nav-item:nth-child(2)'));openProductModal('${p.id}')">編集</button></td>
-        </tr>`).join('')}
-      </tbody>
-    </table>`;
-  } catch(e) {
-    showToast('データの読み込みに失敗しました', 'error');
-  }
+    if (low.length === 0) { wrap.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">在庫が少ない商品はありません</div>'; return; }
+    wrap.innerHTML = `<table><thead><tr><th>商品名</th><th>カテゴリ</th><th>在庫数</th><th>操作</th></tr></thead><tbody>${low.map(p => `<tr><td><strong>${p.name_jp||p.name_en}</strong></td><td>${p.category||'—'}</td><td><span class="stock-low">残${p.stock}点</span></td><td><button class="btn btn-secondary btn-sm" onclick="showPage('products',document.querySelector('.nav-item:nth-child(2)'));openProductModal('${p.id}')">編集</button></td></tr>`).join('')}</tbody></table>`;
+  } catch(e) { showToast('データの読み込みに失敗しました', 'error'); }
 }
 
-// ==========================================
-// PRODUCT LIST
-// ==========================================
-let allProducts = [];
-let filteredProducts = [];
-
+let allProducts = [], filteredProducts = [];
 async function loadProducts() {
   document.getElementById('productTableWrap').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
-  try {
-    allProducts = await getProducts();
-    filteredProducts = [...allProducts];
-    renderProductTable();
-  } catch(e) {
-    document.getElementById('productTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>';
-  }
+  try { allProducts = await getProducts(); filteredProducts = [...allProducts]; renderProductTable(); }
+  catch(e) { document.getElementById('productTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>'; }
 }
 
 function renderProductTable() {
-  if (filteredProducts.length === 0) {
-    document.getElementById('productTableWrap').innerHTML = '<div class="loading">商品が見つかりません</div>';
-    return;
-  }
-  document.getElementById('productTableWrap').innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>画像</th>
-          <th>商品コード</th>
-          <th>商品名</th>
-          <th>カテゴリ</th>
-          <th>価格</th>
-          <th>在庫</th>
-          <th>画像</th>
-          <th>状態</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${filteredProducts.map(p => {
-          const imgCount = p.images ? p.images.length : 0;
-          const stockClass = p.stock === 0 ? 'stock-zero' : p.stock <= 3 ? 'stock-low' : 'stock-ok';
-          const thumbStyle = p.images && p.images[0]
-            ? `background:url('${p.images[0]}') center/cover`
-            : 'background:var(--cream)';
-          return `
-          <tr>
-            <td><div class="prod-thumb-cell" style="${thumbStyle}">${(!p.images || !p.images[0]) ? (p.emoji || '📦') : ''}</div></td>
-            <td><code style="font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px">${p.id}</code></td>
-            <td><strong>${p.name_jp || '—'}</strong></td>
-            <td>${p.category || '—'}</td>
-            <td>฿${(p.price || 0).toLocaleString()}</td>
-            <td><span class="${stockClass}">${p.stock}</span></td>
-            <td><span class="img-count ${imgCount > 0 ? 'has-img' : ''}">📷 ${imgCount}/4</span></td>
-            <td><span class="status-badge ${p.is_active ? 'status-active' : 'status-inactive'}">${p.is_active ? '公開中' : '非公開'}</span></td>
-            <td><button class="btn btn-secondary btn-sm" onclick="openProductModal('${p.id}')">✏️ 編集</button></td>
-          </tr>`;
-        }).join('')}
-      </tbody>
-    </table>`;
+  if (filteredProducts.length === 0) { document.getElementById('productTableWrap').innerHTML = '<div class="loading">商品が見つかりません</div>'; return; }
+  document.getElementById('productTableWrap').innerHTML = `<table><thead><tr><th>画像</th><th>商品コード</th><th>商品名</th><th>カテゴリ</th><th>価格</th><th>在庫</th><th>画像</th><th>状態</th><th>操作</th></tr></thead><tbody>${filteredProducts.map(p => {
+    const imgCount = p.images ? p.images.length : 0;
+    const stockClass = p.stock === 0 ? 'stock-zero' : p.stock <= 3 ? 'stock-low' : 'stock-ok';
+    const thumbStyle = p.images && p.images[0] ? `background:url('${p.images[0]}') center/cover` : 'background:var(--cream)';
+    return `<tr><td><div class="prod-thumb-cell" style="${thumbStyle}">${(!p.images||!p.images[0])?(p.emoji||'📦'):''}</div></td><td><code style="font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px">${p.id}</code></td><td><strong>${p.name_jp||'—'}</strong></td><td>${p.category||'—'}</td><td>฿${(p.price||0).toLocaleString()}</td><td><span class="${stockClass}">${p.stock}</span></td><td><span class="img-count ${imgCount>0?'has-img':''}">📷 ${imgCount}/4</span></td><td><span class="status-badge ${p.is_active?'status-active':'status-inactive'}">${p.is_active?'公開中':'非公開'}</span></td><td><button class="btn btn-secondary btn-sm" onclick="openProductModal('${p.id}')">✏️ 編集</button></td></tr>`;
+  }).join('')}</tbody></table>`;
 }
 
 function filterProducts(query) {
   const q = query.toLowerCase();
-  filteredProducts = allProducts.filter(p =>
-    (p.name_jp || '').toLowerCase().includes(q) ||
-    (p.name_en || '').toLowerCase().includes(q) ||
-    (p.id || '').toLowerCase().includes(q)
-  );
+  filteredProducts = allProducts.filter(p => (p.name_jp||'').toLowerCase().includes(q)||(p.name_en||'').toLowerCase().includes(q)||(p.id||'').toLowerCase().includes(q));
   renderProductTable();
 }
+function filterByCategory(cat) { filteredProducts = cat ? allProducts.filter(p => p.category === cat) : [...allProducts]; renderProductTable(); }
 
-function filterByCategory(cat) {
-  filteredProducts = cat ? allProducts.filter(p => p.category === cat) : [...allProducts];
-  renderProductTable();
-}
-
-// ==========================================
-// PRODUCT MODAL
-// ==========================================
-let editingProduct = null;
-let currentImages = [null, null, null, null];
-let uploadingSlot = null;
-
+let editingProduct = null, currentImages = [null,null,null,null], uploadingSlot = null;
 function openProductModal(id) {
   editingProduct = id ? allProducts.find(p => p.id === id) : null;
-  currentImages = [null, null, null, null];
-
+  currentImages = [null,null,null,null];
   document.getElementById('modalTitle').textContent = editingProduct ? '商品を編集' : '商品を追加';
   document.getElementById('deleteBtn').style.display = editingProduct ? 'inline-flex' : 'none';
-
   if (editingProduct) {
-    document.getElementById('fId').value = editingProduct.id || '';
-    document.getElementById('fId').readOnly = true;
-    document.getElementById('fNameJp').value = editingProduct.name_jp || '';
-    document.getElementById('fNameEn').value = editingProduct.name_en || '';
-    document.getElementById('fCategory').value = editingProduct.category || '';
-    document.getElementById('fPrice').value = editingProduct.price || 0;
-    document.getElementById('fStock').value = editingProduct.stock || 0;
-    document.getElementById('fEmoji').value = editingProduct.emoji || '';
-    document.getElementById('fBadge').value = editingProduct.badge || '';
-    document.getElementById('fDesc').value = editingProduct.description || '';
-    document.getElementById('fMemo').value = editingProduct.memo || '';
-    document.getElementById('fThumb').value = editingProduct.thumb_class || 'thumb-food';
+    document.getElementById('fId').value = editingProduct.id||''; document.getElementById('fId').readOnly = true;
+    document.getElementById('fNameJp').value = editingProduct.name_jp||''; document.getElementById('fNameEn').value = editingProduct.name_en||'';
+    document.getElementById('fCategory').value = editingProduct.category||''; document.getElementById('fPrice').value = editingProduct.price||0;
+    document.getElementById('fStock').value = editingProduct.stock||0; document.getElementById('fEmoji').value = editingProduct.emoji||'';
+    document.getElementById('fBadge').value = editingProduct.badge||''; document.getElementById('fDesc').value = editingProduct.description||'';
+    document.getElementById('fMemo').value = editingProduct.memo||''; document.getElementById('fThumb').value = editingProduct.thumb_class||'thumb-food';
     document.getElementById('fIsActive').checked = editingProduct.is_active !== false;
-    currentImages = [
-      ...(editingProduct.images || []),
-      ...Array(4).fill(null)
-    ].slice(0, 4);
+    currentImages = [...(editingProduct.images||[]),...Array(4).fill(null)].slice(0,4);
   } else {
-    document.getElementById('fId').value = '';
-    document.getElementById('fId').readOnly = false;
-    document.getElementById('fNameJp').value = '';
-    document.getElementById('fNameEn').value = '';
-    document.getElementById('fCategory').value = '';
-    document.getElementById('fPrice').value = '';
-    document.getElementById('fStock').value = '0';
-    document.getElementById('fEmoji').value = '';
-    document.getElementById('fBadge').value = '';
-    document.getElementById('fDesc').value = '';
-    document.getElementById('fMemo').value = '';
-    document.getElementById('fThumb').value = 'thumb-food';
-    document.getElementById('fIsActive').checked = true;
+    ['fId','fNameJp','fNameEn','fPrice','fEmoji','fDesc','fMemo'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fId').readOnly = false; document.getElementById('fCategory').value = '';
+    document.getElementById('fStock').value = '0'; document.getElementById('fBadge').value = '';
+    document.getElementById('fThumb').value = 'thumb-food'; document.getElementById('fIsActive').checked = true;
   }
-
   renderImgSlots();
   document.getElementById('productModal').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
+function closeProductModal() { document.getElementById('productModal').classList.remove('active'); document.body.style.overflow = ''; editingProduct = null; }
 
-function closeProductModal() {
-  document.getElementById('productModal').classList.remove('active');
-  document.body.style.overflow = '';
-  editingProduct = null;
-}
-
-function handleModalClick(e) {
-  // 背景クリックでは閉じない（入力中に誤って閉じるのを防ぐ）
-}
-
-// ==========================================
-// IMAGE SLOTS
-// ==========================================
 function renderImgSlots() {
   const grid = document.getElementById('imgUploadGrid');
   grid.innerHTML = [0,1,2,3].map(i => {
     const url = currentImages[i];
-    if (url) {
-      return `<div class="img-slot has-image" data-slot="${i}">
-        <img src="${url}" alt="商品画像${i+1}">
-        <span class="img-slot-num">${i+1}</span>
-        <div class="img-slot-overlay">
-          <button onclick="replaceImg(${i})">変更</button>
-          <button onclick="removeImg(${i})">削除</button>
-        </div>
-      </div>`;
-    } else {
-      return `<div class="img-slot" data-slot="${i}" onclick="selectImg(${i})">
-        <span class="img-slot-num">${i+1}</span>
-        <div class="img-slot-placeholder">
-          <span>📷</span>
-          <p>クリックして<br>追加</p>
-        </div>
-      </div>`;
-    }
+    if (url) return `<div class="img-slot has-image" data-slot="${i}"><img src="${url}" alt="商品画像${i+1}"><span class="img-slot-num">${i+1}</span><div class="img-slot-overlay"><button onclick="replaceImg(${i})">変更</button><button onclick="removeImg(${i})">削除</button></div></div>`;
+    return `<div class="img-slot" data-slot="${i}" onclick="selectImg(${i})"><span class="img-slot-num">${i+1}</span><div class="img-slot-placeholder"><span>📷</span><p>クリックして<br>追加</p></div></div>`;
   }).join('');
 }
-
-function selectImg(slot) {
-  uploadingSlot = slot;
-  document.getElementById('fileInput').click();
-}
-
-function replaceImg(slot) {
-  uploadingSlot = slot;
-  document.getElementById('fileInput').click();
-}
-
-function removeImg(slot) {
-  currentImages[slot] = null;
-  renderImgSlots();
-}
+function selectImg(slot) { uploadingSlot = slot; document.getElementById('fileInput').click(); }
+function replaceImg(slot) { uploadingSlot = slot; document.getElementById('fileInput').click(); }
+function removeImg(slot) { currentImages[slot] = null; renderImgSlots(); }
 
 async function handleFileSelect(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  e.target.value = '';
-
+  const file = e.target.files[0]; if (!file) return; e.target.value = '';
   const productId = document.getElementById('fId').value.trim();
-  if (!productId) {
-    showToast('先に商品コードを入力してください', 'error');
-    return;
-  }
-
-  const progress = document.getElementById('uploadProgress');
-  progress.classList.add('active');
-
-  try {
-    const url = await uploadImage(file, productId, uploadingSlot);
-    currentImages[uploadingSlot] = url;
-    renderImgSlots();
-    showToast('画像をアップロードしました ✓', 'success');
-  } catch(err) {
-    showToast('アップロードに失敗しました', 'error');
-    console.error(err);
-  } finally {
-    progress.classList.remove('active');
-  }
+  if (!productId) { showToast('先に商品コードを入力してください', 'error'); return; }
+  const progress = document.getElementById('uploadProgress'); progress.classList.add('active');
+  try { const url = await uploadImage(file, productId, uploadingSlot); currentImages[uploadingSlot] = url; renderImgSlots(); showToast('画像をアップロードしました ✓', 'success'); }
+  catch(err) { showToast('アップロードに失敗しました', 'error'); console.error(err); }
+  finally { progress.classList.remove('active'); }
 }
 
-// ==========================================
-// SAVE / DELETE
-// ==========================================
 async function saveProduct() {
   const id = document.getElementById('fId').value.trim();
   const nameJp = document.getElementById('fNameJp').value.trim();
   const price = parseInt(document.getElementById('fPrice').value) || 0;
-
-  if (!id || !nameJp || !price) {
-    showToast('商品コード・商品名・価格は必須です', 'error');
-    return;
-  }
-
-  const images = currentImages.filter(Boolean);
-
-  const data = {
-    id,
-    name_jp: nameJp,
-    name_en: document.getElementById('fNameEn').value.trim(),
-    category: document.getElementById('fCategory').value,
-    price,
-    stock: parseInt(document.getElementById('fStock').value) || 0,
-    emoji: document.getElementById('fEmoji').value.trim(),
-    badge: document.getElementById('fBadge').value,
-    description: document.getElementById('fDesc').value.trim(),
-    memo: document.getElementById('fMemo').value.trim(),
-    thumb_class: document.getElementById('fThumb').value,
-    is_active: document.getElementById('fIsActive').checked,
-    images,
-    updated_at: new Date().toISOString()
-  };
-
+  if (!id || !nameJp || !price) { showToast('商品コード・商品名・価格は必須です', 'error'); return; }
+  const data = {id, name_jp: nameJp, name_en: document.getElementById('fNameEn').value.trim(), category: document.getElementById('fCategory').value, price, stock: parseInt(document.getElementById('fStock').value)||0, emoji: document.getElementById('fEmoji').value.trim(), badge: document.getElementById('fBadge').value, description: document.getElementById('fDesc').value.trim(), memo: document.getElementById('fMemo').value.trim(), thumb_class: document.getElementById('fThumb').value, is_active: document.getElementById('fIsActive').checked, images: currentImages.filter(Boolean), updated_at: new Date().toISOString()};
   try {
-    if (editingProduct) {
-      // 既存商品の更新はPATCH
-      await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {
-        method: 'PATCH',
-        body: JSON.stringify(data)
-      });
-    } else {
-      // 新規商品はPOST
-      await sbFetch('products', {
-        method: 'POST',
-        prefer: 'return=representation',
-        body: JSON.stringify(data)
-      });
-    }
-    showToast('保存しました ✓', 'success');
-    closeProductModal();
-    await loadProducts();
-    await loadDashboard();
-  } catch(err) {
-    showToast('保存に失敗しました', 'error');
-    console.error(err);
-  }
+    if (editingProduct) { await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {method:'PATCH',body:JSON.stringify(data)}); }
+    else { await sbFetch('products', {method:'POST',prefer:'return=representation',body:JSON.stringify(data)}); }
+    showToast('保存しました ✓', 'success'); closeProductModal(); await loadProducts(); await loadDashboard();
+  } catch(err) { showToast('保存に失敗しました', 'error'); console.error(err); }
 }
 
 async function deleteProduct() {
   if (!editingProduct) return;
   if (!confirm(`「${editingProduct.name_jp}」を削除しますか？`)) return;
-  try {
-    await deleteProductById(editingProduct.id);
-    showToast('削除しました', 'success');
-    closeProductModal();
-    await loadProducts();
-    await loadDashboard();
-  } catch(err) {
-    showToast('削除に失敗しました', 'error');
-  }
+  try { await deleteProductById(editingProduct.id); showToast('削除しました', 'success'); closeProductModal(); await loadProducts(); await loadDashboard(); }
+  catch(err) { showToast('削除に失敗しました', 'error'); }
 }
 
-// ==========================================
-// TOAST
-// ==========================================
 let toastTimer;
 function showToast(msg, type = '') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast ${type} show`;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  const t = document.getElementById('toast'); t.textContent = msg; t.className = `toast ${type} show`;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ==========================================
-// NEWS
-// ==========================================
-let editingNews = null;
-let allNews = [];
-
+let editingNews = null, allNews = [];
 async function loadNewsTable() {
   document.getElementById('newsTableWrap').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
   try {
-    const data = await sbFetch('news?order=sort_order.asc,created_at.desc&select=*');
-    allNews = data || [];
-    if (allNews.length === 0) {
-      document.getElementById('newsTableWrap').innerHTML = '<div class="loading">お知らせはありません</div>';
-      return;
-    }
-    document.getElementById('newsTableWrap').innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>タイトル</th>
-            <th>本文</th>
-            <th>リンク</th>
-            <th>表示順</th>
-            <th>状態</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${allNews.map(n => `
-          <tr>
-            <td><strong>${n.title}</strong></td>
-            <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--muted)">${n.content || '—'}</td>
-            <td>${n.link_url ? `<a href="${n.link_url}" target="_blank" style="color:var(--gold);font-size:12px">${n.link_text || 'リンクあり'}</a>` : '—'}</td>
-            <td>${n.sort_order}</td>
-            <td><span class="status-badge ${n.is_active ? 'status-active' : 'status-inactive'}">${n.is_active ? '公開中' : '非公開'}</span></td>
-            <td><button class="btn btn-secondary btn-sm" onclick="openNewsModal('${n.id}')">✏️ 編集</button></td>
-          </tr>`).join('')}
-        </tbody>
-      </table>`;
-  } catch(e) {
-    document.getElementById('newsTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>';
-  }
+    allNews = await sbFetch('news?order=sort_order.asc,created_at.desc&select=*') || [];
+    if (allNews.length === 0) { document.getElementById('newsTableWrap').innerHTML = '<div class="loading">お知らせはありません</div>'; return; }
+    document.getElementById('newsTableWrap').innerHTML = `<table><thead><tr><th>タイトル</th><th>本文</th><th>リンク</th><th>表示順</th><th>状態</th><th>操作</th></tr></thead><tbody>${allNews.map(n => `<tr><td><strong>${n.title}</strong></td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;color:var(--muted)">${n.content||'—'}</td><td>${n.link_url?`<a href="${n.link_url}" target="_blank" style="color:var(--gold);font-size:12px">${n.link_text||'リンクあり'}</a>`:'—'}</td><td>${n.sort_order}</td><td><span class="status-badge ${n.is_active?'status-active':'status-inactive'}">${n.is_active?'公開中':'非公開'}</span></td><td><button class="btn btn-secondary btn-sm" onclick="openNewsModal('${n.id}')">✏️ 編集</button></td></tr>`).join('')}</tbody></table>`;
+  } catch(e) { document.getElementById('newsTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>'; }
 }
 
 function openNewsModal(id) {
@@ -1072,286 +503,97 @@ function openNewsModal(id) {
   document.getElementById('newsModalTitle').textContent = editingNews ? 'お知らせを編集' : 'お知らせを追加';
   document.getElementById('newsDeleteBtn').style.display = editingNews ? 'inline-flex' : 'none';
   if (editingNews) {
-    document.getElementById('nTitle').value = editingNews.title || '';
-    document.getElementById('nContent').value = editingNews.content || '';
-    document.getElementById('nLinkUrl').value = editingNews.link_url || '';
-    document.getElementById('nLinkText').value = editingNews.link_text || '';
-    document.getElementById('nSortOrder').value = editingNews.sort_order || 0;
-    document.getElementById('nIsActive').checked = editingNews.is_active !== false;
+    document.getElementById('nTitle').value = editingNews.title||''; document.getElementById('nContent').value = editingNews.content||'';
+    document.getElementById('nLinkUrl').value = editingNews.link_url||''; document.getElementById('nLinkText').value = editingNews.link_text||'';
+    document.getElementById('nSortOrder').value = editingNews.sort_order||0; document.getElementById('nIsActive').checked = editingNews.is_active !== false;
   } else {
-    document.getElementById('nTitle').value = '';
-    document.getElementById('nContent').value = '';
-    document.getElementById('nLinkUrl').value = '';
-    document.getElementById('nLinkText').value = '';
-    document.getElementById('nSortOrder').value = '0';
-    document.getElementById('nIsActive').checked = true;
+    ['nTitle','nContent','nLinkUrl','nLinkText'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('nSortOrder').value = '0'; document.getElementById('nIsActive').checked = true;
   }
-  document.getElementById('newsModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
+  document.getElementById('newsModal').classList.add('active'); document.body.style.overflow = 'hidden';
 }
-
-function closeNewsModal() {
-  document.getElementById('newsModal').classList.remove('active');
-  document.body.style.overflow = '';
-  editingNews = null;
-}
-
-function handleNewsModalClick(e) {
-  // 背景クリックでは閉じない
-}
+function closeNewsModal() { document.getElementById('newsModal').classList.remove('active'); document.body.style.overflow = ''; editingNews = null; }
 
 async function saveNews() {
   const title = document.getElementById('nTitle').value.trim();
   if (!title) { showToast('タイトルは必須です', 'error'); return; }
-  const data = {
-    title,
-    content: document.getElementById('nContent').value.trim() || null,
-    link_url: document.getElementById('nLinkUrl').value.trim() || null,
-    link_text: document.getElementById('nLinkText').value.trim() || null,
-    sort_order: parseInt(document.getElementById('nSortOrder').value) || 0,
-    is_active: document.getElementById('nIsActive').checked,
-    updated_at: new Date().toISOString()
-  };
+  const data = {title, content: document.getElementById('nContent').value.trim()||null, link_url: document.getElementById('nLinkUrl').value.trim()||null, link_text: document.getElementById('nLinkText').value.trim()||null, sort_order: parseInt(document.getElementById('nSortOrder').value)||0, is_active: document.getElementById('nIsActive').checked, updated_at: new Date().toISOString()};
   try {
-    if (editingNews) {
-      await sbFetch(`news?id=eq.${editingNews.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(data)
-      });
-    } else {
-      await sbFetch('news', {
-        method: 'POST',
-        prefer: 'return=representation',
-        body: JSON.stringify(data)
-      });
-    }
-    showToast('保存しました ✓', 'success');
-    closeNewsModal();
-    await loadNewsTable();
-  } catch(e) {
-    showToast('保存に失敗しました', 'error');
-    console.error(e);
-  }
+    if (editingNews) { await sbFetch(`news?id=eq.${editingNews.id}`, {method:'PATCH',body:JSON.stringify(data)}); }
+    else { await sbFetch('news', {method:'POST',prefer:'return=representation',body:JSON.stringify(data)}); }
+    showToast('保存しました ✓', 'success'); closeNewsModal(); await loadNewsTable();
+  } catch(e) { showToast('保存に失敗しました', 'error'); }
 }
-
 async function deleteNews() {
-  if (!editingNews) return;
-  if (!confirm(`「${editingNews.title}」を削除しますか？`)) return;
-  try {
-    await sbFetch(`news?id=eq.${editingNews.id}`, { method: 'DELETE' });
-    showToast('削除しました', 'success');
-    closeNewsModal();
-    await loadNewsTable();
-  } catch(e) {
-    showToast('削除に失敗しました', 'error');
-  }
+  if (!editingNews || !confirm(`「${editingNews.title}」を削除しますか？`)) return;
+  try { await sbFetch(`news?id=eq.${editingNews.id}`, {method:'DELETE'}); showToast('削除しました', 'success'); closeNewsModal(); await loadNewsTable(); }
+  catch(e) { showToast('削除に失敗しました', 'error'); }
 }
 
-// ==========================================
-// MEMBERS
-// ==========================================
-let allMembers = [];
-let filteredMembers = [];
-let memberSearchQuery = '';
-let memberDmFilter = '';
-
+let allMembers = [], filteredMembers = [], memberSearchQuery = '', memberDmFilter = '';
 async function loadMembersTable() {
   document.getElementById('memberTableWrap').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
-  try {
-    allMembers = await sbFetch('members?order=created_at.desc&select=*') || [];
-    filteredMembers = [...allMembers];
-    renderMembersTable();
-  } catch(e) {
-    document.getElementById('memberTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>';
-  }
+  try { allMembers = await sbFetch('members?order=created_at.desc&select=*') || []; filteredMembers = [...allMembers]; renderMembersTable(); }
+  catch(e) { document.getElementById('memberTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>'; }
 }
-
-function filterMembers(q) {
-  memberSearchQuery = q.toLowerCase();
-  applyMemberFilter();
-}
-
-function filterMembersByDm(val) {
-  memberDmFilter = val;
-  applyMemberFilter();
-}
-
+function filterMembers(q) { memberSearchQuery = q.toLowerCase(); applyMemberFilter(); }
+function filterMembersByDm(val) { memberDmFilter = val; applyMemberFilter(); }
 function applyMemberFilter() {
   filteredMembers = allMembers.filter(m => {
-    const matchSearch = !memberSearchQuery ||
-      (m.name || '').toLowerCase().includes(memberSearchQuery) ||
-      (m.email || '').toLowerCase().includes(memberSearchQuery);
-    const matchDm = memberDmFilter === '' ? true :
-      memberDmFilter === 'true' ? m.dm_opt_in === true : m.dm_opt_in !== true;
+    const matchSearch = !memberSearchQuery || (m.name||'').toLowerCase().includes(memberSearchQuery) || (m.email||'').toLowerCase().includes(memberSearchQuery);
+    const matchDm = memberDmFilter === '' ? true : memberDmFilter === 'true' ? m.dm_opt_in === true : m.dm_opt_in !== true;
     return matchSearch && matchDm;
   });
   renderMembersTable();
 }
-
 function renderMembersTable() {
   const dmCount = allMembers.filter(m => m.dm_opt_in).length;
-  if (filteredMembers.length === 0) {
-    document.getElementById('memberTableWrap').innerHTML = '<div class="loading">会員が見つかりません</div>';
-    return;
-  }
-  document.getElementById('memberTableWrap').innerHTML = `
-    <div style="padding:10px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--border)">
-      全 <strong style="color:var(--dark)">${allMembers.length}</strong> 名 ／ DM希望 <strong style="color:var(--green)">${dmCount}</strong> 名
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>登録日</th>
-          <th>お名前</th>
-          <th>メールアドレス</th>
-          <th>電話番号</th>
-          <th>住所</th>
-          <th>DMお知らせ</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${filteredMembers.map(m => {
-          const dt = new Date(m.created_at);
-          const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`;
-          return `
-          <tr>
-            <td style="font-size:12px;color:var(--muted);white-space:nowrap">${dateStr}</td>
-            <td><strong>${m.name || '—'}</strong></td>
-            <td style="font-size:13px">${m.email || '—'}</td>
-            <td style="font-size:13px">${m.phone || '—'}</td>
-            <td style="font-size:12px;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.address1 || '—'}${m.address2 ? ' ' + m.address2 : ''}</td>
-            <td>${m.dm_opt_in
-              ? '<span class="status-badge status-active">✅ 希望あり</span>'
-              : '<span class="status-badge status-inactive">— なし</span>'}</td>
-          </tr>`;
-        }).join('')}
-      </tbody>
-    </table>`;
+  if (filteredMembers.length === 0) { document.getElementById('memberTableWrap').innerHTML = '<div class="loading">会員が見つかりません</div>'; return; }
+  document.getElementById('memberTableWrap').innerHTML = `<div style="padding:10px 18px;font-size:13px;color:var(--muted);border-bottom:1px solid var(--border)">全 <strong style="color:var(--dark)">${allMembers.length}</strong> 名 ／ DM希望 <strong style="color:var(--green)">${dmCount}</strong> 名</div><table><thead><tr><th>登録日</th><th>お名前</th><th>メールアドレス</th><th>電話番号</th><th>住所</th><th>DMお知らせ</th></tr></thead><tbody>${filteredMembers.map(m => { const dt = new Date(m.created_at); const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')}`; return `<tr><td style="font-size:12px;color:var(--muted);white-space:nowrap">${dateStr}</td><td><strong>${m.name||'—'}</strong></td><td style="font-size:13px">${m.email||'—'}</td><td style="font-size:13px">${m.phone||'—'}</td><td style="font-size:12px;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.address1||'—'}${m.address2?' '+m.address2:''}</td><td>${m.dm_opt_in?'<span class="status-badge status-active">✅ 希望あり</span>':'<span class="status-badge status-inactive">— なし</span>'}</td></tr>`; }).join('')}</tbody></table>`;
 }
 
-// ==========================================
-// ORDERS
-// ==========================================
-let allOrders = [];
-let filteredOrders = [];
-let currentOrderFilter = 'all';
-let viewingOrder = null;
-
-const STATUS_LABEL = {
-  pending:   { label: '未確認',  cls: 'os-pending' },
-  confirmed: { label: '確認済',  cls: 'os-confirmed' },
-  shipped:   { label: '発送済',  cls: 'os-shipped' },
-  done:      { label: '完了',    cls: 'os-done' },
-  cancelled: { label: 'キャンセル', cls: 'os-cancelled' }
-};
-
-function statusBadge(status) {
-  const s = STATUS_LABEL[status] || { label: status, cls: '' };
-  return `<span class="status-badge ${s.cls}">${s.label}</span>`;
-}
+let allOrders = [], filteredOrders = [], currentOrderFilter = 'all', viewingOrder = null;
+const STATUS_LABEL = {pending:{label:'未確認',cls:'os-pending'},confirmed:{label:'確認済',cls:'os-confirmed'},slip_received:{label:'スリップ受付',cls:'os-confirmed'},shipped:{label:'発送済',cls:'os-shipped'},done:{label:'完了',cls:'os-done'},cancelled:{label:'キャンセル',cls:'os-cancelled'}};
+function statusBadge(status) { const s = STATUS_LABEL[status]||{label:status,cls:''}; return `<span class="status-badge ${s.cls}">${s.label}</span>`; }
 
 async function loadOrdersTable() {
   document.getElementById('orderTableWrap').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
-  try {
-    allOrders = await sbFetch('orders?order=created_at.desc&select=*') || [];
-    filteredOrders = [...allOrders];
-    applyOrderFilter(currentOrderFilter);
-  } catch(e) {
-    document.getElementById('orderTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>';
-  }
+  try { allOrders = await sbFetch('orders?order=created_at.desc&select=*') || []; filteredOrders = [...allOrders]; applyOrderFilter(currentOrderFilter); }
+  catch(e) { document.getElementById('orderTableWrap').innerHTML = '<div class="loading">読み込みに失敗しました</div>'; }
 }
-
-function filterOrders(status, el) {
-  currentOrderFilter = status;
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  applyOrderFilter(status);
-}
-
-function applyOrderFilter(status) {
-  filteredOrders = status === 'all' ? [...allOrders] : allOrders.filter(o => o.status === status);
-  renderOrdersTable();
-}
+function filterOrders(status, el) { currentOrderFilter = status; document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); applyOrderFilter(status); }
+function applyOrderFilter(status) { filteredOrders = status === 'all' ? [...allOrders] : allOrders.filter(o => o.status === status); renderOrdersTable(); }
 
 function renderOrdersTable() {
-  if (filteredOrders.length === 0) {
-    document.getElementById('orderTableWrap').innerHTML = '<div class="loading">注文はありません</div>';
-    return;
-  }
-  document.getElementById('orderTableWrap').innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>注文日時</th>
-          <th>注文番号</th>
-          <th>お客様名</th>
-          <th>合計金額</th>
-          <th>スリップ</th>
-          <th>ステータス</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${filteredOrders.map(o => {
-          const dt = new Date(o.created_at);
-          const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
-          const slip = o.slip_url
-            ? `<span style="color:var(--green);font-size:12px;font-weight:500">✅ あり</span>`
-            : `<span style="color:var(--muted);font-size:12px">—</span>`;
-          return `
-          <tr>
-            <td style="font-size:12px;color:var(--muted);white-space:nowrap">${dateStr}</td>
-            <td style="font-size:12px;font-family:monospace">${o.order_no || '—'}</td>
-            <td><strong>${o.customer_name || '—'}</strong><br><span style="font-size:12px;color:var(--muted)">${o.customer_email || ''}</span></td>
-            <td style="font-weight:700;color:var(--gold)">฿${(o.total_amount || 0).toLocaleString()}</td>
-            <td>${slip}</td>
-            <td>${statusBadge(o.status)}</td>
-            <td><button class="btn btn-secondary btn-sm" onclick="openOrderModal('${o.id}')">📄 詳細</button></td>
-          </tr>`;
-        }).join('')}
-      </tbody>
-    </table>`;
+  if (filteredOrders.length === 0) { document.getElementById('orderTableWrap').innerHTML = '<div class="loading">注文はありません</div>'; return; }
+  document.getElementById('orderTableWrap').innerHTML = `<table><thead><tr><th>注文日時</th><th>注文番号</th><th>お客様名</th><th>合計金額</th><th>スリップ</th><th>ステータス</th><th>操作</th></tr></thead><tbody>${filteredOrders.map(o => {
+    const dt = new Date(o.created_at);
+    const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+    const slip = o.slip_url ? `<span style="color:var(--green);font-size:12px;font-weight:500">✅ あり</span>` : `<span style="color:var(--muted);font-size:12px">—</span>`;
+    return `<tr><td style="font-size:12px;color:var(--muted);white-space:nowrap">${dateStr}</td><td style="font-size:12px;font-family:monospace">${o.order_no||'—'}</td><td><strong>${o.customer_name||'—'}</strong><br><span style="font-size:12px;color:var(--muted)">${o.customer_email||''}</span></td><td style="font-weight:700;color:var(--gold)">฿${(o.total_amount||0).toLocaleString()}</td><td>${slip}</td><td>${statusBadge(o.status)}</td><td><button class="btn btn-secondary btn-sm" onclick="openOrderModal('${o.id}')">📄 詳細</button></td></tr>`;
+  }).join('')}</tbody></table>`;
 }
 
 async function openOrderModal(id) {
-  // モーダルを先に開いてローディング表示
   document.getElementById('orderModalTitle').textContent = '読み込み中...';
   document.getElementById('orderModalBody').innerHTML = '<div class="loading"><span class="spinner"></span>読み込み中...</div>';
   document.getElementById('orderModal').classList.add('active');
   document.body.style.overflow = 'hidden';
-
   try {
-    // Supabaseから最新データを毎回取得
     const data = await sbFetch(`orders?id=eq.${id}&select=*&limit=1`);
-    if (!data || data.length === 0) {
-      showToast('注文データの取得に失敗しました', 'error');
-      closeOrderModal();
-      return;
-    }
+    if (!data || data.length === 0) { showToast('注文データの取得に失敗しました', 'error'); closeOrderModal(); return; }
     viewingOrder = data[0];
-    // allOrdersのローカルキャッシュも更新
     const idx = allOrders.findIndex(o => o.id === id);
     if (idx !== -1) allOrders[idx] = viewingOrder;
-  } catch(e) {
-    showToast('読み込みに失敗しました', 'error');
-    closeOrderModal();
-    return;
-  }
+  } catch(e) { showToast('読み込みに失敗しました', 'error'); closeOrderModal(); return; }
 
   const o = viewingOrder;
   document.getElementById('orderModalTitle').textContent = `注文 ${o.order_no || o.id}`;
-
   const dt = new Date(o.created_at);
   const dateStr = `${dt.getFullYear()}/${String(dt.getMonth()+1).padStart(2,'0')}/${String(dt.getDate()).padStart(2,'0')} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
-
   const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
-  const itemRows = items.map(it =>
-    `<tr><td>${it.name || it.id}</td><td style="text-align:right">฿${(it.price||0).toLocaleString()}</td><td style="text-align:right">${it.qty}</td><td style="text-align:right;font-weight:500">฿${((it.price||0)*(it.qty||1)).toLocaleString()}</td></tr>`
-  ).join('');
-
-  const slipHtml = o.slip_url
-    ? `<img src="${o.slip_url}" class="slip-preview" alt="振込スリップ" onclick="window.open('${o.slip_url}','_blank')" title="クリックで拡大">`
-    : `<div class="slip-placeholder">📄 スリップ未提出</div>`;
+  const itemRows = items.map(it => `<tr><td>${it.name||it.id}</td><td style="text-align:right">฿${(it.price||0).toLocaleString()}</td><td style="text-align:right">${it.qty}</td><td style="text-align:right;font-weight:500">฿${((it.price||0)*(it.qty||1)).toLocaleString()}</td></tr>`).join('');
+  const slipHtml = o.slip_url ? `<img src="${o.slip_url}" class="slip-preview" alt="振込スリップ" onclick="window.open('${o.slip_url}','_blank')" title="クリックで拡大">` : `<div class="slip-placeholder">📄 スリップ未提出</div>`;
 
   document.getElementById('orderModalBody').innerHTML = `
     <div class="order-detail-section">
@@ -1359,129 +601,87 @@ async function openOrderModal(id) {
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         ${statusBadge(o.status)}
         <select class="status-select" id="orderStatusSelect" onchange="updateOrderStatus('${o.id}',this.value)">
-          <option value="pending"   ${o.status==='pending'   ?'selected':''}>🟡 未確認</option>
-          <option value="confirmed" ${o.status==='confirmed' ?'selected':''}>🔵 確認済</option>
-          <option value="shipped"   ${o.status==='shipped'   ?'selected':''}>🟢 発送済</option>
-          <option value="done"      ${o.status==='done'      ?'selected':''}>✅ 完了</option>
-          <option value="cancelled" ${o.status==='cancelled' ?'selected':''}>❌ キャンセル</option>
+          <option value="pending" ${o.status==='pending'?'selected':''}>🟡 未確認</option>
+          <option value="confirmed" ${o.status==='confirmed'?'selected':''}>🔵 確認済</option>
+          <option value="slip_received" ${o.status==='slip_received'?'selected':''}>📄 スリップ受付</option>
+          <option value="shipped" ${o.status==='shipped'?'selected':''}>🟢 発送済</option>
+          <option value="done" ${o.status==='done'?'selected':''}>✅ 完了</option>
+          <option value="cancelled" ${o.status==='cancelled'?'selected':''}>❌ キャンセル</option>
         </select>
       </div>
     </div>
-
     <div class="order-detail-section">
       <h4>注文情報</h4>
-      <div class="order-detail-row"><span class="label">注文番号</span><span class="value" style="font-family:monospace">${o.order_no || '—'}</span></div>
+      <div class="order-detail-row"><span class="label">注文番号</span><span class="value" style="font-family:monospace">${o.order_no||'—'}</span></div>
       <div class="order-detail-row"><span class="label">注文日時</span><span class="value">${dateStr}</span></div>
     </div>
-
     <div class="order-detail-section">
       <h4>お客様情報</h4>
-      <div class="order-detail-row"><span class="label">お名前</span><span class="value"><strong>${o.customer_name || '—'}</strong></span></div>
-      <div class="order-detail-row"><span class="label">メール</span><span class="value"><a href="mailto:${o.customer_email}" style="color:var(--gold)">${o.customer_email || '—'}</a></span></div>
-      <div class="order-detail-row"><span class="label">電話</span><span class="value">${o.customer_phone || '—'}</span></div>
-      <div class="order-detail-row"><span class="label">住所①</span><span class="value">${o.address1 || '—'}</span></div>
-      <div class="order-detail-row"><span class="label">住所②</span><span class="value">${o.address2 || '—'}</span></div>
-      ${o.note ? `<div class="order-detail-row"><span class="label">備考</span><span class="value">${o.note}</span></div>` : ''}
+      <div class="order-detail-row"><span class="label">お名前</span><span class="value"><strong>${o.customer_name||'—'}</strong></span></div>
+      <div class="order-detail-row"><span class="label">メール</span><span class="value"><a href="mailto:${o.customer_email}" style="color:var(--gold)">${o.customer_email||'—'}</a></span></div>
+      <div class="order-detail-row"><span class="label">電話</span><span class="value">${o.customer_phone||'—'}</span></div>
+      <div class="order-detail-row"><span class="label">住所①</span><span class="value">${o.address1||'—'}</span></div>
+      <div class="order-detail-row"><span class="label">住所②</span><span class="value">${o.address2||'—'}</span></div>
+      ${o.note?`<div class="order-detail-row"><span class="label">備考</span><span class="value">${o.note}</span></div>`:''}
     </div>
-
     <div class="order-detail-section">
       <h4>注文商品</h4>
       <table class="order-items-table">
         <thead><tr><th>商品名</th><th style="text-align:right">単価</th><th style="text-align:right">数量</th><th style="text-align:right">小計</th></tr></thead>
-        <tbody>
-          ${itemRows}
-          <tr class="order-total-row"><td colspan="3">合計</td><td style="text-align:right">฿${(o.total_amount||0).toLocaleString()}</td></tr>
-        </tbody>
+        <tbody>${itemRows}<tr class="order-total-row"><td colspan="3">合計</td><td style="text-align:right">฿${(o.total_amount||0).toLocaleString()}</td></tr></tbody>
       </table>
     </div>
-
     <div class="order-detail-section">
       <h4>振込スリップ</h4>
       ${slipHtml}
     </div>
-
     <div class="order-detail-section">
       <h4>送料確定・振込案内メール</h4>
-      ${o.shipping_notified_at ? `
-        <div style="background:#d4edda;border-radius:8px;padding:10px 14px;font-size:13px;color:#155724;margin-bottom:12px">
-          ✅ 送料確定メール送信済み（${new Date(o.shipping_notified_at).toLocaleDateString('ja-JP')}）<br>
-          送料：฿${(o.shipping_thb||0).toLocaleString()} / ¥${(o.shipping_jpy||0).toLocaleString()}（レート：${o.exchange_rate || '—'}）
-        </div>` : ''}
+      ${o.shipping_notified_at?`<div style="background:#d4edda;border-radius:8px;padding:10px 14px;font-size:13px;color:#155724;margin-bottom:12px">✅ 送料確定メール送信済み（${new Date(o.shipping_notified_at).toLocaleDateString('ja-JP')}）<br>送料：฿${(o.shipping_thb||0).toLocaleString()} / ¥${(o.shipping_jpy||0).toLocaleString()}（レート：${o.exchange_rate||'—'}）</div>`:''}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-        <div>
-          <div class="form-label">送料（THB）</div>
-          <input class="form-input" type="number" id="shippingThb" placeholder="例: 850" min="0"
-            value="${o.shipping_thb || ''}" oninput="calcShipping()">
-        </div>
-        <div>
-          <div class="form-label">為替レート（1THB = 円）</div>
-          <div style="display:flex;gap:6px;align-items:center">
-            <input class="form-input" type="number" id="exchangeRate" placeholder="自動取得" step="0.01"
-              value="${o.exchange_rate || ''}" oninput="calcShipping()">
-            <button class="btn btn-secondary btn-sm" onclick="fetchRate()" style="white-space:nowrap">🔄 取得</button>
-          </div>
-        </div>
+        <div><div class="form-label">送料（THB）</div><input class="form-input" type="number" id="shippingThb" placeholder="例: 850" min="0" value="${o.shipping_thb||''}" oninput="calcShipping()"></div>
+        <div><div class="form-label">為替レート（1THB = 円）</div><div style="display:flex;gap:6px;align-items:center"><input class="form-input" type="number" id="exchangeRate" placeholder="自動取得" step="0.01" value="${o.exchange_rate||''}" oninput="calcShipping()"><button class="btn btn-secondary btn-sm" onclick="fetchRate()" style="white-space:nowrap">🔄 取得</button></div></div>
       </div>
-      <div id="shippingCalcResult" style="background:var(--cream);border-radius:8px;padding:12px 16px;font-size:14px;margin-bottom:12px;display:${o.shipping_thb ? 'block' : 'none'}">
-        ${o.shipping_thb && o.exchange_rate ? `
-          送料：<strong>¥${Math.ceil(o.shipping_thb * o.exchange_rate).toLocaleString()}</strong>
-          ／ 商品合計：<strong>¥—</strong>
-          ／ <span style="color:var(--gold);font-weight:700">振込合計：¥—</span>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px">※円換算は目安です。実際のレートは変動します</div>
-        ` : '計算中...'}
+      <div id="shippingCalcResult" style="background:var(--cream);border-radius:8px;padding:12px 16px;font-size:14px;margin-bottom:12px;display:${o.shipping_thb?'block':'none'}"></div>
+      <button class="btn btn-primary" onclick="sendShippingMail('${o.id}')" style="width:100%">📧 送料確定メールをお客様に送る</button>
+    </div>
+    <div class="order-detail-section">
+      <h4>発送通知</h4>
+      ${o.shipped_at?`<div style="background:#d4edda;border-radius:8px;padding:10px 14px;font-size:13px;color:#155724;margin-bottom:12px">✅ 発送通知済み（${new Date(o.shipped_at).toLocaleDateString('ja-JP')}）<br>追跡番号：<strong style="font-family:monospace">${o.tracking_no||'—'}</strong></div>`:''}
+      <div style="margin-bottom:12px">
+        <div class="form-label">EMS追跡番号 *</div>
+        <input class="form-input" type="text" id="trackingNo" placeholder="例: EE123456789TH" value="${o.tracking_no||''}" style="font-family:monospace;letter-spacing:1px">
       </div>
-      <div id="shippingCalcResult" style="background:var(--cream);border-radius:8px;padding:12px 16px;font-size:14px;margin-bottom:12px;display:none"></div>
-      <button class="btn btn-primary" onclick="sendShippingMail('${o.id}')" style="width:100%">
-        📧 送料確定メールをお客様に送る
+      <button class="btn btn-primary" onclick="sendShippedMail('${o.id}')" style="width:100%;background:var(--green)">
+        ✈️ 発送通知メールをお客様に送る${o.shipped_at?'（再送）':''}
       </button>
     </div>
   `;
 
-  document.getElementById('orderModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
+  if (o.shipping_thb && o.exchange_rate) calcShipping();
 }
 
-function closeOrderModal() {
-  document.getElementById('orderModal').classList.remove('active');
-  document.body.style.overflow = '';
-  viewingOrder = null;
-}
-
-function handleOrderModalBgClick(e) {
-  if (e.target === document.getElementById('orderModal')) closeOrderModal();
-}
+function closeOrderModal() { document.getElementById('orderModal').classList.remove('active'); document.body.style.overflow = ''; viewingOrder = null; }
+function handleOrderModalBgClick(e) { if (e.target === document.getElementById('orderModal')) closeOrderModal(); }
 
 async function updateOrderStatus(id, newStatus) {
   try {
-    await sbFetch(`orders?id=eq.${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ status: newStatus })
-    });
-    // ローカルデータを更新
+    await sbFetch(`orders?id=eq.${id}`, {method:'PATCH',body:JSON.stringify({status:newStatus})});
     const idx = allOrders.findIndex(o => o.id === id);
     if (idx !== -1) allOrders[idx].status = newStatus;
     if (viewingOrder && viewingOrder.id === id) viewingOrder.status = newStatus;
-    // バッジ表示部分を更新
     const badgeEl = document.getElementById('orderModal').querySelector('.status-badge');
     if (badgeEl) badgeEl.outerHTML = statusBadge(newStatus);
     showToast('ステータスを更新しました ✓', 'success');
     applyOrderFilter(currentOrderFilter);
-    // ダッシュボードバッジも更新
     const pendingCount = allOrders.filter(o => o.status === 'pending').length;
     const badge = document.getElementById('orderBadge');
-    badge.textContent = pendingCount;
-    badge.style.display = pendingCount > 0 ? '' : 'none';
+    badge.textContent = pendingCount; badge.style.display = pendingCount > 0 ? '' : 'none';
     document.getElementById('statPending').textContent = pendingCount;
-    document.getElementById('statSlipReady').textContent = allOrders.filter(o => o.status === 'pending' && o.slip_url).length;
-  } catch(e) {
-    showToast('更新に失敗しました', 'error');
-    console.error(e);
-  }
+    document.getElementById('statSlipReady').textContent = allOrders.filter(o => o.status === 'slip_received').length;
+  } catch(e) { showToast('更新に失敗しました', 'error'); }
 }
 
-// ==========================================
-// 送料確定・振込案内
-// ==========================================
 async function fetchRate() {
   const rateInput = document.getElementById('exchangeRate');
   if (rateInput) rateInput.placeholder = '取得中...';
@@ -1489,15 +689,8 @@ async function fetchRate() {
     const res = await fetch('https://api.frankfurter.dev/v2/rates?base=THB&quotes=JPY');
     const data = await res.json();
     const rate = Array.isArray(data) ? data[0]?.rate : data.rates?.JPY;
-    if (rate && rateInput) {
-      rateInput.value = Math.round(rate * 100) / 100;
-      calcShipping();
-      showToast(`レート取得: 1THB = ${rateInput.value}円`, 'success');
-    }
-  } catch(e) {
-    showToast('レート取得に失敗しました', 'error');
-    if (rateInput) rateInput.placeholder = '手動で入力';
-  }
+    if (rate && rateInput) { rateInput.value = Math.round(rate*100)/100; calcShipping(); showToast(`レート取得: 1THB = ${rateInput.value}円`, 'success'); }
+  } catch(e) { showToast('レート取得に失敗しました', 'error'); if (rateInput) rateInput.placeholder = '手動で入力'; }
 }
 
 function calcShipping() {
@@ -1505,107 +698,57 @@ function calcShipping() {
   const rate = parseFloat(document.getElementById('exchangeRate')?.value) || 0;
   const resultEl = document.getElementById('shippingCalcResult');
   if (!resultEl) return;
-
   if (thb > 0 && rate > 0) {
     const shippingJpy = Math.ceil(thb * rate);
     const itemTotal = viewingOrder?.total_amount || 0;
     const itemJpy = Math.ceil(itemTotal * rate);
     const totalJpy = shippingJpy + itemJpy;
     resultEl.style.display = 'block';
-    resultEl.innerHTML = `
-      送料：<strong>฿${thb.toLocaleString()} → ¥${shippingJpy.toLocaleString()}</strong><br>
-      商品合計：<strong>฿${itemTotal.toLocaleString()} → ¥${itemJpy.toLocaleString()}</strong><br>
-      <span style="color:var(--gold);font-weight:700;font-size:15px">振込合計：¥${totalJpy.toLocaleString()}</span>
-      <div style="font-size:12px;color:var(--muted);margin-top:4px">レート: 1THB = ${rate}円（目安）</div>
-    `;
-  } else {
-    resultEl.style.display = 'none';
-  }
+    resultEl.innerHTML = `送料：<strong>฿${thb.toLocaleString()} → ¥${shippingJpy.toLocaleString()}</strong><br>商品合計：<strong>฿${itemTotal.toLocaleString()} → ¥${itemJpy.toLocaleString()}</strong><br><span style="color:var(--gold);font-weight:700;font-size:15px">振込合計：¥${totalJpy.toLocaleString()}</span><div style="font-size:12px;color:var(--muted);margin-top:4px">レート: 1THB = ${rate}円（目安）</div>`;
+  } else { resultEl.style.display = 'none'; }
 }
 
 async function sendShippingMail(orderId) {
   const thb = parseFloat(document.getElementById('shippingThb')?.value);
   const rate = parseFloat(document.getElementById('exchangeRate')?.value);
-
   if (!thb || thb <= 0) { showToast('送料（THB）を入力してください', 'error'); return; }
   if (!rate || rate <= 0) { showToast('為替レートを入力してください', 'error'); return; }
-
   const o = viewingOrder;
   const shippingJpy = Math.ceil(thb * rate);
-  const itemJpy = Math.ceil((o.total_amount || 0) * rate);
+  const itemJpy = Math.ceil((o.total_amount||0) * rate);
   const totalJpy = shippingJpy + itemJpy;
-
   if (!confirm(`${o.customer_name}様に送料確定メールを送ります。\n\n送料: ¥${shippingJpy.toLocaleString()}\n商品: ¥${itemJpy.toLocaleString()}\n振込合計: ¥${totalJpy.toLocaleString()}\n\nよろしいですか？`)) return;
-
   try {
-    // Supabaseに保存
-    await sbFetch(`orders?id=eq.${orderId}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        shipping_thb: thb,
-        shipping_jpy: shippingJpy,
-        exchange_rate: rate,
-        shipping_notified_at: new Date().toISOString(),
-        status: 'confirmed'
-      })
-    });
-
-    // ローカルデータ更新
+    await sbFetch(`orders?id=eq.${orderId}`, {method:'PATCH',body:JSON.stringify({shipping_thb:thb,shipping_jpy:shippingJpy,exchange_rate:rate,shipping_notified_at:new Date().toISOString(),status:'confirmed'})});
     const idx = allOrders.findIndex(o => o.id === orderId);
-    if (idx !== -1) {
-      allOrders[idx].shipping_thb = thb;
-      allOrders[idx].shipping_jpy = shippingJpy;
-      allOrders[idx].exchange_rate = rate;
-      allOrders[idx].shipping_notified_at = new Date().toISOString();
-      allOrders[idx].status = 'confirmed';
-    }
-
+    if (idx !== -1) { allOrders[idx].shipping_thb = thb; allOrders[idx].shipping_jpy = shippingJpy; allOrders[idx].exchange_rate = rate; allOrders[idx].shipping_notified_at = new Date().toISOString(); allOrders[idx].status = 'confirmed'; }
     showToast('送料を保存しました ✓', 'success');
-
-    // GASでメール送信
-    await sendShippingMailViaGas(o, thb, shippingJpy, itemJpy, totalJpy, rate);
-
-    closeOrderModal();
-    applyOrderFilter(currentOrderFilter);
-
-  } catch(e) {
-    showToast('エラーが発生しました', 'error');
-    console.error(e);
-  }
+    const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
+    const params = new URLSearchParams({action:'sendShippingNotification',orderId:o.id,customerName:o.customer_name,customerEmail:o.customer_email,orderNo:o.order_no,items:JSON.stringify(items),itemTotal:o.total_amount||0,shippingThb:thb,shippingJpy,itemJpy,totalJpy,rate,address1:o.address1||'',address2:o.address2||''});
+    await fetch(`${GAS_URL}?${params.toString()}`, {method:'GET',mode:'no-cors'});
+    showToast('送料確定メールを送信しました ✓', 'success');
+    closeOrderModal(); applyOrderFilter(currentOrderFilter);
+  } catch(e) { showToast('エラーが発生しました', 'error'); console.error(e); }
 }
 
-async function sendShippingMailViaGas(o, shippingThb, shippingJpy, itemJpy, totalJpy, rate) {
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbyr-Z6gTkKqqcBK5TWrP4edBFAa5Fnw_SeQzG8W3ElSo0fhJqI8JqeS-ngl-YGSUimqJw/exec';
-
-  const items = Array.isArray(o.items) ? o.items : (typeof o.items === 'string' ? JSON.parse(o.items) : []);
-
-  const params = new URLSearchParams({
-    action: 'sendShippingNotification',
-    orderId: o.id,
-    customerName: o.customer_name,
-    customerEmail: o.customer_email,
-    orderNo: o.order_no,
-    items: JSON.stringify(items),
-    itemTotal: o.total_amount || 0,
-    shippingThb,
-    shippingJpy,
-    itemJpy,
-    totalJpy,
-    rate,
-    address1: o.address1 || '',
-    address2: o.address2 || ''
-  });
-
+// ==========================================
+// 発送通知メール送信 ★NEW★
+// ==========================================
+async function sendShippedMail(orderId) {
+  const trackingNo = document.getElementById('trackingNo')?.value.trim();
+  if (!trackingNo) { showToast('追跡番号を入力してください', 'error'); return; }
+  const o = viewingOrder;
+  if (!confirm(`${o.customer_name}様に発送通知メールを送ります。\n\n追跡番号: ${trackingNo}\n\nよろしいですか？`)) return;
   try {
-    const res = await fetch(`${GAS_URL}?${params.toString()}`, {
-      method: 'GET',
-      mode: 'no-cors'
-    });
-    showToast('送料確定メールを送信しました ✓', 'success');
-  } catch(e) {
-    showToast('メール送信に失敗しました', 'error');
-    console.error(e);
-  }
+    await sbFetch(`orders?id=eq.${orderId}`, {method:'PATCH',body:JSON.stringify({tracking_no:trackingNo,shipped_at:new Date().toISOString(),shipped_mail_sent:true,status:'shipped'})});
+    const idx = allOrders.findIndex(o => o.id === orderId);
+    if (idx !== -1) { allOrders[idx].tracking_no = trackingNo; allOrders[idx].shipped_at = new Date().toISOString(); allOrders[idx].status = 'shipped'; }
+    showToast('発送情報を保存しました ✓', 'success');
+    const params = new URLSearchParams({action:'sendShippedNotification',customerName:o.customer_name,customerEmail:o.customer_email,orderNo:o.order_no,trackingNo,address1:o.address1||'',address2:o.address2||''});
+    await fetch(`${GAS_URL}?${params.toString()}`, {method:'GET',mode:'no-cors'});
+    showToast('発送通知メールを送信しました ✓', 'success');
+    closeOrderModal(); applyOrderFilter(currentOrderFilter);
+  } catch(e) { showToast('エラーが発生しました', 'error'); console.error(e); }
 }
 
 // ==========================================
