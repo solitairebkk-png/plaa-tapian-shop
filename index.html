@@ -441,27 +441,12 @@ footer a:hover{color:var(--gold)}
 
     <div class="shop-layout">
       <!-- サイドバー（カテゴリ） -->
-      <nav class="sidebar">
-        <div class="sidebar-head">カテゴリ</div>
-        <div class="cat-banner cat-all active" onclick="filterCatBanner('all',this)">
-          <div class="cat-banner-label">🏪 すべて</div>
-        </div>
-        <div class="cat-banner food" onclick="filterCatBanner('食品',this)">
-          <div class="cat-banner-label">🍜 食品・飲料</div>
-        </div>
-        <div class="cat-banner zakka" onclick="filterCatBanner('雑貨',this)">
-          <div class="cat-banner-label">🎁 雑貨</div>
-        </div>
-        <div class="cat-banner shokki" onclick="filterCatBanner('食器',this)">
-          <div class="cat-banner-label">🍽️ 食器</div>
-        </div>
-        <div class="cat-banner kitchen" onclick="filterCatBanner('キッチン',this)">
-          <div class="cat-banner-label" style="color:var(--dark);text-shadow:none">🔪 キッチン</div>
-        </div>
-        <div class="cat-banner acc" onclick="filterCatBanner('アクセサリー',this)">
-          <div class="cat-banner-label">💎 アクセサリー</div>
-        </div>
-      </nav>
+      <nav class="sidebar" id="categorySidebar">
+  <div class="sidebar-head">カテゴリ</div>
+  <div class="cat-banner cat-all active" onclick="filterCatBanner('all',this)">
+    <div class="cat-banner-label">🏪 すべて</div>
+  </div>
+</nav>
 
       <!-- 商品グリッド -->
       <div class="shop-right">
@@ -1324,6 +1309,36 @@ async function loadNews() {
   }
 }
 
+// ==========================================
+// カテゴリ動的生成
+// ==========================================
+const CAT_EMOJI = {
+  '食品':'🍜', '雑貨':'🎁', '食器':'🍽️', 'キッチン雑貨':'🔪',
+  'アクセサリー':'💎', 'お土産':'🎀', '衛生雑貨':'🧴',
+  'バッグ':'👜', 'OTOP雑貨':'🌿', '紙袋':'🛍️', 'その他':'📦'
+};
+
+async function loadCategories() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/products?select=category&is_active=eq.true`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+    );
+    const data = await res.json();
+    const cats = [...new Set(data.map(p => p.category).filter(c => c))].sort();
+    const sidebar = document.getElementById('categorySidebar');
+    cats.forEach(cat => {
+      const emoji = CAT_EMOJI[cat] || '📦';
+      const div = document.createElement('div');
+      div.className = 'cat-banner';
+      div.onclick = function(){ filterCatBanner(cat, this); };
+      div.innerHTML = `<div class="cat-banner-label">${emoji} ${cat}</div>`;
+      sidebar.appendChild(div);
+    });
+  } catch(e) {
+    console.error('カテゴリ読み込みエラー', e);
+  }
+}
 // ニュースリストの横スワイプ防止
 document.getElementById('newsList').addEventListener('touchstart', function(e){
   this._startX = e.touches[0].clientX;
@@ -1338,6 +1353,7 @@ document.getElementById('newsList').addEventListener('touchmove', function(e){
 
 async function init() {
   loadNews();
+  loadCategories();
   document.getElementById('productGrid').innerHTML =
     '<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--muted);font-size:15px">🐟 商品を読み込み中...</div>';
   try {
