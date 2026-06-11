@@ -1308,9 +1308,9 @@ async function loadNews() {
     }
     list.innerHTML = data.map(n => {
       const date = new Date(n.created_at).toLocaleDateString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit'});
-      const linkHtml = n.link_url
-        ? ` <a href="${n.link_url}" target="_blank" rel="noopener">${n.link_text || '詳しくはこちら'} →</a>`
-        : '';
+      const linkHtml = n.link_url && n.link_url.trim()
+  ? ` <a href="${n.link_url}" target="_blank" rel="noopener">${n.link_text || '詳しくはこちら'} →</a>`
+  : '';
       return `<div class="news-item">
         <span class="news-date">${date}</span>
         <span class="news-text">${n.title}${n.content ? '　' + n.content : ''}${linkHtml}</span>
@@ -1321,6 +1321,18 @@ async function loadNews() {
     document.getElementById('newsList').innerHTML = '<div class="news-empty">お知らせの読み込みに失敗しました</div>';
   }
 }
+
+// ニュースリストの横スワイプ防止
+document.getElementById('newsList').addEventListener('touchstart', function(e){
+  this._startX = e.touches[0].clientX;
+  this._startY = e.touches[0].clientY;
+}, {passive:true});
+
+document.getElementById('newsList').addEventListener('touchmove', function(e){
+  const dx = Math.abs(e.touches[0].clientX - this._startX);
+  const dy = Math.abs(e.touches[0].clientY - this._startY);
+  if (dx > dy) e.preventDefault();
+}, {passive:false});
 
 async function init() {
   loadNews();
