@@ -1320,21 +1320,27 @@ const CAT_EMOJI = {
 
 async function loadCategories() {
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/products?select=category&is_active=eq.true`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
-    );
-    const data = await res.json();
-    const cats = [...new Set(data.map(p => p.category).filter(c => c))].sort();
+    // category_orderテーブルから順序を取得
+    const [orderData, productData] = await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/category_order?order=sort_order.asc&select=*`,
+        { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }).then(r => r.json()),
+      fetch(`${SUPABASE_URL}/rest/v1/products?select=category&is_active=eq.true`,
+        { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }).then(r => r.json())
+    ]);
+
+    // 実際に商品があるカテゴリだけ表示
+    const activeCats = new Set(productData.map(p => p.category).filter(c => c));
     const sidebar = document.getElementById('categorySidebar');
-    cats.forEach(cat => {
-      const emoji = CAT_EMOJI[cat] || '📦';
-      const div = document.createElement('div');
-      div.className = 'cat-banner';
-      div.onclick = function(){ filterCatBanner(cat, this); };
-      div.innerHTML = `<div class="cat-banner-label">${emoji} ${cat}</div>`;
-      sidebar.appendChild(div);
-    });
+
+    orderData
+      .filter(c => activeCats.has(c.name))
+      .forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'cat-banner';
+        div.onclick = function(){ filterCatBanner(c.name, this); };
+        div.innerHTML = `<div class="cat-banner-label">${c.emoji||'📦'} ${c.name}</div>`;
+        sidebar.appendChild(div);
+      });
   } catch(e) {
     console.error('カテゴリ読み込みエラー', e);
   }
