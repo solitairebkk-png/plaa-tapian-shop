@@ -123,6 +123,12 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 .rank-name{font-weight:700;font-size:14px;color:var(--dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rank-price{font-size:13px;color:var(--thai-maroon);font-weight:700}
 #shopSection{scroll-margin-top:84px}
+/* ===== ページ内ジャンプボタン ===== */
+.jump-btns{position:fixed;right:16px;bottom:20px;display:flex;flex-direction:column;gap:10px;z-index:150}
+.jump-btn{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold);background:var(--thai-maroon);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:2px 4px 12px rgba(44,24,16,0.35);transition:transform .15s,background .15s;line-height:1}
+.jump-btn:hover{transform:scale(1.1);background:var(--gold)}
+.jump-label{font-size:8px;letter-spacing:1px;margin-top:1px}
+@media(max-width:700px){.jump-btns{right:10px;bottom:14px}.jump-btn{width:42px;height:42px}}
 @media(max-width:760px){
   .featured-grid{grid-template-columns:1fr;max-width:420px}
   .rank-item{padding:9px 12px;gap:10px}
@@ -1520,5 +1526,10 @@ async function init() {
 
 init();
 </script>
+<!-- ページ内ジャンプボタン -->
+<div class="jump-btns">
+  <button class="jump-btn" onclick="document.getElementById('shopSection').scrollIntoView({behavior:'smooth',block:'start'})" title="商品一覧へ"><span>▲<div class="jump-label">商品</div></span></button>
+  <button class="jump-btn" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="ページ下部へ"><span>▼<div class="jump-label">下へ</div></span></button>
+</div>
 </body>
 </html>
