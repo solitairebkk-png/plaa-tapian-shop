@@ -289,6 +289,8 @@ tr:hover td{background:#fdfaf4}
         <div class="form-group full"><label class="form-label">内部メモ（お客さんには表示されません）</label><textarea class="form-textarea" id="fMemo" placeholder="仕入れ先・注意事項などのメモ" style="min-height:60px"></textarea></div>
         <div class="form-group"><label class="form-label">サムネイル背景</label><select class="form-select" id="fThumb"><option value="thumb-food">食品（オレンジ系）</option><option value="thumb-zakka">雑貨（グリーン系）</option><option value="thumb-shokki">食器（ブルー系）</option><option value="thumb-acc">アクセサリー（ピンク系）</option><option value="thumb-other">その他（パープル系）</option></select></div>
         <div class="form-group" style="display:flex;align-items:center;gap:12px;padding-top:24px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px"><input type="checkbox" id="fIsActive" checked style="width:18px;height:18px;accent-color:var(--gold)">ECサイトに公開する</label></div>
+        <div class="form-group full" style="border-top:1px dashed var(--border);padding-top:14px"><label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px"><input type="checkbox" id="fFeatured" style="width:18px;height:18px;accent-color:#B5451B" onchange="document.getElementById('featuredCommentGroup').style.display=this.checked?'block':'none'">🔥 メーカノムの激推し３品に掲載する（最大3品）</label></div>
+        <div class="form-group full" id="featuredCommentGroup" style="display:none"><label class="form-label">激推しポイント（お客さんに表示されます）</label><textarea class="form-textarea" id="fFeaturedComment" placeholder="例: メーカノムが毎日使っている一番のお気に入り！プレゼントにも喜ばれます" style="min-height:60px"></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -409,7 +411,7 @@ function renderProductTable() {
     const imgCount = p.images ? p.images.length : 0;
     const stockClass = p.stock === 0 ? 'stock-zero' : p.stock <= 3 ? 'stock-low' : 'stock-ok';
     const thumbStyle = p.images && p.images[0] ? `background:url('${p.images[0]}') center/cover` : 'background:var(--cream)';
-    return `<tr><td><div class="prod-thumb-cell" style="${thumbStyle}">${(!p.images||!p.images[0])?(p.emoji||'📦'):''}</div></td><td><code style="font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px">${p.id}</code></td><td><strong>${p.name_jp||'—'}</strong></td><td>${p.category||'—'}</td><td>฿${(p.price||0).toLocaleString()}</td><td><span class="${stockClass}">${p.stock}</span></td><td><span class="img-count ${imgCount>0?'has-img':''}">📷 ${imgCount}/4</span></td><td><span class="status-badge ${p.is_active?'status-active':'status-inactive'}">${p.is_active?'公開中':'非公開'}</span></td><td><button class="btn btn-secondary btn-sm" onclick="openProductModal('${p.id}')">✏️ 編集</button></td></tr>`;
+    return `<tr><td><div class="prod-thumb-cell" style="${thumbStyle}">${(!p.images||!p.images[0])?(p.emoji||'📦'):''}</div></td><td><code style="font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px">${p.id}</code></td><td><strong>${p.name_jp||'—'}</strong>${p.featured?' <span title="メーカノム激推し掲載中">🔥</span>':''}</td><td>${p.category||'—'}</td><td>฿${(p.price||0).toLocaleString()}</td><td><span class="${stockClass}">${p.stock}</span></td><td><span class="img-count ${imgCount>0?'has-img':''}">📷 ${imgCount}/4</span></td><td><span class="status-badge ${p.is_active?'status-active':'status-inactive'}">${p.is_active?'公開中':'非公開'}</span></td><td><button class="btn btn-secondary btn-sm" onclick="openProductModal('${p.id}')">✏️ 編集</button></td></tr>`;
   }).join('')}</tbody></table>`;
 }
 
@@ -434,12 +436,18 @@ function openProductModal(id) {
     document.getElementById('fBadge').value = editingProduct.badge||''; document.getElementById('fDesc').value = editingProduct.description||'';
     document.getElementById('fMemo').value = editingProduct.memo||''; document.getElementById('fThumb').value = editingProduct.thumb_class||'thumb-food';
     document.getElementById('fIsActive').checked = editingProduct.is_active !== false;
+    document.getElementById('fFeatured').checked = !!editingProduct.featured;
+    document.getElementById('fFeaturedComment').value = editingProduct.featured_comment || '';
+    document.getElementById('featuredCommentGroup').style.display = editingProduct.featured ? 'block' : 'none';
     currentImages = [...(editingProduct.images||[]),...Array(4).fill(null)].slice(0,4);
   } else {
     ['fId','fNameJp','fNameEn','fPrice','fEmoji','fDesc','fMemo'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('fId').readOnly = false; document.getElementById('fCategory').value = '';
     document.getElementById('fStock').value = '0'; document.getElementById('fBadge').value = '';
     document.getElementById('fThumb').value = 'thumb-food'; document.getElementById('fIsActive').checked = true;
+    document.getElementById('fFeatured').checked = false;
+    document.getElementById('fFeaturedComment').value = '';
+    document.getElementById('featuredCommentGroup').style.display = 'none';
   }
   renderImgSlots();
   document.getElementById('productModal').classList.add('active');
@@ -474,7 +482,12 @@ async function saveProduct() {
   const nameJp = document.getElementById('fNameJp').value.trim();
   const price = parseInt(document.getElementById('fPrice').value) || 0;
   if (!id || !nameJp || !price) { showToast('商品コード・商品名・価格は必須です', 'error'); return; }
-  const data = {id, name_jp: nameJp, name_en: document.getElementById('fNameEn').value.trim(), category: document.getElementById('fCategory').value, price, stock: parseInt(document.getElementById('fStock').value)||0, emoji: document.getElementById('fEmoji').value.trim(), badge: document.getElementById('fBadge').value, description: document.getElementById('fDesc').value.trim(), memo: document.getElementById('fMemo').value.trim(), thumb_class: document.getElementById('fThumb').value, is_active: document.getElementById('fIsActive').checked, images: currentImages.filter(Boolean), updated_at: new Date().toISOString()};
+  const featured = document.getElementById('fFeatured').checked;
+  if (featured) {
+    const otherFeatured = allProducts.filter(p => p.featured && p.id !== id).length;
+    if (otherFeatured >= 3) { showToast('激推しは3品までです。先にどれかの激推しを解除してください', 'error'); return; }
+  }
+  const data = {id, name_jp: nameJp, name_en: document.getElementById('fNameEn').value.trim(), category: document.getElementById('fCategory').value, price, stock: parseInt(document.getElementById('fStock').value)||0, emoji: document.getElementById('fEmoji').value.trim(), badge: document.getElementById('fBadge').value, description: document.getElementById('fDesc').value.trim(), memo: document.getElementById('fMemo').value.trim(), thumb_class: document.getElementById('fThumb').value, is_active: document.getElementById('fIsActive').checked, featured: featured, featured_comment: document.getElementById('fFeaturedComment').value.trim() || null, images: currentImages.filter(Boolean), updated_at: new Date().toISOString()};
   try {
     if (editingProduct) { await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {method:'PATCH',body:JSON.stringify(data)}); }
     else { await sbFetch('products', {method:'POST',prefer:'return=representation',body:JSON.stringify(data)}); }
