@@ -95,6 +95,39 @@ header{background:var(--thai-maroon);padding:0 5%;display:flex;align-items:cente
 /* ===== PRODUCT SECTION ===== */
 .shop-right{min-width:0}
 
+/* ===== 激推し3品 ===== */
+.featured-section{padding:32px 5% 8px;position:relative;z-index:1;text-align:center}
+.featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:980px;margin:0 auto}
+.featured-card{background:var(--cream);border:2px solid var(--gold);border-radius:10px;overflow:hidden;cursor:pointer;position:relative;box-shadow:3px 5px 14px rgba(44,24,16,0.15);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;text-align:left}
+.featured-card:hover{transform:translateY(-4px);box-shadow:5px 9px 22px rgba(44,24,16,0.25)}
+.featured-ribbon{position:absolute;top:10px;left:-4px;background:var(--thai-maroon);color:#fff;font-size:12px;font-weight:700;padding:5px 14px 5px 12px;border-radius:0 14px 14px 0;letter-spacing:1px;z-index:2;box-shadow:2px 2px 6px rgba(0,0,0,.25)}
+.featured-photo{height:190px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.featured-photo img{width:100%;height:100%;object-fit:cover}
+.featured-emoji{font-size:64px}
+.featured-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.featured-name{font-weight:700;font-size:15px;color:var(--dark)}
+.featured-comment{font-size:13px;line-height:1.7;color:var(--dark);background:#fff;border:1px dashed var(--gold);border-radius:8px;padding:9px 11px}
+.featured-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.featured-price{font-family:'Playfair Display',serif;font-size:18px;color:var(--thai-maroon);font-weight:700}
+/* ===== 売れ筋TOP5 ===== */
+.ranking-section{padding:24px 5% 8px;position:relative;z-index:1;text-align:center}
+.rank-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.rank-item{display:flex;align-items:center;gap:14px;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:10px 16px;cursor:pointer;transition:transform .15s,box-shadow .15s;text-align:left}
+.rank-item:hover{transform:translateX(4px);box-shadow:3px 4px 12px rgba(44,24,16,.12)}
+.rank-item.rank-top{border-color:var(--gold);background:linear-gradient(90deg,#fdf2d8,var(--cream))}
+.rank-medal{font-size:26px;width:44px;text-align:center;flex-shrink:0}
+.rank-num{font-family:'Playfair Display',serif;font-size:17px;color:var(--muted);width:44px;text-align:center;flex-shrink:0}
+.rank-thumb{width:52px;height:52px;border-radius:8px;overflow:hidden;background:#fff;border:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:26px}
+.rank-thumb img{width:100%;height:100%;object-fit:cover}
+.rank-info{flex:1;min-width:0}
+.rank-name{font-weight:700;font-size:14px;color:var(--dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank-price{font-size:13px;color:var(--thai-maroon);font-weight:700}
+#shopSection{scroll-margin-top:84px}
+@media(max-width:760px){
+  .featured-grid{grid-template-columns:1fr;max-width:420px}
+  .rank-item{padding:9px 12px;gap:10px}
+  .rank-medal,.rank-num{width:34px}
+}
 @media(max-width:700px){
   .shop-layout{grid-template-columns:1fr}
   .sidebar{position:static;display:flex;overflow-x:auto;border-radius:8px}
@@ -430,6 +463,22 @@ footer a:hover{color:var(--gold)}
   </div>
 </section>
 
+<!-- メーカノムの激推し3品 -->
+<section class="featured-section" id="featuredSection" style="display:none">
+  <div class="sec-title">🔥 メーカノムの激推し３品</div>
+  <div class="sec-sub">店主メーカノムが自信をもってお勧めする逸品</div>
+  <div class="sec-line" style="margin:0 auto 24px"></div>
+  <div class="featured-grid" id="featuredGrid"></div>
+</section>
+
+<!-- 売れ筋TOP5 -->
+<section class="ranking-section" id="rankingSection" style="display:none">
+  <div class="sec-title">🏆 売れ筋TOP5</div>
+  <div class="sec-sub">実際のご注文数による自動ランキング</div>
+  <div class="sec-line" style="margin:0 auto 24px"></div>
+  <div class="rank-list" id="rankList"></div>
+</section>
+
 <!-- MAIN -->
 <main class="main">
 
@@ -762,6 +811,73 @@ function renderProducts() {
 }
 
 // ==========================================
+// 激推し3品 & 売れ筋TOP5
+// ==========================================
+function renderFeatured() {
+  const sec = document.getElementById('featuredSection');
+  const grid = document.getElementById('featuredGrid');
+  const list = PRODUCTS.filter(p => p.featured).slice(0, 3);
+  if (list.length === 0) { sec.style.display = 'none'; return; }
+  grid.innerHTML = list.map(p => `
+    <div class="featured-card" onclick="openModal('${p.id}')">
+      <span class="featured-ribbon">🔥 メーカノム激推し</span>
+      <div class="featured-photo">
+        ${p.images && p.images.length > 0
+          ? `<img src="${p.images[0]}" alt="${p.nameJP}">`
+          : `<div class="featured-emoji">${p.emoji}</div>`}
+      </div>
+      <div class="featured-body">
+        <div class="featured-name">${p.nameJP}</div>
+        ${p.featuredComment ? `<div class="featured-comment">💬 ${p.featuredComment}</div>` : ''}
+        <div class="featured-foot">
+          <div class="featured-price">฿${p.price}<small style="font-size:12px"> THB</small></div>
+          ${p.stock > 0
+            ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart('${p.id}')">＋ カートへ</button>`
+            : `<span class="sold-out">在庫なし</span>`}
+        </div>
+      </div>
+    </div>`).join('');
+  sec.style.display = 'block';
+}
+
+async function loadRanking() {
+  const sec = document.getElementById('rankingSection');
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/product_sales_ranking?select=*`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    if (!res.ok) throw new Error('ranking fetch failed');
+    const ranking = await res.json();
+    // 販売数の多い順に、公開中の商品だけを上位5件
+    const rows = [];
+    ranking.sort((a, b) => b.total_qty - a.total_qty);
+    for (const r of ranking) {
+      const p = PRODUCTS.find(x => x.id === r.product_id);
+      if (p) rows.push(p);
+      if (rows.length >= 5) break;
+    }
+    if (rows.length === 0) { sec.style.display = 'none'; return; }
+    const medals = ['🥇', '🥈', '🥉'];
+    document.getElementById('rankList').innerHTML = rows.map((p, i) => `
+      <div class="rank-item ${i < 3 ? 'rank-top' : ''}" onclick="openModal('${p.id}')">
+        ${i < 3 ? `<div class="rank-medal">${medals[i]}</div>` : `<div class="rank-num">${i + 1}位</div>`}
+        <div class="rank-thumb">${p.images && p.images.length > 0 ? `<img src="${p.images[0]}" alt="${p.nameJP}">` : (p.emoji || '📦')}</div>
+        <div class="rank-info">
+          <div class="rank-name">${p.nameJP}</div>
+          <div class="rank-price">฿${p.price} THB</div>
+        </div>
+        ${p.stock > 0
+          ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart('${p.id}')">＋ カートへ</button>`
+          : `<span class="sold-out">在庫なし</span>`}
+      </div>`).join('');
+    sec.style.display = 'block';
+  } catch(e) {
+    console.error('ランキング読み込みエラー', e);
+    sec.style.display = 'none';
+  }
+}
+
+// ==========================================
 // FILTER
 // ==========================================
 function filterCat(cat, btn) {
@@ -901,7 +1017,7 @@ function backToShop() {
   document.getElementById('orderSection').style.display = 'none';
   document.getElementById('shopSection').style.display = 'block';
   document.getElementById('cartPanel').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('shopSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ==========================================
@@ -1061,7 +1177,7 @@ function backToTop() {
   // 送信ボタンをリセット
   const submitBtn = document.querySelector('.btn-submit');
   if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '注文を確定する'; }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('shopSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // ==========================================
@@ -1387,10 +1503,14 @@ async function init() {
         badge: p.badge || '',
         thumb: p.thumb_class || 'thumb-food',
         desc: p.description || '',
+        featured: !!p.featured,
+        featuredComment: p.featured_comment || '',
         images: (p.images || []).map(url => url ? url + '?v=' + (p.updated_at ? new Date(p.updated_at).getTime() : Date.now()) : url)
       });
     });
     renderProducts();
+    renderFeatured();
+    loadRanking();
   } catch(e) {
     console.error(e);
     document.getElementById('productGrid').innerHTML =
