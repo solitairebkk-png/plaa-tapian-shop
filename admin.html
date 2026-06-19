@@ -335,9 +335,9 @@ tr:hover td{background:#fdfaf4}
 const SUPABASE_URL = 'https://kzacpqrpnoxqtbcstswp.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_X-40StOgx5Q6Gl9k6JRCHw_6w4m3d03';
 const ADMIN_PASSWORD = 'kanobkk';
-const STORAGE_BUCKET = 'product-images';
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyr-Z6gTkKqqcBK5TWrP4edBFAa5Fnw_SeQzG8W3ElSo0fhJqI8JqeS-ngl-YGSUimqJw/exec';
-
+const GDRIVE_FOLDER_PRODUCTS   = '1MMatNBuO3iMhX_6fXsd3CxKA06JZXMZ-';
+const GDRIVE_FOLDER_NEWSLETTER = '1Nbp5uXc00qcJ8MPNZmGXFddSFw8oKJiY';  
 async function sbFetch(path, options = {}) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     headers: {'apikey': SUPABASE_KEY,'Authorization': `Bearer ${SUPABASE_KEY}`,'Content-Type': 'application/json','Prefer': options.prefer || '',...options.headers},
@@ -351,18 +351,29 @@ async function sbFetch(path, options = {}) {
 async function getProducts() { return await sbFetch('products?order=id.asc&select=*'); }
 async function deleteProductById(id) { return await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {method: 'DELETE'}); }
 
-async function uploadImage(file, productId, slotIndex) {
-  const ext = file.name.split('.').pop().toLowerCase();
-  const path = `${productId}/${slotIndex}.${ext}`;
-  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`, {
-    method: 'POST',
-    headers: {'apikey': SUPABASE_KEY,'Authorization': `Bearer ${SUPABASE_KEY}`,'Content-Type': file.type,'x-upsert': 'true'},
-    body: file
+async function uploadImageToDrive(file, productId, slotIndex, folderId) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async (ev) => {
+      try {
+        const base64Data = ev.target.result.split(',')[1];
+        const ext = file.name.split('.').pop().toLowerCase();
+        const fileName = `${productId}_${slotIndex}.${ext}`;
+        const params = new URLSearchParams({
+          action: 'uploadImage', fileName, mimeType: file.type,
+          folderId, base64Data
+        });
+        const res = await fetch(`${GAS_URL}?${params.toString()}`, {method:'GET',mode:'cors'});
+        const json = await res.json();
+        if (json.success) { resolve(json.url); }
+        else { reject(new Error(json.error || 'Upload failed')); }
+      } catch(err) { reject(err); }
+    };
+    reader.onerror = () => reject(new Error('ファイル読み込みエラー'));
+    reader.readAsDataURL(file);
   });
-  if (!res.ok) throw new Error('Upload failed');
-  return `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`;
 }
-
+  
 function doLogin() {
   const pass = document.getElementById('loginPass').value;
   if (pass === ADMIN_PASSWORD) { document.getElementById('loginScreen').style.display = 'none'; loadDashboard(); loadProducts(); }
@@ -472,7 +483,7 @@ async function handleFileSelect(e) {
   const productId = document.getElementById('fId').value.trim();
   if (!productId) { showToast('先に商品コードを入力してください', 'error'); return; }
   const progress = document.getElementById('uploadProgress'); progress.classList.add('active');
-  try { const url = await uploadImage(file, productId, uploadingSlot); currentImages[uploadingSlot] = url; renderImgSlots(); showToast('画像をアップロードしました ✓', 'success'); }
+  try {     const url = await uploadImageToDrive(file, productId, uploadingSlot, GDRIVE_FOLDER_PRODUCTS);     currentImages[uploadingSlot] = url; renderImgSlots();     showToast('Googleドライブに保存しました ✓', 'success');   }
   catch(err) { showToast('アップロードに失敗しました', 'error'); console.error(err); }
   finally { progress.classList.remove('active'); }
 }
