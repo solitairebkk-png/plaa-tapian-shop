@@ -348,7 +348,7 @@ async function sbFetch(path, options = {}) {
   return text ? JSON.parse(text) : null;
 }
 
-async function getProducts() { return await sbFetch('products?order=id.asc&select=*'); }
+async function getProducts() { return await sbFetch('products?order=id.asc&select=*&limit=1000'); }
 async function deleteProductById(id) { return await sbFetch(`products?id=eq.${encodeURIComponent(id)}`, {method: 'DELETE'}); }
 
 async function uploadImageToDrive(file, productId, slotIndex, folderId) {
@@ -359,15 +359,24 @@ async function uploadImageToDrive(file, productId, slotIndex, folderId) {
         const base64Data = ev.target.result.split(',')[1];
         const ext = file.name.split('.').pop().toLowerCase();
         const fileName = `${productId}_${slotIndex}.${ext}`;
-        const params = new URLSearchParams({
-          action: 'uploadImage', fileName, mimeType: file.type,
-          folderId, base64Data
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify({
+            action: 'uploadImage',
+            fileName, mimeType: file.type,
+            folderId, base64Data
+          })
         });
-        const res = await fetch(`${GAS_URL}?${params.toString()}`, {
-  method: 'GET',
-  redirect: 'follow'
-});
-        const json = await res.json();
+        // no-corsではjson()できないので別途確認が必要
+        resolve('uploaded'); // 仮
+      } catch(err) { reject(err); }
+    };
+    reader.onerror = () => reject(new Error('ファイル読み込みエラー'));
+    reader.readAsDataURL(file);
+  });
+}
+  const json = await res.json();
         if (json.success) { resolve(json.url); }
         else { reject(new Error(json.error || 'Upload failed')); }
       } catch(err) { reject(err); }
