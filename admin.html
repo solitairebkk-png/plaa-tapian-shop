@@ -363,7 +363,10 @@ async function uploadImageToDrive(file, productId, slotIndex, folderId) {
           action: 'uploadImage', fileName, mimeType: file.type,
           folderId, base64Data
         });
-        const res = await fetch(`${GAS_URL}?${params.toString()}`, {method:'GET',mode:'cors'});
+        const res = await fetch(`${GAS_URL}?${params.toString()}`, {
+  method: 'GET',
+  redirect: 'follow'
+});
         const json = await res.json();
         if (json.success) { resolve(json.url); }
         else { reject(new Error(json.error || 'Upload failed')); }
