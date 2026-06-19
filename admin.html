@@ -361,22 +361,13 @@ async function uploadImageToDrive(file, productId, slotIndex, folderId) {
         const fileName = `${productId}_${slotIndex}.${ext}`;
         const res = await fetch(GAS_URL, {
           method: 'POST',
-          mode: 'no-cors',
           body: JSON.stringify({
             action: 'uploadImage',
             fileName, mimeType: file.type,
             folderId, base64Data
           })
         });
-        // no-corsではjson()できないので別途確認が必要
-        resolve('uploaded'); // 仮
-      } catch(err) { reject(err); }
-    };
-    reader.onerror = () => reject(new Error('ファイル読み込みエラー'));
-    reader.readAsDataURL(file);
-  });
-}
-  const json = await res.json();
+        const json = await res.json();
         if (json.success) { resolve(json.url); }
         else { reject(new Error(json.error || 'Upload failed')); }
       } catch(err) { reject(err); }
@@ -384,8 +375,7 @@ async function uploadImageToDrive(file, productId, slotIndex, folderId) {
     reader.onerror = () => reject(new Error('ファイル読み込みエラー'));
     reader.readAsDataURL(file);
   });
-}
-  
+}  
 function doLogin() {
   const pass = document.getElementById('loginPass').value;
   if (pass === ADMIN_PASSWORD) { document.getElementById('loginScreen').style.display = 'none'; loadDashboard(); loadProducts(); }
