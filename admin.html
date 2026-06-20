@@ -361,6 +361,8 @@ async function uploadImageToDrive(file, productId, slotIndex, folderId) {
         const fileName = `${productId}_${slotIndex}.${ext}`;
         const res = await fetch(GAS_URL, {
           method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({
             action: 'uploadImage',
             fileName, mimeType: file.type,
