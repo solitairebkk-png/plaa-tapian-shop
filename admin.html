@@ -359,19 +359,28 @@ async function uploadImageToDrive(file, productId, slotIndex, folderId) {
         const base64Data = ev.target.result.split(',')[1];
         const ext = file.name.split('.').pop().toLowerCase();
         const fileName = `${productId}_${slotIndex}.${ext}`;
-        const res = await fetch(GAS_URL, {
+
+        // Step1: アップロード（no-cors、レスポンス読めないがファイルは作られる）
+        await fetch(GAS_URL, {
           method: 'POST',
-          mode: 'cors',
+          mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify({
             action: 'uploadImage',
-            fileName, mimeType: file.type,
-            folderId, base64Data
+            fileName,
+            mimeType: file.type,
+            folderId,
+            base64Data
           })
         });
+
+        // Step2: GETでURL取得（GASのGETは確実にレスポンスが返る）
+        const res = await fetch(
+          `${GAS_URL}?action=getImageUrl&fileName=${encodeURIComponent(fileName)}&folderId=${encodeURIComponent(folderId)}`
+        );
         const json = await res.json();
         if (json.success) { resolve(json.url); }
-        else { reject(new Error(json.error || 'Upload failed')); }
+        else { reject(new Error(json.error || 'URL取得に失敗')); }
       } catch(err) { reject(err); }
     };
     reader.onerror = () => reject(new Error('ファイル読み込みエラー'));
